@@ -100,5 +100,18 @@
     <Build Include="Security\Roles\SmartELockServiceUser.sql" />
     <Build Include="Security\Logins\SmartELockServiceUserLogin.sql" />
     <Build Include="Scripts\Deploy\CreateTables.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.SuperAdmin.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.KeyboxAsset.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.UserRole.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.ResPortrait.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.Company.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.Branch.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.User.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.TmpUser.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.Property.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.ResProperty.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.Keybox.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.KeyboxHistory.sql" />
+    <Build Include="Scripts\Deploy\InitConstant.sql" />
   </ItemGroup>
 </Project>
