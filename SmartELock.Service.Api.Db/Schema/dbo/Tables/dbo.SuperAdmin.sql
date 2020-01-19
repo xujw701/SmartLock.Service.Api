@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[SuperAdmin]
+(
+	SuperAdminId INT NOT NULL IDENTITY(1, 1),
+	UserName NVARCHAR(255) NOT NULL UNIQUE,
+	Password NVARCHAR(255) NOT NULL,
+	CreateOn DATETIME2 NOT NULL,
+	UpdateOn DATETIME2 NOT NULL,
+	CONSTRAINT [PK_SuperAdmin] PRIMARY KEY ([SuperAdminId])
+)
+GO
+
+GRANT SELECT, INSERT, UPDATE ON [dbo].[SuperAdmin] TO [SmartELockServiceLoginUserRole]
+GO
