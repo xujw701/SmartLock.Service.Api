@@ -3,6 +3,7 @@
 --	SuperAdminId INT NOT NULL IDENTITY(1, 1),
 --	UserName NVARCHAR(255) NOT NULL UNIQUE,
 --	Password NVARCHAR(255) NOT NULL,
+--  Token NVARCHAR(2048),
 --	CreateOn DATETIME2 NOT NULL,
 --	UpdateOn DATETIME2 NOT NULL,
 --	CONSTRAINT [PK_SuperAdmin] PRIMARY KEY ([SuperAdminId])
@@ -16,7 +17,7 @@
 --CREATE TABLE [dbo].[KeyboxAsset]
 --(
 --	KeyboxAssetId INT NOT NULL IDENTITY(1, 1),
---	Uuid NVARCHAR(2048) NOT NULL,
+--	Uuid NVARCHAR(1024) NOT NULL,
 --	CreateOn DATETIME2 NOT NULL,
 --	UpdateOn DATETIME2 NOT NULL,
 --	CONSTRAINT [PK_KeyboxAsset] PRIMARY KEY ([KeyboxAssetId])
@@ -57,8 +58,6 @@
 --(
 --	CompanyId INT NOT NULL IDENTITY(1, 1),
 --	CompanyName NVARCHAR(2048) NOT NULL,
---	AdminUserName NVARCHAR(255) NOT NULL UNIQUE,
---	Password NVARCHAR(255) NOT NULL,
 --	CreatedOn DATETIME2 NOT NULL,
 --	UpdatedOn DATETIME2 NOT NULL,
 --	CONSTRAINT [PK_Company] PRIMARY KEY ([CompanyId])
@@ -97,7 +96,7 @@
 --	Phone NVARCHAR(255),
 --	UserName NVARCHAR(255) NOT NULL UNIQUE,
 --	Password NVARCHAR(255) NOT NULL,
---	Token NVARCHAR(2048) NOT NULL,
+--	Token NVARCHAR(2048),
 --	Individual BIT NOT NULL,
 --	UserRoleId INT NOT NULL,
 --	ResPortraitId INT NOT NULL,
@@ -179,7 +178,7 @@
 --(
 --	KeyboxId INT NOT NULL IDENTITY(1, 1),
 --	KeyboxAssetId INT NOT NULL UNIQUE,
---	Uuid NVARCHAR(2048) NOT NULL,
+--	Uuid NVARCHAR(1024) NOT NULL,
 --	CompanyId INT NOT NULL,
 --	BranchId INT NOT NULL,
 --	UserId INT NOT NULL,
@@ -218,7 +217,7 @@
 --	UpdatedOn DATETIME2 NOT NULL,
 --	CONSTRAINT [PK_KeyboxHistory] PRIMARY KEY ([KeyboxHistoryId]),
 --	CONSTRAINT [FK_KeyboxHistory_KeyboxId] FOREIGN KEY ([KeyboxId]) REFERENCES [Keybox]([KeyboxId]),
---    CONSTRAINT [FK_KeyboxHistory_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([UserId]),
+--  CONSTRAINT [FK_KeyboxHistory_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([UserId]),
 --	CONSTRAINT [FK_KeyboxHistory_TmpUserId] FOREIGN KEY ([TmpUserId]) REFERENCES [TmpUser]([TmpUserId]),
 --	CONSTRAINT [FK_KeyboxHistory_PropertyId] FOREIGN KEY ([PropertyId]) REFERENCES [Property]([PropertyId])
 --)
@@ -226,4 +225,3 @@
 
 --GRANT SELECT, INSERT, UPDATE ON [dbo].[KeyboxHistory] TO [SmartELockServiceLoginUserRole]
 --GO
-
