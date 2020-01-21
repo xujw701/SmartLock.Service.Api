@@ -1,4 +1,6 @@
 ﻿using Ninject.Modules;
+using SmartELock.Core.Domain.Service;
+using SmartELock.Core.Services;
 
 namespace SmartELock.Service.Api.IoC
 {
@@ -6,7 +8,7 @@ namespace SmartELock.Service.Api.IoC
 	{
 		public override void Load()
 		{
-            //Bind<IUserService>().To<UserService>();
+            Bind<ISuperAdminService>().To<SuperAdminService>();
 
             //Bind<ICommandValidator<CompanyCreateCommand>>().To<CompanyCreateValidator>();
         }

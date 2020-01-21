@@ -3,4 +3,9 @@
     public interface ICommand
     {
     }
+
+    public interface ISuperAdminCommand : ICommand
+    {
+        string Username { get; }
+    }
 }

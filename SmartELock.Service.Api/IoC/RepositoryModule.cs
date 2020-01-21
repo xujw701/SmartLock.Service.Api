@@ -1,4 +1,6 @@
 ﻿using Ninject.Modules;
+using SmartELock.Core.Domain.Repository;
+using SmartELock.Core.Repositories;
 
 namespace SmartELock.Service.Api.IoC
 {
@@ -6,7 +8,7 @@ namespace SmartELock.Service.Api.IoC
 	{
 		public override void Load()
 		{
-			//Bind<IUserRepository>().To<UserRepository>();
+			Bind<ISuperAdminRepository>().To<SuperAdminRepository>();
         }
 	}
 }

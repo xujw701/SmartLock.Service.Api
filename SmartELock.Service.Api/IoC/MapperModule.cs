@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using SmartELock.Service.Api.Mapper;
 
 namespace SmartELock.Service.Api.IoC
 {
@@ -6,7 +7,7 @@ namespace SmartELock.Service.Api.IoC
 	{
 		public override void Load()
 		{
-			//Bind<IUserMapper>().To<UserMapper>();
+			Bind<ISuperAdminMapper>().To<SuperAdminMapper>();
         }
 	}
 }

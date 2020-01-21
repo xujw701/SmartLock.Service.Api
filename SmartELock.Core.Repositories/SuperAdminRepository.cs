@@ -1,0 +1,72 @@
+﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Models.Snapshots;
+using SmartELock.Core.Domain.Repository;
+using SmartELock.Core.Repositories.Infrastructure;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SmartELock.Core.Repositories
+{
+    public class SuperAdminRepository : ISuperAdminRepository
+    {
+        private readonly IDbRetryHandler _dbRetryHandler;
+
+        public SuperAdminRepository(IDbRetryHandler dbRetryHandler)
+        {
+            _dbRetryHandler = dbRetryHandler;
+        }
+
+        public async Task<int> CreateSuperAdmin(SuperAdmin superAdmin)
+        {
+            var parentId = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("SuperAdmin_Create", new
+                {
+                    superAdmin.Username,
+                    superAdmin.Password
+                }))
+                {
+                    return reader.Read<int>().Single();
+                }
+            });
+
+            return parentId;
+        }
+
+        public async Task<SuperAdmin> GetSuperAdmin(int superAdminId)
+        {
+            var superAdmin = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("SuperAdmin_Get", new
+                {
+                    superAdminId
+                }))
+                {
+                    var snapshots = reader.Read<SuperAdminSnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => SuperAdmin.CreateFrom(snapshot)).FirstOrDefault();
+                }
+            });
+
+            return superAdmin;
+        }
+
+        public async Task<SuperAdmin> GetSuperAdmin(string username)
+        {
+            var superAdmin = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("SuperAdmin_GetByUsername", new
+                {
+                    username
+                }))
+                {
+                    var snapshots = reader.Read<SuperAdminSnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => SuperAdmin.CreateFrom(snapshot)).FirstOrDefault();
+                }
+            });
+
+            return superAdmin;
+        }
+    }
+}

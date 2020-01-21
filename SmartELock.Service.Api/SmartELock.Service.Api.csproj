@@ -223,8 +223,12 @@
   <ItemGroup>
     <Compile Include="App_Start\ErrorHandlerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Dto\ResultSet.cs" />
+    <Compile Include="Dto\Request\SuperAdminPostDto.cs" />
+    <Compile Include="Dto\Response\DefaultCreatedPostResponseDto.cs" />
+    <Compile Include="Dto\Response\ResultSet.cs" />
+    <Compile Include="Dto\Response\SuperAdminLoginResponseDto.cs" />
     <Compile Include="ExceptionHandlers\DomainValidationExceptionHandler.cs" />
     <Compile Include="Filters\ValidateModelAttribute.cs" />
     <Compile Include="Http\ErrorDetails.cs" />
@@ -236,6 +240,8 @@
     <Compile Include="IoC\MapperModule.cs" />
     <Compile Include="IoC\RepositoryModule.cs" />
     <Compile Include="IoC\ServiceModule.cs" />
+    <Compile Include="Mapper\ISuperAdminMapper.cs" />
+    <Compile Include="Mapper\SuperAdminMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -252,7 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Mapper\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartELock.Core.Domain\SmartELock.Core.Domain.csproj">
