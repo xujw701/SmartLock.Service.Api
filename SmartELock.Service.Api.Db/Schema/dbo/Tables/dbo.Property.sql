@@ -9,8 +9,8 @@
 	Bathrooms DECIMAL,
 	FloorArea DECIMAL,
 	LandArea DECIMAL,
-	CreatedOn DATETIME2 NOT NULL,
-	UpdatedOn DATETIME2 NOT NULL,
+	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	CONSTRAINT [PK_Property] PRIMARY KEY ([PropertyId]),
     CONSTRAINT [FK_Property_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId]),
 	CONSTRAINT [FK_Property_BranchId] FOREIGN KEY ([BranchId]) REFERENCES [Branch]([BranchId])

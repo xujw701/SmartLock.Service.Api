@@ -4,8 +4,8 @@
 	CompanyId INT NOT NULL,
 	BranchName NVARCHAR(2048) NOT NULL,
 	Address NVARCHAR(MAX),
-	CreatedOn DATETIME2,
-	UpdatedOn DATETIME2,
+	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	CONSTRAINT [PK_Branch] PRIMARY KEY ([BranchId]),
 	CONSTRAINT [FK_Branch_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId])
 )

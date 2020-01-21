@@ -8,8 +8,8 @@
 	Token NVARCHAR(2048) NOT NULL,
 	ValidStartOn DATETIME2 NOT NULL,
 	ValidEndOn DATETIME2 NOT NULL,
-	CreatedOn DATETIME2 NOT NULL,
-	UpdatedOn DATETIME2 NOT NULL,
+	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	CONSTRAINT [PK_TmpUser] PRIMARY KEY ([TmpUserId]),
 	CONSTRAINT [FK_TmpUser_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([UserId])
 )

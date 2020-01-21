@@ -3,9 +3,9 @@
 --	SuperAdminId INT NOT NULL IDENTITY(1, 1),
 --	UserName NVARCHAR(255) NOT NULL UNIQUE,
 --	Password NVARCHAR(255) NOT NULL,
---  Token NVARCHAR(2048),
---	CreateOn DATETIME2 NOT NULL,
---	UpdateOn DATETIME2 NOT NULL,
+--	Token NVARCHAR(2048),
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_SuperAdmin] PRIMARY KEY ([SuperAdminId])
 --)
 --GO
@@ -18,8 +18,8 @@
 --(
 --	KeyboxAssetId INT NOT NULL IDENTITY(1, 1),
 --	Uuid NVARCHAR(1024) NOT NULL,
---	CreateOn DATETIME2 NOT NULL,
---	UpdateOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_KeyboxAsset] PRIMARY KEY ([KeyboxAssetId])
 --)
 --GO
@@ -44,8 +44,8 @@
 --(
 --	ResPortraitId INT NOT NULL IDENTITY(1, 1),
 --	Url NVARCHAR(2048) NOT NULL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_ResPortrait] PRIMARY KEY ([ResPortraitId])
 --)
 --GO
@@ -58,8 +58,8 @@
 --(
 --	CompanyId INT NOT NULL IDENTITY(1, 1),
 --	CompanyName NVARCHAR(2048) NOT NULL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_Company] PRIMARY KEY ([CompanyId])
 --)
 --GO
@@ -74,8 +74,8 @@
 --	CompanyId INT NOT NULL,
 --	BranchName NVARCHAR(2048) NOT NULL,
 --	Address NVARCHAR(MAX),
---	CreatedOn DATETIME2,
---	UpdatedOn DATETIME2,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_Branch] PRIMARY KEY ([BranchId]),
 --	CONSTRAINT [FK_Branch_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId])
 --)
@@ -100,8 +100,8 @@
 --	Individual BIT NOT NULL,
 --	UserRoleId INT NOT NULL,
 --	ResPortraitId INT NOT NULL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_User] PRIMARY KEY ([UserId]),
 --	CONSTRAINT [FK_User_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId]),
 --	CONSTRAINT [FK_User_BranchId] FOREIGN KEY ([BranchId]) REFERENCES [Branch]([BranchId]),
@@ -124,8 +124,8 @@
 --	Token NVARCHAR(2048) NOT NULL,
 --	ValidStartOn DATETIME2 NOT NULL,
 --	ValidEndOn DATETIME2 NOT NULL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_TmpUser] PRIMARY KEY ([TmpUserId]),
 --	CONSTRAINT [FK_TmpUser_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([UserId])
 --)
@@ -146,10 +146,10 @@
 --	Bathrooms DECIMAL,
 --	FloorArea DECIMAL,
 --	LandArea DECIMAL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_Property] PRIMARY KEY ([PropertyId]),
---    CONSTRAINT [FK_Property_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId]),
+--	CONSTRAINT [FK_Property_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId]),
 --	CONSTRAINT [FK_Property_BranchId] FOREIGN KEY ([BranchId]) REFERENCES [Branch]([BranchId])
 --)
 --GO
@@ -163,8 +163,8 @@
 --	ResPropertyId INT NOT NULL IDENTITY(1, 1),
 --	PropertyId INT NOT NULL,
 --	Url NVARCHAR(2048) NOT NULL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_ResProperty] PRIMARY KEY ([ResPropertyId]),
 --	CONSTRAINT [FK_ResProperty_PropertyId] FOREIGN KEY ([PropertyId]) REFERENCES [Property]([PropertyId])
 --)
@@ -189,8 +189,8 @@
 --	BulletinBoard NVARCHAR(MAX),
 --	Latitude DECIMAL(18, 12),
 --	Longitude DECIMAL(18, 12),
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_Keybox] PRIMARY KEY ([KeyboxId]),
 --	CONSTRAINT [FK_Keybox_KeyboxAssetId] FOREIGN KEY ([KeyboxAssetId]) REFERENCES [KeyboxAsset]([KeyboxAssetId]),
 --	CONSTRAINT [FK_Keybox_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [Company]([CompanyId]),
@@ -212,12 +212,12 @@
 --	TmpUserId INT,
 --	PropertyId INT NOT NULL,
 --	InOn DATETIME2 NOT NULL,
---	OutOn DATETIME2 NOT NULL,
---	CreatedOn DATETIME2 NOT NULL,
---	UpdatedOn DATETIME2 NOT NULL,
+--	OutOn DATETIME2,
+--	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+--	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 --	CONSTRAINT [PK_KeyboxHistory] PRIMARY KEY ([KeyboxHistoryId]),
 --	CONSTRAINT [FK_KeyboxHistory_KeyboxId] FOREIGN KEY ([KeyboxId]) REFERENCES [Keybox]([KeyboxId]),
---  CONSTRAINT [FK_KeyboxHistory_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([UserId]),
+--	CONSTRAINT [FK_KeyboxHistory_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([UserId]),
 --	CONSTRAINT [FK_KeyboxHistory_TmpUserId] FOREIGN KEY ([TmpUserId]) REFERENCES [TmpUser]([TmpUserId]),
 --	CONSTRAINT [FK_KeyboxHistory_PropertyId] FOREIGN KEY ([PropertyId]) REFERENCES [Property]([PropertyId])
 --)
