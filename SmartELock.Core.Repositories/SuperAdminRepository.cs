@@ -68,5 +68,25 @@ namespace SmartELock.Core.Repositories
 
             return superAdmin;
         }
+
+        /// <summary>
+        /// Internal function to update super admin's tokens
+        /// </summary>
+        /// <param name="userId">The id of the super admin</param>
+        /// <param name="newToken">The new token (null to revoke)</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateToken(int superAdminId, string newToken)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("SuperAdmin_Token", new
+                {
+                    superAdminId,
+                    Token = newToken
+                });
+            });
+
+            return result > 0;
+        }
     }
 }

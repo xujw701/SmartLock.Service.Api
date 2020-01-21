@@ -40,11 +40,22 @@ namespace SmartELock.Service.Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IHttpActionResult> Login(SuperAdminPostDto superAdminPostDto)
+        public async Task<SuperAdminLoginResponseDto> Login(SuperAdminPostDto superAdminPostDto)
         {
-            var loginCommand = _superAdminMapper.MapToLoginCommand(superAdminPostDto);
+            var command = _superAdminMapper.MapToLoginCommand(superAdminPostDto);
 
-            return StatusCode(HttpStatusCode.Accepted);
+            var superAdmin = await _superAdminService.Login(command);
+
+            if (superAdmin == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+
+            return new SuperAdminLoginResponseDto
+            {
+                SuperAdminId = superAdmin.SuperAdminId,
+                Token = superAdmin.Token ?? string.Empty
+            };
         }
     }
 }

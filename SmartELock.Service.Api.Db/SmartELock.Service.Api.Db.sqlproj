@@ -116,5 +116,6 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Create.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Get.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_GetByUsername.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Token.sql" />
   </ItemGroup>
 </Project>

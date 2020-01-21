@@ -1,4 +1,5 @@
-﻿using SmartELock.Core.Domain.Models.Commands;
+﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Models.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace SmartELock.Core.Domain.Service
     public interface ISuperAdminService
     {
         Task<int> CreateSuperAdmin(SuperAdminCreateCommand command);
+        Task<SuperAdmin> Login(SuperAdminLoginCommand command);
     }
 }

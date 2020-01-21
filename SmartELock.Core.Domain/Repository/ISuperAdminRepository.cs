@@ -8,5 +8,6 @@ namespace SmartELock.Core.Domain.Repository
         Task<int> CreateSuperAdmin(SuperAdmin superAdmin);
         Task<SuperAdmin> GetSuperAdmin(int superAdminId);
         Task<SuperAdmin> GetSuperAdmin(string username);
+        Task<bool> UpdateToken(int superAdminId, string newToken);
     }
 }
