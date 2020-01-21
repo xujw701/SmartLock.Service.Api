@@ -66,7 +66,7 @@
     <Folder Include="Schema\dbo" />
     <Folder Include="Schema\dbo\Tables" />
     <Folder Include="Schema\dbo\Programmability" />
-    <Folder Include="Schema\dbo\Programmability\Stored Procedures" />
+    <Folder Include="Schema\dbo\Programmability\StoredProcedures" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Post-Deploy" />
     <Folder Include="Scripts\Post-Deploy\ReferenceData" />
@@ -113,8 +113,8 @@
     <Build Include="Schema\dbo\Tables\dbo.Keybox.sql" />
     <Build Include="Schema\dbo\Tables\dbo.KeyboxHistory.sql" />
     <Build Include="Scripts\Deploy\InitConstant.sql" />
-    <Build Include="Schema\dbo\Programmability\Stored Procedures\dbo.SuperAdmin_Create.sql" />
-    <Build Include="Schema\dbo\Programmability\Stored Procedures\dbo.SuperAdmin_Get.sql" />
-    <Build Include="Schema\dbo\Programmability\Stored Procedures\dbo.SuperAdmin_GetByUsername.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Create.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Get.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_GetByUsername.sql" />
   </ItemGroup>
 </Project>
