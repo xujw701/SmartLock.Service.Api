@@ -8,6 +8,7 @@ namespace SmartELock.Service.Api.IoC
 		public override void Load()
 		{
 			Bind<ISuperAdminMapper>().To<SuperAdminMapper>();
-        }
+			Bind<ICompanyMapper>().To<CompanyMapper>();
+		}
 	}
 }

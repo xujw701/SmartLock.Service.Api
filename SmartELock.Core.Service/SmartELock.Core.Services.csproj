@@ -63,10 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CompanyService.cs" />
     <Compile Include="SuperAdminService.cs" />
     <Compile Include="Validators\BaseCommandValidator.cs" />
     <Compile Include="Validators\ICommandValidator.cs" />
+    <Compile Include="Validators\Specifications\CompanyNameMustBeUnique.cs" />
     <Compile Include="Validators\Specifications\SuperAdminUsernameMustBeUnique.cs" />
+    <Compile Include="Validators\CompanyCreateValidator.cs" />
     <Compile Include="Validators\SuperAdminCreateValidator.cs" />
   </ItemGroup>
   <ItemGroup>

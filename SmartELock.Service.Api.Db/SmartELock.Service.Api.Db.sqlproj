@@ -99,7 +99,7 @@
     <Build Include="Security\Users\SmartELockServiceLoginUserRole.sql" />
     <Build Include="Security\Roles\SmartELockServiceUser.sql" />
     <Build Include="Security\Logins\SmartELockServiceUserLogin.sql" />
-    <Build Include="Scripts\Deploy\CreateTables.sql" />
+    <Build Include="Scripts\Deploy\Tables.sql" />
     <Build Include="Schema\dbo\Tables\dbo.SuperAdmin.sql" />
     <Build Include="Schema\dbo\Tables\dbo.KeyboxAsset.sql" />
     <Build Include="Schema\dbo\Tables\dbo.UserRole.sql" />
@@ -112,10 +112,13 @@
     <Build Include="Schema\dbo\Tables\dbo.ResProperty.sql" />
     <Build Include="Schema\dbo\Tables\dbo.Keybox.sql" />
     <Build Include="Schema\dbo\Tables\dbo.KeyboxHistory.sql" />
-    <Build Include="Scripts\Deploy\InitConstant.sql" />
+    <Build Include="Scripts\Deploy\Constants.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Create.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Get.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_GetByUsername.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.SuperAdmin_Token.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Company_Create.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Company_Get.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Company_GetByCompanyName.sql" />
   </ItemGroup>
 </Project>

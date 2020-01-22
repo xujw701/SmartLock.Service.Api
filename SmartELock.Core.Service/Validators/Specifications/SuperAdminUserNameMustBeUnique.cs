@@ -29,6 +29,6 @@ namespace SmartELock.Core.Services.Validators.Specifications
             return "Super Admin username must be unique";
         }
 
-        public ErrorCode ErrorCode { get; } = ErrorCode.SuperAdminUsernameMustUnique;
+        public ErrorCode ErrorCode { get; } = ErrorCode.FieldMustUnique;
     }
 }

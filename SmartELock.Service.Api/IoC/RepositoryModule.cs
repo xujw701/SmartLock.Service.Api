@@ -9,6 +9,7 @@ namespace SmartELock.Service.Api.IoC
 		public override void Load()
 		{
 			Bind<ISuperAdminRepository>().To<SuperAdminRepository>();
-        }
+			Bind<ICompanyRepository>().To<CompanyRepository>();
+		}
 	}
 }

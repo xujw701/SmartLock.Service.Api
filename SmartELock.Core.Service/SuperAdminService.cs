@@ -14,13 +14,13 @@ namespace SmartELock.Core.Services
     {
         private readonly ISuperAdminRepository _superAdminRepository;
 
-        private readonly SuperAdminCreateValidator _superAdminCreateValidator;
+        private readonly ICommandValidator<SuperAdminCreateCommand> _superAdminCreateValidator;
 
-        public SuperAdminService(ISuperAdminRepository superAdminRepository)
+        public SuperAdminService(ISuperAdminRepository superAdminRepository, ICommandValidator<SuperAdminCreateCommand> superAdminCreateValidator)
         {
             _superAdminRepository = superAdminRepository;
 
-            _superAdminCreateValidator = new SuperAdminCreateValidator(_superAdminRepository);
+            _superAdminCreateValidator = superAdminCreateValidator;
         }
 
         public async Task<int> CreateSuperAdmin(SuperAdminCreateCommand command)

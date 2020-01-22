@@ -8,4 +8,9 @@
     {
         string Username { get; }
     }
+
+    public interface ICompanyCommand : ICommand
+    {
+        string CompanyName { get; }
+    }
 }

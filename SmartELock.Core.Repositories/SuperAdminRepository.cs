@@ -18,7 +18,7 @@ namespace SmartELock.Core.Repositories
 
         public async Task<int> CreateSuperAdmin(SuperAdmin superAdmin)
         {
-            var parentId = await _dbRetryHandler.QueryAsync(async connection =>
+            var id = await _dbRetryHandler.QueryAsync(async connection =>
             {
                 using (var reader = await connection.QueryMultipleAsync("SuperAdmin_Create", new
                 {
@@ -30,7 +30,7 @@ namespace SmartELock.Core.Repositories
                 }
             });
 
-            return parentId;
+            return id;
         }
 
         public async Task<SuperAdmin> GetSuperAdmin(int superAdminId)
