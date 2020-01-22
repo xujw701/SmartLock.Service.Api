@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SmartELock.Service.Api.Dto.Response
+namespace SmartELock.Service.Api.Dto.Responses
 {
     public class ResultSet<T>
     {

@@ -1,7 +1,7 @@
 ﻿using Ninject.Modules;
 using SmartELock.Core.Domain.Models.Commands;
-using SmartELock.Core.Domain.Service;
-using SmartELock.Core.Services;
+using SmartELock.Core.Domain.Services;
+using SmartELock.Core.Services.Services;
 using SmartELock.Core.Services.Validators;
 
 namespace SmartELock.Service.Api.IoC

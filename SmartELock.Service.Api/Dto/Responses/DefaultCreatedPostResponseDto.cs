@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SmartELock.Service.Api.Dto.Response
+namespace SmartELock.Service.Api.Dto.Responses
 {
     public class DefaultCreatedPostResponseDto
     {

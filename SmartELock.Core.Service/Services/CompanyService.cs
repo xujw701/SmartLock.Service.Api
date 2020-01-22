@@ -1,14 +1,14 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
 using SmartELock.Core.Domain.Models.Exceptions;
-using SmartELock.Core.Domain.Repository;
-using SmartELock.Core.Domain.Service;
+using SmartELock.Core.Domain.Repositories;
+using SmartELock.Core.Domain.Services;
 using SmartELock.Core.Services.Validators;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartELock.Core.Services
+namespace SmartELock.Core.Services.Services
 {
     public class CompanyService : ICompanyService
     {

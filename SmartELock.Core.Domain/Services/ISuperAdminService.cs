@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartELock.Core.Domain.Service
+namespace SmartELock.Core.Domain.Services
 {
-    public interface ICompanyService
+    public interface ISuperAdminService
     {
-        Task<int> CreateCompany(CompanyCreateCommand command);
+        Task<int> CreateSuperAdmin(SuperAdminCreateCommand command);
+        Task<SuperAdmin> Login(SuperAdminLoginCommand command);
     }
 }

@@ -1,11 +1,11 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Snapshots;
-using SmartELock.Core.Domain.Repository;
+using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Repositories.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartELock.Core.Repositories
+namespace SmartELock.Core.Repositories.Repositories
 {
     public class SuperAdminRepository : ISuperAdminRepository
     {

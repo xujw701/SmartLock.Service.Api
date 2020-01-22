@@ -1,5 +1,5 @@
 ﻿using SmartELock.Core.Domain.Models.Commands;
-using SmartELock.Core.Domain.Repository;
+using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Validators;
 using SmartELock.Core.Services.Validators.Specifications;
 using System.Collections.Generic;

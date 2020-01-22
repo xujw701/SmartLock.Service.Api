@@ -1,6 +1,6 @@
 ﻿using Ninject.Modules;
-using SmartELock.Core.Domain.Repository;
-using SmartELock.Core.Repositories;
+using SmartELock.Core.Domain.Repositories;
+using SmartELock.Core.Repositories.Repositories;
 
 namespace SmartELock.Service.Api.IoC
 {

@@ -1,7 +1,7 @@
-﻿using SmartELock.Core.Domain.Service;
-using SmartELock.Service.Api.Dto.Request;
-using SmartELock.Service.Api.Dto.Response;
-using SmartELock.Service.Api.Mapper;
+﻿using SmartELock.Core.Domain.Services;
+using SmartELock.Service.Api.Dto.Requests;
+using SmartELock.Service.Api.Dto.Responses;
+using SmartELock.Service.Api.Mappers;
 using System.Threading.Tasks;
 using System.Web.Http;
 

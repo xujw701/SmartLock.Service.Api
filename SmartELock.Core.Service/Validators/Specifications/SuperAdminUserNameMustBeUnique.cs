@@ -1,6 +1,6 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Exceptions;
-using SmartELock.Core.Domain.Repository;
+using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Validators;
 using System.Threading.Tasks;
 

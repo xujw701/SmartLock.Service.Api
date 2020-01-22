@@ -1,7 +1,7 @@
 ﻿using SmartELock.Core.Domain.Models.Commands;
-using SmartELock.Service.Api.Dto.Request;
+using SmartELock.Service.Api.Dto.Requests;
 
-namespace SmartELock.Service.Api.Mapper
+namespace SmartELock.Service.Api.Mappers
 {
     public interface ISuperAdminMapper
     {

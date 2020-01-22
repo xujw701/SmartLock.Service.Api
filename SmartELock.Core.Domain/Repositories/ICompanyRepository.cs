@@ -1,7 +1,7 @@
 ﻿using SmartELock.Core.Domain.Models;
 using System.Threading.Tasks;
 
-namespace SmartELock.Core.Domain.Repository
+namespace SmartELock.Core.Domain.Repositories
 {
     public interface ICompanyRepository
     {

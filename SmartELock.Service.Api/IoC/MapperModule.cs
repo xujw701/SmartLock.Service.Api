@@ -1,5 +1,5 @@
 ﻿using Ninject.Modules;
-using SmartELock.Service.Api.Mapper;
+using SmartELock.Service.Api.Mappers;
 
 namespace SmartELock.Service.Api.IoC
 {
