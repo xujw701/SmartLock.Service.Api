@@ -61,7 +61,7 @@ namespace SmartELock.Core.Services.Services
 
             if (superAdmin == null || string.IsNullOrEmpty(token) || string.IsNullOrEmpty(superAdmin.Token)) return false;
 
-            return true;
+            return superAdmin.Token.Equals(token);
         }
 
         private async Task<int> Auth(SuperAdminLoginCommand command)

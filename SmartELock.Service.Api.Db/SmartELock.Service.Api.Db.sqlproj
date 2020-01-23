@@ -120,5 +120,7 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Company_Create.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Company_Get.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Company_GetByCompanyName.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_Create.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_Get.sql" />
   </ItemGroup>
 </Project>

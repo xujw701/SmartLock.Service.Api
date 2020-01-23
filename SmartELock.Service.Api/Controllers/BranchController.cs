@@ -1,0 +1,40 @@
+﻿using SmartELock.Core.Domain.Services;
+using SmartELock.Service.Api.Dto.Requests;
+using SmartELock.Service.Api.Dto.Responses;
+using SmartELock.Service.Api.Mappers;
+using System.Threading.Tasks;
+using System.Web.Http;
+
+namespace SmartELock.Service.Api.Controllers
+{
+    [RoutePrefix("api/branches")]
+    public class BranchController : BaseAdminController
+    {
+        private readonly IBranchService _branchService;
+
+        private readonly IBranchMapper _branchMapper;
+
+        public BranchController(ISuperAdminService superAdminService, IBranchService branchService, IBranchMapper branchMapper) : base(superAdminService)
+        {
+            _branchService = branchService;
+
+            _branchMapper = branchMapper;
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IHttpActionResult> CreateBranch(BranchPostDto branchPostDto)
+        {
+            var command = _branchMapper.MapToCreateCommand(branchPostDto);
+
+            var id = await _branchService.CreateBranch(command);
+
+            var response = new DefaultCreatedPostResponseDto
+            {
+                Id = id
+            };
+
+            return Created($"{id}", response);
+        }
+    }
+}

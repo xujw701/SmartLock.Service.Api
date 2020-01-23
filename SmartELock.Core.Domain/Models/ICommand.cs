@@ -13,4 +13,9 @@
     {
         string CompanyName { get; }
     }
+
+    public interface IBranchCommand : ICommand
+    {
+        int BranchId { get; }
+    }
 }
