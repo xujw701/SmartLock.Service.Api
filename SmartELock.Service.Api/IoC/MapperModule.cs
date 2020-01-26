@@ -10,6 +10,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ISuperAdminMapper>().To<SuperAdminMapper>();
 			Bind<ICompanyMapper>().To<CompanyMapper>();
 			Bind<IBranchMapper>().To<BranchMapper>();
+			Bind<IUserMapper>().To<UserMapper>();
 		}
 	}
 }

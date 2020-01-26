@@ -13,6 +13,7 @@ namespace SmartELock.Service.Api.IoC
             Bind<ISuperAdminService>().To<SuperAdminService>();
 			Bind<ICompanyService>().To<CompanyService>();
 			Bind<IBranchService>().To<BranchService>();
+			Bind<IUserService>().To<UserService>();
 
 			Bind<ICommandValidator<SuperAdminCreateCommand>>().To<SuperAdminCreateValidator>();
 			Bind<ICommandValidator<CompanyCreateCommand>>().To<CompanyCreateValidator>();

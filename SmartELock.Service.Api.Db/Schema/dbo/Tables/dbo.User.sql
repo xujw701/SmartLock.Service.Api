@@ -12,7 +12,7 @@
 	Token NVARCHAR(2048),
 	Individual BIT NOT NULL,
 	UserRoleId INT NOT NULL,
-	ResPortraitId INT NOT NULL,
+	ResPortraitId INT,
 	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	CONSTRAINT [PK_User] PRIMARY KEY ([UserId]),

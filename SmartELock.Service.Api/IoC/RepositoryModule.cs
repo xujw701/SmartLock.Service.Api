@@ -11,6 +11,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ISuperAdminRepository>().To<SuperAdminRepository>();
 			Bind<ICompanyRepository>().To<CompanyRepository>();
 			Bind<IBranchRepository>().To<BranchRepository>();
+			Bind<IUserRepository>().To<UserRepository>();
 		}
 	}
 }
