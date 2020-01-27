@@ -8,13 +8,13 @@ using System.Web.Http;
 namespace SmartELock.Service.Api.Controllers
 {
     [RoutePrefix("api/companies")]
-    public class CompanyController : BaseAdminController
+    public class CompanyController : BaseController
     {
         private readonly ICompanyService _companyService;
 
         private readonly ICompanyMapper _companyMapper;
 
-        public CompanyController(ISuperAdminService superAdminService, ICompanyService companyService, ICompanyMapper companyMapper) : base(superAdminService)
+        public CompanyController(IAuthorizationService authorizationService, ICompanyService companyService, ICompanyMapper companyMapper) : base(authorizationService)
         {
             _companyService = companyService;
 
@@ -25,7 +25,7 @@ namespace SmartELock.Service.Api.Controllers
         [Route("")]
         public async Task<IHttpActionResult> CreateCompany(CompanyPostDto companyPostDto)
         {
-            await ValidateAdminToken(Request.Headers);
+            await ValidateToken(Request.Headers);
 
             var command = _companyMapper.MapToCreateCommand(companyPostDto);
 

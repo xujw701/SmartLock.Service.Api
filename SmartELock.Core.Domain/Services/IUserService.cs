@@ -7,5 +7,7 @@ namespace SmartELock.Core.Domain.Services
     public interface IUserService
     {
         Task<int> CreateUser(UserCreateCommand command);
+        Task<User> Login(UserLoginCommand command);
+        Task<bool> CheckToken(int userId, string token);
     }
 }

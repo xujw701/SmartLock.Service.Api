@@ -9,13 +9,13 @@ using System.Web.Http;
 namespace SmartELock.Service.Api.Controllers
 {
     [RoutePrefix("api/superadmins")]
-    public class SuperAdminController : ApiController
+    public class SuperAdminController : BaseController
     {
         private readonly ISuperAdminService _superAdminService;
 
         private readonly ISuperAdminMapper _superAdminMapper;
 
-        public SuperAdminController(ISuperAdminService superAdminService, ISuperAdminMapper superAdminMapper)
+        public SuperAdminController(IAuthorizationService authorizationService, ISuperAdminService superAdminService, ISuperAdminMapper superAdminMapper) : base (authorizationService)
         {
             _superAdminService = superAdminService;
 

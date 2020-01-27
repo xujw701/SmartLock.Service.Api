@@ -8,13 +8,13 @@ using System.Web.Http;
 namespace SmartELock.Service.Api.Controllers
 {
     [RoutePrefix("api/branches")]
-    public class BranchController : BaseAdminController
+    public class BranchController : BaseController
     {
         private readonly IBranchService _branchService;
 
         private readonly IBranchMapper _branchMapper;
 
-        public BranchController(ISuperAdminService superAdminService, IBranchService branchService, IBranchMapper branchMapper) : base(superAdminService)
+        public BranchController(IAuthorizationService authorizationService, IBranchService branchService, IBranchMapper branchMapper) : base(authorizationService)
         {
             _branchService = branchService;
 

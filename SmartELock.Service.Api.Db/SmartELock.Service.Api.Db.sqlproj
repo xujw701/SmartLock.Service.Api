@@ -124,5 +124,7 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_Get.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.User_Create.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.User_Get.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.User_Token.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.User_GetByUsername.sql" />
   </ItemGroup>
 </Project>

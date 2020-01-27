@@ -7,5 +7,7 @@ namespace SmartELock.Core.Domain.Repositories
     {
         Task<int> CreateUser(User user);
         Task<User> GetUser(int userId);
+        Task<User> GetUser(string username);
+        Task<bool> UpdateToken(int userId, string newToken);
     }
 }

@@ -21,5 +21,14 @@ namespace SmartELock.Service.Api.Mappers
                 UserRoleId = userPostDto.UserRoleId
             };
         }
+
+        public UserLoginCommand MapToLoginCommand(UserLoginPostDto userLoginPostDto)
+        {
+            return new UserLoginCommand
+            {
+                Username = userLoginPostDto.Username,
+                Password = userLoginPostDto.Password
+            };
+        }
     }
 }

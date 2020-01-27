@@ -58,5 +58,43 @@ namespace SmartELock.Core.Repositories.Repositories
 
             return user;
         }
+
+        public async Task<User> GetUser(string username)
+        {
+            var user = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("User_GetByUsername", new
+                {
+                    username
+                }))
+                {
+                    var snapshots = reader.Read<UserSnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => User.CreateFrom(snapshot)).FirstOrDefault();
+                }
+            });
+
+            return user;
+        }
+
+        /// <summary>
+        /// Internal function to update super admin's tokens
+        /// </summary>
+        /// <param name="userId">The id of the super admin</param>
+        /// <param name="newToken">The new token (null to revoke)</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateToken(int userId, string newToken)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("User_Token", new
+                {
+                    userId,
+                    Token = newToken
+                });
+            });
+
+            return result > 0;
+        }
     }
 }

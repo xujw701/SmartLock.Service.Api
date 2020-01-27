@@ -2,19 +2,20 @@
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
 using SmartELock.Service.Api.Mappers;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace SmartELock.Service.Api.Controllers
 {
     [RoutePrefix("api/users")]
-    public class UserController : BaseAdminController
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
 
         private readonly IUserMapper _userMapper;
 
-        public UserController(ISuperAdminService superAdminService, IUserService userService, IUserMapper userMapper) : base(superAdminService)
+        public UserController(IAuthorizationService authorizationService, IUserService userService, IUserMapper userMapper) : base(authorizationService)
         {
             _userService = userService;
 
@@ -35,6 +36,26 @@ namespace SmartELock.Service.Api.Controllers
             };
 
             return Created($"{id}", response);
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<UserLoginResponseDto> Login(UserLoginPostDto userLoginPostDto)
+        {
+            var command = _userMapper.MapToLoginCommand(userLoginPostDto);
+
+            var user = await _userService.Login(command);
+
+            if (user == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+
+            return new UserLoginResponseDto
+            {
+                UserId = user.UserId,
+                Token = user.Token ?? string.Empty
+            };
         }
     }
 }
