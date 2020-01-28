@@ -40,4 +40,9 @@
         int? OperatedBy { get; }
         int? OperatedByAdmin { get; }
     }
+
+    public interface IKeyboxAssetCommand : ICommand
+    {
+        string Uuid { get; }
+    }
 }

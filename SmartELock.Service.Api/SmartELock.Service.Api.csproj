@@ -228,6 +228,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Dto\Requests\KeyboxAssetPostDto.cs" />
     <Compile Include="Dto\Requests\UserLoginPostDto.cs" />
     <Compile Include="Dto\Requests\UserPostDto.cs" />
     <Compile Include="Dto\Requests\BranchPostDto.cs" />

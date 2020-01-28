@@ -13,14 +13,20 @@ namespace SmartELock.Core.Services.Services
     public class SuperAdminService : ISuperAdminService
     {
         private readonly ISuperAdminRepository _superAdminRepository;
+        private readonly IKeyboxAssetRepository _keyboxAssetRepository;
 
         private readonly ICommandValidator<SuperAdminCreateCommand> _superAdminCreateValidator;
+        private readonly ICommandValidator<KeyboxAssetCreateCommand> _keyboxAssetCreateValidator;
 
-        public SuperAdminService(ISuperAdminRepository superAdminRepository, ICommandValidator<SuperAdminCreateCommand> superAdminCreateValidator)
+        public SuperAdminService(ISuperAdminRepository superAdminRepository, IKeyboxAssetRepository keyboxAssetRepository,
+                ICommandValidator<SuperAdminCreateCommand> superAdminCreateValidator,
+                ICommandValidator<KeyboxAssetCreateCommand> keyboxAssetCreateValidator)
         {
             _superAdminRepository = superAdminRepository;
+            _keyboxAssetRepository = keyboxAssetRepository;
 
             _superAdminCreateValidator = superAdminCreateValidator;
+            _keyboxAssetCreateValidator = keyboxAssetCreateValidator;
         }
 
         public async Task<int> CreateSuperAdmin(SuperAdminCreateCommand command)
@@ -62,6 +68,20 @@ namespace SmartELock.Core.Services.Services
             if (superAdmin == null || string.IsNullOrEmpty(token) || string.IsNullOrEmpty(superAdmin.Token)) return false;
 
             return superAdmin.Token.Equals(token);
+        }
+
+        public async Task<int> CreateKeyboxAsset(KeyboxAssetCreateCommand command)
+        {
+            var validationResult = await _keyboxAssetCreateValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            var keyboxAsset = KeyboxAsset.CreateFrom(command);
+
+            return await _keyboxAssetRepository.CreateKeyboxAsset(keyboxAsset);
         }
 
         private async Task<int> Auth(SuperAdminLoginCommand command)

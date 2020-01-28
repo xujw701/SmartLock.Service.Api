@@ -22,5 +22,13 @@ namespace SmartELock.Service.Api.Mappers
                 Password = superAdminPostDto.Password
             };
         }
+
+        public KeyboxAssetCreateCommand MapToKeyboxAssetCreateCommand(KeyboxAssetPostDto keyboxAssetPostDto)
+        {
+            return new KeyboxAssetCreateCommand
+            {
+                Uuid = keyboxAssetPostDto.Uuid
+            };
+        }
     }
 }

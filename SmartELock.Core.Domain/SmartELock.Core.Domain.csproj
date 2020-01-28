@@ -106,8 +106,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\KeyboxAsset.cs" />
+    <Compile Include="Models\Commands\KeyboxAssetCreateCommand.cs" />
     <Compile Include="Models\Commands\UserLoginCommand.cs" />
     <Compile Include="Models\Constants\UserRole.cs" />
+    <Compile Include="Models\Snapshots\KeyboxAssetSnapshot.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Commands\UserCreateCommand.cs" />
     <Compile Include="Models\Commands\BranchCreateCommand.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\SuperAdmin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IKeyboxAssetRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IBranchRepository.cs" />
     <Compile Include="Repositories\ICompanyRepository.cs" />

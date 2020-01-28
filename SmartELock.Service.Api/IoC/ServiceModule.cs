@@ -21,6 +21,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ICommandValidator<CompanyCreateCommand>>().To<CompanyCreateValidator>();
 			Bind<ICommandValidator<BranchCreateCommand>>().To<BranchCreateValidator>();
 			Bind<ICommandValidator<UserCreateCommand>>().To<UserCreateValidator>();
+			Bind<ICommandValidator<KeyboxAssetCreateCommand>>().To<KeyboxAssetCreateValidator>();
 		}
 	}
 }

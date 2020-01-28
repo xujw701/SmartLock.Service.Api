@@ -57,5 +57,21 @@ namespace SmartELock.Service.Api.Controllers
                 Token = superAdmin.Token ?? string.Empty
             };
         }
+
+        [HttpPost]
+        [Route("keyboxassets")]
+        public async Task<IHttpActionResult> CreateKeyboxAsset(KeyboxAssetPostDto keyboxAssetPostDto)
+        {
+            var command = _superAdminMapper.MapToKeyboxAssetCreateCommand(keyboxAssetPostDto);
+
+            var id = await _superAdminService.CreateKeyboxAsset(command);
+
+            var response = new DefaultCreatedPostResponseDto
+            {
+                Id = id
+            };
+
+            return Created($"{id}", response);
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace SmartELock.Service.Api.Mappers
     {
         SuperAdminCreateCommand MapToCreateCommand(SuperAdminPostDto superAdminPostDto);
         SuperAdminLoginCommand MapToLoginCommand(SuperAdminPostDto superAdminPostDto);
+        KeyboxAssetCreateCommand MapToKeyboxAssetCreateCommand(KeyboxAssetPostDto keyboxAssetPostDto);
     }
 }
