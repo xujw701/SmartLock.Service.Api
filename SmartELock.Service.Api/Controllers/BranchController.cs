@@ -25,7 +25,13 @@ namespace SmartELock.Service.Api.Controllers
         [Route("")]
         public async Task<IHttpActionResult> CreateBranch(BranchPostDto branchPostDto)
         {
+            await ValidateToken(Request.Headers);
+
             var command = _branchMapper.MapToCreateCommand(branchPostDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
 
             var id = await _branchService.CreateBranch(command);
 

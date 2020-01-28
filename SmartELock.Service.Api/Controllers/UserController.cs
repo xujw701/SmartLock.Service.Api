@@ -26,7 +26,13 @@ namespace SmartELock.Service.Api.Controllers
         [Route("")]
         public async Task<IHttpActionResult> CreateUser(UserPostDto userPostDto)
         {
+            await ValidateToken(Request.Headers);
+
             var command = _userMapper.MapToCreateCommand(userPostDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
 
             var id = await _userService.CreateUser(command);
 

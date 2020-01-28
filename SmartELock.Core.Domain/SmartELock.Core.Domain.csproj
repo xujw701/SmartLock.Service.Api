@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Commands\UserLoginCommand.cs" />
+    <Compile Include="Models\Constants\UserRole.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Commands\UserCreateCommand.cs" />
     <Compile Include="Models\Commands\BranchCreateCommand.cs" />

@@ -25,7 +25,7 @@ namespace SmartELock.Service.Api.Controllers
         [Route("")]
         public async Task<IHttpActionResult> CreateCompany(CompanyPostDto companyPostDto)
         {
-            await ValidateToken(Request.Headers);
+            await ValidateToken(Request.Headers, adminOnly: true);
 
             var command = _companyMapper.MapToCreateCommand(companyPostDto);
 

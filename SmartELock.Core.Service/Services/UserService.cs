@@ -1,7 +1,9 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Services;
+using SmartELock.Core.Services.Validators;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,13 +14,24 @@ namespace SmartELock.Core.Services.Services
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        private readonly ICommandValidator<UserCreateCommand> _userCreateValidator;
+
+        public UserService(IUserRepository userRepository, ICommandValidator<UserCreateCommand> userCreateValidator)
         {
             _userRepository = userRepository;
+
+            _userCreateValidator = userCreateValidator;
         }
 
         public async Task<int> CreateUser(UserCreateCommand command)
         {
+            var validationResult = await _userCreateValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
             var user = User.CreateFrom(command);
 
             return await _userRepository.CreateUser(user);

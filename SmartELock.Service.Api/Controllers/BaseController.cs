@@ -24,7 +24,7 @@ namespace SmartELock.Service.Api.Controllers
             _authorizationService = authorizationService;
         }
 
-        protected async Task ValidateToken(HttpRequestHeaders headers)
+        protected async Task ValidateToken(HttpRequestHeaders headers, bool adminOnly = false)
         {
             if (headers.Contains(SuperAdminIdKey) && headers.Contains(BearerKey))
             {
@@ -40,12 +40,12 @@ namespace SmartELock.Service.Api.Controllers
 
                 AdminId = adminId;
             }
-            else if (headers.Contains(UserIdKey) && headers.Contains(BearerKey))
+            else if (headers.Contains(UserIdKey) && headers.Contains(BearerKey) && !adminOnly)
             {
                 var userId = int.Parse(headers.FirstOrDefault(header => string.Equals(header.Key, UserIdKey)).Value.FirstOrDefault());
                 var token = headers.FirstOrDefault(header => string.Equals(header.Key, BearerKey)).Value.FirstOrDefault();
 
-                var result = await _authorizationService.CheckAdminToken(userId, token);
+                var result = await _authorizationService.CheckUserToken(userId, token);
 
                 if (!result)
                 {
@@ -54,8 +54,10 @@ namespace SmartELock.Service.Api.Controllers
 
                 UserId = userId;
             }
-
-            throw new HttpResponseException(HttpStatusCode.BadRequest);
+            else
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
         }
 
         protected IHttpActionResult CreatedResult<T>(T t)

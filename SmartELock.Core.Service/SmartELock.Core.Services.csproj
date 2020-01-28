@@ -69,6 +69,11 @@
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\SuperAdminService.cs" />
     <Compile Include="Validators\BaseCommandValidator.cs" />
+    <Compile Include="Validators\Permissions\HasPermissionToCreateBranch.cs" />
+    <Compile Include="Validators\Permissions\HasPermissionToCreateUser.cs" />
+    <Compile Include="Validators\Specifications\UserUsernameMustBeUnique.cs" />
+    <Compile Include="Validators\UserCreateValidator.cs" />
+    <Compile Include="Validators\BranchCreateValidator.cs" />
     <Compile Include="Validators\ICommandValidator.cs" />
     <Compile Include="Validators\Specifications\CompanyNameMustBeUnique.cs" />
     <Compile Include="Validators\Specifications\SuperAdminUsernameMustBeUnique.cs" />
