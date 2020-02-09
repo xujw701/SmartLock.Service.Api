@@ -55,13 +55,16 @@ namespace SmartELock.Core.Services.Services
             return null;
         }
 
-        public async Task<bool> CheckToken(int userId, string token)
+        public async Task<Tuple<bool, User>> CheckToken(int userId, string token)
         {
             var user = await _userRepository.GetUser(userId);
 
-            if (user == null || string.IsNullOrEmpty(token) || string.IsNullOrEmpty(user.Token)) return false;
+            if (user == null || string.IsNullOrEmpty(token) || string.IsNullOrEmpty(user.Token))
+            {
+                return new Tuple<bool, User>(false, null);
+            }
 
-            return user.Token.Equals(token);
+            return new Tuple<bool, User>(user.Token.Equals(token), user);
         }
 
         private async Task<int> Auth(UserLoginCommand command)

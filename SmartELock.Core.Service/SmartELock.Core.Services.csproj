@@ -64,15 +64,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
+    <Compile Include="Services\KeyboxService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\BranchService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\SuperAdminService.cs" />
     <Compile Include="Validators\BaseCommandValidator.cs" />
+    <Compile Include="Validators\KeyboxRegisterValidator.cs" />
     <Compile Include="Validators\KeyboxAssetCreateValidator.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToCreateBranch.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToCreateUser.cs" />
-    <Compile Include="Validators\Specifications\UuidMustBeUnique.cs" />
+    <Compile Include="Validators\Specifications\KeyboxUuidMustBeUnique.cs" />
+    <Compile Include="Validators\Specifications\KeyboxAssetUuidMustExist.cs" />
+    <Compile Include="Validators\Specifications\KeyboxAssetUuidMustBeUnique.cs" />
     <Compile Include="Validators\Specifications\UserUsernameMustBeUnique.cs" />
     <Compile Include="Validators\UserCreateValidator.cs" />
     <Compile Include="Validators\BranchCreateValidator.cs" />

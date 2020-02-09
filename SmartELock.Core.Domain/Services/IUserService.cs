@@ -1,5 +1,6 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
+using System;
 using System.Threading.Tasks;
 
 namespace SmartELock.Core.Domain.Services
@@ -8,6 +9,6 @@ namespace SmartELock.Core.Domain.Services
     {
         Task<int> CreateUser(UserCreateCommand command);
         Task<User> Login(UserLoginCommand command);
-        Task<bool> CheckToken(int userId, string token);
+        Task<Tuple<bool, User>> CheckToken(int userId, string token);
     }
 }

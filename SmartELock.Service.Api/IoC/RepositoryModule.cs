@@ -13,6 +13,8 @@ namespace SmartELock.Service.Api.IoC
 			Bind<IBranchRepository>().To<BranchRepository>();
 			Bind<IUserRepository>().To<UserRepository>();
 			Bind<IKeyboxAssetRepository>().To<KeyboxAssetRepository>();
+			Bind<IKeyboxRepository>().To<KeyboxRepository>();
+			Bind<IPropertyRepository>().To<PropertyRepository>();
 		}
 	}
 }

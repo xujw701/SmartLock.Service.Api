@@ -61,13 +61,16 @@ namespace SmartELock.Core.Services.Services
             return null;
         }
 
-        public async Task<bool> CheckToken(int superAdminId, string token)
+        public async Task<Tuple<bool, SuperAdmin>> CheckToken(int superAdminId, string token)
         {
             var superAdmin = await _superAdminRepository.GetSuperAdmin(superAdminId);
 
-            if (superAdmin == null || string.IsNullOrEmpty(token) || string.IsNullOrEmpty(superAdmin.Token)) return false;
+            if (superAdmin == null || string.IsNullOrEmpty(token) || string.IsNullOrEmpty(superAdmin.Token))
+            {
+                return new Tuple<bool, SuperAdmin>(false, null);
+            }
 
-            return superAdmin.Token.Equals(token);
+            return new Tuple<bool, SuperAdmin>(superAdmin.Token.Equals(token), superAdmin);
         }
 
         public async Task<int> CreateKeyboxAsset(KeyboxAssetCreateCommand command)

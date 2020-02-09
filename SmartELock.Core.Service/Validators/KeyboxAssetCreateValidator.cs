@@ -20,7 +20,7 @@ namespace SmartELock.Core.Services.Validators
         {
             return new List<ISpecification<KeyboxAssetCreateCommand>>()
             {
-                new UuidMustBeUnique(_keyboxAssetRepository)
+                new KeyboxAssetUuidMustBeUnique(_keyboxAssetRepository)
             };
         }
     }

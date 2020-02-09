@@ -1,4 +1,5 @@
-﻿using SmartELock.Core.Domain.Services;
+﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Services;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,8 +17,11 @@ namespace SmartELock.Service.Api.Controllers
 
         private readonly IAuthorizationService _authorizationService;
 
-        protected int AdminId { get; private set; }
-        protected int UserId { get; private set; }
+        protected SuperAdmin CurrentSuperAdmin { get; private set; }
+        protected User CurrentUser { get; private set; }
+
+        protected int AdminId => CurrentSuperAdmin != null ? CurrentSuperAdmin.SuperAdminId : 0;
+        protected int UserId => CurrentUser != null ? CurrentUser.UserId : 0;
 
         public BaseController(IAuthorizationService authorizationService)
         {
@@ -33,12 +37,12 @@ namespace SmartELock.Service.Api.Controllers
 
                 var result = await _authorizationService.CheckAdminToken(adminId, token);
 
-                if (!result)
+                if (!result.Item1)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
 
-                AdminId = adminId;
+                CurrentSuperAdmin = result.Item2;
             }
             else if (headers.Contains(UserIdKey) && headers.Contains(BearerKey) && !adminOnly)
             {
@@ -47,12 +51,12 @@ namespace SmartELock.Service.Api.Controllers
 
                 var result = await _authorizationService.CheckUserToken(userId, token);
 
-                if (!result)
+                if (!result.Item1)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
 
-                UserId = userId;
+                CurrentUser = result.Item2;
             }
             else
             {

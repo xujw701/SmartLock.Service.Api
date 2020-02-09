@@ -168,6 +168,8 @@
     <Compile Include="Infrastructure\RetryHandlerConnection.cs" />
     <Compile Include="Infrastructure\SqlExceptionState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\PropertyRepository.cs" />
+    <Compile Include="Repositories\KeyboxRepository.cs" />
     <Compile Include="Repositories\KeyboxAssetRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\BranchRepository.cs" />

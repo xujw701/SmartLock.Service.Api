@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Specifications
 {
-    public class UuidMustBeUnique : ISpecification<IKeyboxAssetCommand>
+    public class KeyboxAssetUuidMustExist : ISpecification<IKeyboxAssetCommand>
     {
         private readonly IKeyboxAssetRepository _keyboxAssetRepository;
 
-        public UuidMustBeUnique(IKeyboxAssetRepository keyboxAssetRepository)
+        public KeyboxAssetUuidMustExist(IKeyboxAssetRepository keyboxAssetRepository)
         {
             _keyboxAssetRepository = keyboxAssetRepository;
         }
@@ -19,14 +19,14 @@ namespace SmartELock.Core.Services.Validators.Specifications
         {
             var keyboxAsset = await _keyboxAssetRepository.GetKeyboxAssetByUuid(command.Uuid);
 
-            var allow = keyboxAsset == null;
+            var allow = keyboxAsset != null;
 
             return allow;
         }
 
         public string ErrorMessage(IKeyboxAssetCommand obj)
         {
-            return "Uuid name must be unique";
+            return "Uuid must exist";
         }
 
         public ErrorCode ErrorCode { get; } = ErrorCode.FieldMustUnique;

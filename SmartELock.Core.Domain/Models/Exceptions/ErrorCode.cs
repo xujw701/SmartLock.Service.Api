@@ -11,6 +11,9 @@ namespace SmartELock.Core.Domain.Models.Exceptions
         FieldMustUnique = 2,
 
         [EnumMember(Value = "MUST_HAS_PERMISSION")]
-        MustHasPermission = 3
+        MustHasPermission = 3,
+
+        [EnumMember(Value = "FIELD_MUST_EXIST")]
+        FieldMustExist = 4
     }
 }

@@ -14,6 +14,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ICompanyService>().To<CompanyService>();
 			Bind<IBranchService>().To<BranchService>();
 			Bind<IUserService>().To<UserService>();
+			Bind<IKeyboxService>().To<KeyboxService>();
 
 			Bind<IAuthorizationService>().To<AuthorizationService>();
 
@@ -22,6 +23,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ICommandValidator<BranchCreateCommand>>().To<BranchCreateValidator>();
 			Bind<ICommandValidator<UserCreateCommand>>().To<UserCreateValidator>();
 			Bind<ICommandValidator<KeyboxAssetCreateCommand>>().To<KeyboxAssetCreateValidator>();
+			Bind<ICommandValidator<KeyboxCreateCommand>>().To<KeyboxRegisterValidator>();
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using SmartELock.Core.Domain.Services;
+﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Services
@@ -14,12 +16,12 @@ namespace SmartELock.Core.Services.Services
             _userService = userService;
         }
 
-        public async Task<bool> CheckAdminToken(int superAdminId, string token)
+        public async Task<Tuple<bool, SuperAdmin>> CheckAdminToken(int superAdminId, string token)
         {
             return await _superAdminService.CheckToken(superAdminId, token);
         }
 
-        public async Task<bool> CheckUserToken(int userId, string token)
+        public async Task<Tuple<bool, User>> CheckUserToken(int userId, string token)
         {
             return await _userService.CheckToken(userId, token);
         }

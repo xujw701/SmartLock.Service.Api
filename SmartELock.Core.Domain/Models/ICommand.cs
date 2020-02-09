@@ -45,4 +45,8 @@
     {
         string Uuid { get; }
     }
+
+    public interface IKeyboxCommand : IKeyboxAssetCommand
+    {
+    }
 }
