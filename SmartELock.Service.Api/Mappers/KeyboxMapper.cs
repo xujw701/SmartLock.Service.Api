@@ -1,4 +1,5 @@
 ﻿using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Commands.Base;
 using SmartELock.Service.Api.Dto.Requests;
 
 namespace SmartELock.Service.Api.Mappers
@@ -15,6 +16,15 @@ namespace SmartELock.Service.Api.Mappers
                 KeyboxName = keyboxPostDto.KeyboxName,
                 BatteryLevel = keyboxPostDto.BatteryLevel,
                 Pin = keyboxPostDto.Pin
+            };
+        }
+
+        public KeyboxCommand MapToGetCommand(int keyboxId, string uuid)
+        {
+            return new KeyboxCommand
+            {
+                KeyboxId = keyboxId,
+                Uuid = uuid,
             };
         }
 

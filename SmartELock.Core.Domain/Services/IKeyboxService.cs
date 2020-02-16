@@ -1,5 +1,6 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Commands.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace SmartELock.Core.Domain.Services
     {
         Task<int> RegisterKeybox(KeyboxCreateCommand command);
         Task<bool> AssignTo(KeyboxAssignToCommand command);
+        Task<Keybox> GetKeybox(KeyboxCommand command);
         Task<int> CreateKeyboxProperty(KeyboxPropertyCreateCommand command);
         Task<bool> UpdateKeyboxProperty(KeyboxPropertyUpdateCommand command);
         Task<bool> EndKeyboxProperty(KeyboxPropertyDeleteCommand command);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Specifications
 {
-    public class KeyboxUuidMustBeUnique : ISpecification<IKeyboxCreateCommand>
+    public class KeyboxUuidMustBeUnique : ISpecification<IKeyboxCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
 
@@ -15,7 +15,7 @@ namespace SmartELock.Core.Services.Validators.Specifications
             _keyboxRepository = keyboxRepository;
         }
 
-        public async Task<bool> IsSatisfiedByAsync(IKeyboxCreateCommand command)
+        public async Task<bool> IsSatisfiedByAsync(IKeyboxCommand command)
         {
             var keybox = await _keyboxRepository.GetKeyboxByUuid(command.Uuid);
 
@@ -24,7 +24,7 @@ namespace SmartELock.Core.Services.Validators.Specifications
             return allow;
         }
 
-        public string ErrorMessage(IKeyboxCreateCommand obj)
+        public string ErrorMessage(IKeyboxCommand obj)
         {
             return "Uuid must be unique";
         }

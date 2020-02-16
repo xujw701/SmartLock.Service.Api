@@ -40,6 +40,39 @@ namespace SmartELock.Service.Api.Controllers
             return Created($"{id}", response);
         }
 
+        [HttpGet]
+        [Route("")]
+        public async Task<KeyboxResponseDto> GetKeybox(int? keyboxId = null, string uuid = null)
+        {
+            await ValidateToken(Request.Headers);
+
+            if (keyboxId.HasValue && !string.IsNullOrEmpty(uuid))
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var command = _keyboxMapper.MapToGetCommand(keyboxId.HasValue ? keyboxId.Value : 0, uuid);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var keybox = await _keyboxService.GetKeybox(command);
+
+            if (keybox == null) return null;
+
+            return new KeyboxResponseDto
+            {
+                KeyboxId = keybox.KeyboxId,
+                CompanyId = keybox.CompanyId,
+                BranchId = keybox.BranchId,
+                Uuid = keybox.Uuid,
+                PropertyId = keybox.PropertyId,
+                KeyboxName = keybox.KeyboxName,
+                BatteryLevel = keybox.BatteryLevel,
+            };
+        }
+
         [HttpPost]
         [Route("{keyboxId}/assignTo/{userId}")]
         public async Task<IHttpActionResult> AssignTo(int keyboxId, int userId)

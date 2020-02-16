@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Permissions
 {
-    public class HasPermissionToAssignKeybox : ISpecification<IKeyboxAssignToCommand>
+    public class HasPermissionToAssignKeybox : ISpecification<IKeyboxCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IUserRepository _userRepository;
@@ -18,7 +18,7 @@ namespace SmartELock.Core.Services.Validators.Permissions
             _userRepository = userRepository;
         }
 
-        public async Task<bool> IsSatisfiedByAsync(IKeyboxAssignToCommand command)
+        public async Task<bool> IsSatisfiedByAsync(IKeyboxCommand command)
         {
             // Admin has permission to create any user
             if (command.OperatedByAdmin.HasValue && command.OperatedByAdmin.Value > 0)
@@ -41,7 +41,7 @@ namespace SmartELock.Core.Services.Validators.Permissions
             }
         }
 
-        public string ErrorMessage(IKeyboxAssignToCommand obj)
+        public string ErrorMessage(IKeyboxCommand obj)
         {
             return "You must have permission to assign keybox";
         }

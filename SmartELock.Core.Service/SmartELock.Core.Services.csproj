@@ -70,14 +70,14 @@
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\SuperAdminService.cs" />
     <Compile Include="Validators\BaseCommandValidator.cs" />
-    <Compile Include="Validators\KeyboxHistoryValidator.cs" />
+    <Compile Include="Validators\KeyboxAccessValidator.cs" />
     <Compile Include="Validators\KeyboxPropertyDeleteValidator.cs" />
     <Compile Include="Validators\KeyboxPropertyUpdateValidator.cs" />
     <Compile Include="Validators\KeyboxPropertyCreateValidator.cs" />
     <Compile Include="Validators\KeyboxAssignToValidator.cs" />
     <Compile Include="Validators\KeyboxRegisterValidator.cs" />
     <Compile Include="Validators\KeyboxAssetCreateValidator.cs" />
-    <Compile Include="Validators\Permissions\HasPermissionToOperateKeyboxHistory.cs" />
+    <Compile Include="Validators\Permissions\HasPermissionToAccessKeybox.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToDeleteKeyboxProperty.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToOperateKeyboxProperty.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToAssignKeybox.cs" />

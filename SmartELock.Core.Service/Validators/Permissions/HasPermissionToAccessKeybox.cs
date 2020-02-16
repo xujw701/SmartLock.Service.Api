@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Permissions
 {
-    public class HasPermissionToOperateKeyboxHistory : ISpecification<IKeyboxPropertyCommand>
+    public class HasPermissionToAccessKeybox : ISpecification<IKeyboxCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IUserRepository _userRepository;
 
-        public HasPermissionToOperateKeyboxHistory(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
+        public HasPermissionToAccessKeybox(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
         {
             _keyboxRepository = keyboxRepository;
             _userRepository = userRepository;
         }
 
-        public async Task<bool> IsSatisfiedByAsync(IKeyboxPropertyCommand command)
+        public async Task<bool> IsSatisfiedByAsync(IKeyboxCommand command)
         {
             // Admin has permission to create any user
             if (command.OperatedByAdmin.HasValue && command.OperatedByAdmin.Value > 0)
@@ -27,7 +27,16 @@ namespace SmartELock.Core.Services.Validators.Permissions
             }
             else if (command.OperatedBy.HasValue && command.OperatedBy.Value > 0)
             {
-                var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+                Keybox keybox = null;
+                if (command.KeyboxId > 0)
+                {
+                    keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+                }
+                else
+                {
+                    keybox = await _keyboxRepository.GetKeyboxByUuid(command.Uuid);
+                }
+                
                 var operateUser = await _userRepository.GetUser(command.OperatedBy.Value);
 
                 var sameCompany = operateUser.CompanyId == keybox.CompanyId;
@@ -40,9 +49,9 @@ namespace SmartELock.Core.Services.Validators.Permissions
             }
         }
 
-        public string ErrorMessage(IKeyboxPropertyCommand obj)
+        public string ErrorMessage(IKeyboxCommand obj)
         {
-            return "You must have permission to in or out keybox";
+            return "You must have permission to access keybox";
         }
 
         public ErrorCode ErrorCode { get; } = ErrorCode.MustHasPermission;

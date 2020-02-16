@@ -1,5 +1,6 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Commands.Base;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Services;
@@ -21,7 +22,7 @@ namespace SmartELock.Core.Services.Services
         private readonly ICommandValidator<KeyboxPropertyCreateCommand> _keyboxPropertyCreateValidator;
         private readonly ICommandValidator<KeyboxPropertyUpdateCommand> _keyboxPropertyUpdateValidator;
         private readonly ICommandValidator<KeyboxPropertyDeleteCommand> _keyboxPropertyDeleteValidator;
-        private readonly ICommandValidator<KeyboxHistoryCommand> _keyboxHistoryValidator;
+        private readonly ICommandValidator<KeyboxCommand> _keyboxAccessValidator;
 
         public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository,
                              ICommandValidator<KeyboxCreateCommand> keyboxRegisterValidator,
@@ -29,7 +30,7 @@ namespace SmartELock.Core.Services.Services
                              ICommandValidator<KeyboxPropertyCreateCommand> keyboxPropertyCreateValidator,
                              ICommandValidator<KeyboxPropertyUpdateCommand> keyboxPropertyUpdateValidator,
                              ICommandValidator<KeyboxPropertyDeleteCommand> keyboxPropertyDeleteValidator,
-                             ICommandValidator<KeyboxHistoryCommand> keyboxHistoryValidator)
+                             ICommandValidator<KeyboxCommand> keyboxAccessValidator)
         {
             _keyboxRepository = keyboxRepository;
             _keyboxAssetRepository = keyboxAssetRepository;
@@ -40,7 +41,7 @@ namespace SmartELock.Core.Services.Services
             _keyboxPropertyCreateValidator = keyboxPropertyCreateValidator;
             _keyboxPropertyUpdateValidator = keyboxPropertyUpdateValidator;
             _keyboxPropertyDeleteValidator = keyboxPropertyDeleteValidator;
-            _keyboxHistoryValidator = keyboxHistoryValidator;
+            _keyboxAccessValidator = keyboxAccessValidator;
         }
 
         public async Task<int> RegisterKeybox(KeyboxCreateCommand command)
@@ -74,6 +75,25 @@ namespace SmartELock.Core.Services.Services
             keybox.SetOwner(command.TargetUserId);
 
             return await _keyboxRepository.UpdateKeybox(keybox);
+        }
+
+        public async Task<Keybox> GetKeybox(KeyboxCommand command)
+        {
+            var validationResult = await _keyboxAccessValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            if (command.KeyboxId > 0)
+            {
+                return await _keyboxRepository.GetKeybox(command.KeyboxId);
+            }
+            else
+            {
+                return await _keyboxRepository.GetKeyboxByUuid(command.Uuid);
+            }
         }
 
         public async Task<int> CreateKeyboxProperty(KeyboxPropertyCreateCommand command)
@@ -148,7 +168,7 @@ namespace SmartELock.Core.Services.Services
 
         public async Task<bool> Unlock(KeyboxHistoryCommand command)
         {
-            var validationResult = await _keyboxHistoryValidator.Validate(command);
+            var validationResult = await _keyboxAccessValidator.Validate(command);
 
             if (!validationResult.IsValid)
             {
@@ -173,7 +193,7 @@ namespace SmartELock.Core.Services.Services
 
         public async Task<bool> Lock(KeyboxHistoryCommand command)
         {
-            var validationResult = await _keyboxHistoryValidator.Validate(command);
+            var validationResult = await _keyboxAccessValidator.Validate(command);
 
             if (!validationResult.IsValid)
             {

@@ -4,6 +4,12 @@
     {
     }
 
+    public interface IPermissionCommand
+    {
+        int? OperatedBy { get; }
+        int? OperatedByAdmin { get; }
+    }
+
     public interface ISuperAdminCommand : ICommand
     {
         string Username { get; }
@@ -18,21 +24,16 @@
     {
     }
 
-    public interface IBranchCreateCommand : IBranchCommand
+    public interface IBranchCreateCommand : IBranchCommand, IPermissionCommand
     {
         int CompanyId { get; }
-
-        int? OperatedBy { get; }
-        int? OperatedByAdmin { get; }
     }
 
     public interface IUserCommand : ICommand
     {
-        int? OperatedBy { get; }
-        int? OperatedByAdmin { get; }
     }
 
-    public interface IUserCreateCommand : IUserCommand
+    public interface IUserCreateCommand : IUserCommand, IPermissionCommand
     {
         int CompanyId { get; }
         int BranchId { get; }
@@ -40,7 +41,7 @@
         int UserRoleId { get; }
     }
 
-    public interface IUserUpdateCommand : IUserCommand
+    public interface IUserUpdateCommand : IUserCommand, IPermissionCommand
     {
         int UserId { get; }
     }
@@ -50,22 +51,17 @@
         string Uuid { get; }
     }
 
-    public interface IKeyboxCommand : ICommand
-    {
-        int? OperatedBy { get; }
-        int? OperatedByAdmin { get; }
-    }
-
-    public interface IKeyboxCreateCommand : IKeyboxCommand, IKeyboxAssetCommand
-    {
-    }
-
-    public interface IKeyboxPropertyCommand : IKeyboxCommand
+    public interface IKeyboxCommand : ICommand, IPermissionCommand
     {
         int KeyboxId { get; }
+        string Uuid { get; set; }
     }
 
-    public interface IKeyboxPropertyCreateUpdateCommand : IKeyboxPropertyCommand
+    public interface IKeyboxCreateCommand : IKeyboxCommand
+    {
+    }
+
+    public interface IKeyboxPropertyCreateUpdateCommand : IKeyboxCommand
     {
         int CompanyId { get; }
         int BranchId { get; }
@@ -73,7 +69,6 @@
 
     public interface IKeyboxAssignToCommand : IKeyboxCommand
     {
-        int KeyboxId { get; }
         int TargetUserId { get; }
     }
 }

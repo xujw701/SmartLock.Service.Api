@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartELock.Core.Domain.Models.Commands.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Domain.Models.Commands
 {
-    public class KeyboxPropertyUpdateCommand : IKeyboxPropertyCreateUpdateCommand
+    public class KeyboxPropertyUpdateCommand : KeyboxCommand, IKeyboxPropertyCreateUpdateCommand
     {
-        public int KeyboxId { get; set; }
         public int PropertyId { get; set; }
         public int CompanyId { get; set; }
         public int BranchId { get; set; }
@@ -21,8 +21,5 @@ namespace SmartELock.Core.Domain.Models.Commands
         public double? Bathrooms { get; set; }
         public double? FloorArea { get; set; }
         public double? LandArea { get; set; }
-
-        public int? OperatedBy { get; set; }
-        public int? OperatedByAdmin { get; set; }
     }
 }

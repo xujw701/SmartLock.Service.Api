@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Commands.Base;
 using SmartELock.Core.Domain.Services;
 using SmartELock.Core.Services.Services;
 using SmartELock.Core.Services.Validators;
@@ -28,7 +29,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ICommandValidator<KeyboxPropertyCreateCommand>>().To<KeyboxPropertyCreateValidator>();
 			Bind<ICommandValidator<KeyboxPropertyUpdateCommand>>().To<KeyboxPropertyUpdateValidator>();
 			Bind<ICommandValidator<KeyboxPropertyDeleteCommand>>().To<KeyboxPropertyDeleteValidator>();
-			Bind<ICommandValidator<KeyboxHistoryCommand>>().To<KeyboxHistoryValidator>();
+			Bind<ICommandValidator<KeyboxCommand>>().To<KeyboxAccessValidator>();
 		}
 	}
 }
