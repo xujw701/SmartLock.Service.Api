@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SmartELock.Service.Api.Dto.Responses
 {
-    public class UserLoginResponseDto
+    public class UserTokenResponseDto
     {
         public int UserId { get; set; }
 

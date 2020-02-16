@@ -22,7 +22,7 @@ namespace SmartELock.Service.Api.Mappers
             };
         }
 
-        public UserLoginCommand MapToLoginCommand(UserLoginPostDto userLoginPostDto)
+        public UserLoginCommand MapToLoginCommand(UserTokenPostDto userLoginPostDto)
         {
             return new UserLoginCommand
             {

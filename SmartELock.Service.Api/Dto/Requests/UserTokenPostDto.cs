@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SmartELock.Service.Api.Dto.Requests
 {
-    public class UserLoginPostDto
+    public class UserTokenPostDto
     {
         [Required]
         public string Username { get; set; }

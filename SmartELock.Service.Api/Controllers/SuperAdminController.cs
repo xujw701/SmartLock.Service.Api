@@ -39,7 +39,7 @@ namespace SmartELock.Service.Api.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("token")]
         public async Task<SuperAdminLoginResponseDto> Login(SuperAdminPostDto superAdminPostDto)
         {
             var command = _superAdminMapper.MapToLoginCommand(superAdminPostDto);

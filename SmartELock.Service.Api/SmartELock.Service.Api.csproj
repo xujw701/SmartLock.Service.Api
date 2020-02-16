@@ -233,7 +233,7 @@
     <Compile Include="Dto\Requests\KeyboxPropertyPostPutDto.cs" />
     <Compile Include="Dto\Requests\KeyboxPostDto.cs" />
     <Compile Include="Dto\Requests\KeyboxAssetPostDto.cs" />
-    <Compile Include="Dto\Requests\UserLoginPostDto.cs" />
+    <Compile Include="Dto\Requests\UserTokenPostDto.cs" />
     <Compile Include="Dto\Requests\UserPostDto.cs" />
     <Compile Include="Dto\Requests\BranchPostDto.cs" />
     <Compile Include="Dto\Requests\CompanyPostDto.cs" />
@@ -241,7 +241,7 @@
     <Compile Include="Dto\Responses\DefaultCreatedPostResponseDto.cs" />
     <Compile Include="Dto\Responses\ResultSet.cs" />
     <Compile Include="Dto\Responses\LockUnlockResponseDto.cs" />
-    <Compile Include="Dto\Responses\UserLoginResponseDto.cs" />
+    <Compile Include="Dto\Responses\UserTokenResponseDto.cs" />
     <Compile Include="Dto\Responses\SuperAdminLoginResponseDto.cs" />
     <Compile Include="ExceptionHandlers\DomainValidationExceptionHandler.cs" />
     <Compile Include="Filters\ValidateModelAttribute.cs" />

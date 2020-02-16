@@ -45,10 +45,10 @@ namespace SmartELock.Service.Api.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
-        public async Task<UserLoginResponseDto> Login(UserLoginPostDto userLoginPostDto)
+        [Route("token")]
+        public async Task<UserTokenResponseDto> Login(UserTokenPostDto userTokenPostDto)
         {
-            var command = _userMapper.MapToLoginCommand(userLoginPostDto);
+            var command = _userMapper.MapToLoginCommand(userTokenPostDto);
 
             var user = await _userService.Login(command);
 
@@ -57,7 +57,7 @@ namespace SmartELock.Service.Api.Controllers
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
 
-            return new UserLoginResponseDto
+            return new UserTokenResponseDto
             {
                 UserId = user.UserId,
                 Token = user.Token ?? string.Empty

@@ -6,6 +6,6 @@ namespace SmartELock.Service.Api.Mappers
     public interface IUserMapper
     {
         UserCreateCommand MapToCreateCommand(UserPostDto userPostDto);
-        UserLoginCommand MapToLoginCommand(UserLoginPostDto userLoginPostDto);
+        UserLoginCommand MapToLoginCommand(UserTokenPostDto userLoginPostDto);
     }
 }
