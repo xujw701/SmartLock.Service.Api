@@ -46,9 +46,11 @@ namespace SmartELock.Core.Repositories.Repositories
                 return await connection.ExecuteAsync("Keybox_Update", new
                 {
                     keybox.KeyboxId,
+                    keybox.CompanyId,
                     keybox.BranchId,
                     keybox.KeyboxAssetId,
                     keybox.Uuid,
+                    keybox.PropertyId,
                     keybox.UserId,
                     keybox.KeyboxName,
                     keybox.BatteryLevel,
@@ -66,6 +68,24 @@ namespace SmartELock.Core.Repositories.Repositories
                 using (var reader = await connection.QueryMultipleAsync("Keybox_GetByUuid", new
                 {
                     uuid
+                }))
+                {
+                    var snapshots = reader.Read<KeyboxSnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => Keybox.CreateFrom(snapshot)).FirstOrDefault();
+                }
+            });
+
+            return keybox;
+        }
+
+        public async Task<Keybox> GetKeybox(int keyboxId)
+        {
+            var keybox = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("Keybox_Get", new
+                {
+                    keyboxId
                 }))
                 {
                     var snapshots = reader.Read<KeyboxSnapshot>().ToList();

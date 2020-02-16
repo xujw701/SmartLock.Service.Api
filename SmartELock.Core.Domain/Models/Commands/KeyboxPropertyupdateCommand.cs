@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Domain.Models.Commands
 {
-    public class PropertyCreateCommand : ICommand
+    public class KeyboxPropertyUpdateCommand : IKeyboxPropertyCreateUpdateCommand
     {
+        public int KeyboxId { get; set; }
+        public int PropertyId { get; set; }
+        public int CompanyId { get; set; }
+        public int BranchId { get; set; }
+        public string KeyboxName { get; set; }
         public string PropertyName { get; set; }
         public string Address { get; set; }
         public string Notes { get; set; }

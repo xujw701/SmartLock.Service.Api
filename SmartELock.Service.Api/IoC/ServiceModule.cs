@@ -24,6 +24,10 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ICommandValidator<UserCreateCommand>>().To<UserCreateValidator>();
 			Bind<ICommandValidator<KeyboxAssetCreateCommand>>().To<KeyboxAssetCreateValidator>();
 			Bind<ICommandValidator<KeyboxCreateCommand>>().To<KeyboxRegisterValidator>();
+			Bind<ICommandValidator<KeyboxAssignToCommand>>().To<KeyboxAssignToValidator>();
+			Bind<ICommandValidator<KeyboxPropertyCreateCommand>>().To<KeyboxPropertyCreateValidator>();
+			Bind<ICommandValidator<KeyboxPropertyUpdateCommand>>().To<KeyboxPropertyUpdateValidator>();
+			Bind<ICommandValidator<KeyboxPropertyDeleteCommand>>().To<KeyboxPropertyDeleteValidator>();
 		}
 	}
 }

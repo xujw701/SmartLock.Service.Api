@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Domain.Models.Commands
 {
-    public class KeyboxCreateCommand : IKeyboxCommand
+    public class KeyboxCreateCommand : IKeyboxCreateCommand
     {
         public int CompanyId { get; set; }
         public int BranchId { get; set; }

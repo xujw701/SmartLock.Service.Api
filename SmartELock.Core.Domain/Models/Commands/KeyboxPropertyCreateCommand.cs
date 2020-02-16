@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SmartELock.Core.Domain.Models.Snapshots
+namespace SmartELock.Core.Domain.Models.Commands
 {
-    public class PropertySnapshot
+    public class KeyboxPropertyCreateCommand : IKeyboxPropertyCreateUpdateCommand
     {
-        public int PropertyId { get; set; }
+        public int KeyboxId { get; set; }
         public int CompanyId { get; set; }
         public int BranchId { get; set; }
+        public string KeyboxName { get; set; }
         public string PropertyName { get; set; }
         public string Address { get; set; }
         public string Notes { get; set; }
@@ -15,9 +20,8 @@ namespace SmartELock.Core.Domain.Models.Snapshots
         public double? Bathrooms { get; set; }
         public double? FloorArea { get; set; }
         public double? LandArea { get; set; }
-        public DateTime StartedOn { get; set; }
-        public DateTime EndedOn { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
+
+        public int? OperatedBy { get; set; }
+        public int? OperatedByAdmin { get; set; }
     }
 }

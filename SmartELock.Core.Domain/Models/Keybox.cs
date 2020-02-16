@@ -50,6 +50,19 @@ namespace SmartELock.Core.Domain.Models
             KeyboxAssetId = keyboxAssetId;
         }
 
+        public void SetOwner(int userId)
+        {
+            UserId = userId;
+        }
+
+        public void SetKeyboxData(int? propertyId, string keyboxName, int batteryLevel, string pin)
+        {
+            PropertyId = propertyId;
+            KeyboxName = keyboxName;
+            BatteryLevel = batteryLevel;
+            Pin = pin;
+        }
+
         public static Keybox CreateFrom(KeyboxCreateCommand command)
         {
             return new Keybox(command);

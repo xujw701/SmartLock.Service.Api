@@ -8,5 +8,6 @@ namespace SmartELock.Core.Domain.Repositories
         Task<int> CreateKeybox(Keybox keybox);
         Task<bool> UpdateKeybox(Keybox keybox);
         Task<Keybox> GetKeyboxByUuid(string uuid);
+        Task<Keybox> GetKeybox(int keyboxId);
     }
 }

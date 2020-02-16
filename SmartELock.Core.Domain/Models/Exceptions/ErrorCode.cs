@@ -14,6 +14,15 @@ namespace SmartELock.Core.Domain.Models.Exceptions
         MustHasPermission = 3,
 
         [EnumMember(Value = "FIELD_MUST_EXIST")]
-        FieldMustExist = 4
+        FieldMustExist = 4,
+
+        [EnumMember(Value = "KEYBOX_MUST_BE_ASSIGNED")]
+        KeyboxMustBeAssigned = 5,
+
+        [EnumMember(Value = "KEYBOX_CAN_LIST")]
+        KeyboxCanList = 6,
+
+        [EnumMember(Value = "KEYBOX_NOT_LIST")]
+        KeyboxNotList = 7
     }
 }

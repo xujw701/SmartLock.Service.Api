@@ -18,17 +18,60 @@ namespace SmartELock.Service.Api.Mappers
             };
         }
 
-        public PropertyCreateCommand MapToCreateCommand(PropertyPostDto propertyPostDto)
+        public KeyboxAssignToCommand MapToAssignToCommand(int keyboxId, int userId)
         {
-            return new PropertyCreateCommand
+            return new KeyboxAssignToCommand
             {
-                PropertyName = propertyPostDto.PropertyName,
-                Address = propertyPostDto.Address,
-                Price = propertyPostDto.Price,
-                Bedrooms = propertyPostDto.Bedrooms,
-                Bathrooms = propertyPostDto.Bathrooms,
-                FloorArea = propertyPostDto.FloorArea,
-                LandArea = propertyPostDto.LandArea,
+                KeyboxId = keyboxId,
+                TargetUserId = userId
+            };
+        }
+
+        public KeyboxPropertyCreateCommand MapToKeyboxPropertyCreateCommand(int keyboxId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto)
+        {
+            return new KeyboxPropertyCreateCommand
+            {
+                KeyboxId = keyboxId,
+                KeyboxName = keyboxPropertyPostPutDto.KeyboxName,
+                CompanyId = keyboxPropertyPostPutDto.CompanyId,
+                BranchId = keyboxPropertyPostPutDto.BranchId,
+                PropertyName = keyboxPropertyPostPutDto.PropertyName,
+                Address = keyboxPropertyPostPutDto.Address,
+                Notes = keyboxPropertyPostPutDto.Notes,
+                Price = keyboxPropertyPostPutDto.Price,
+                Bedrooms = keyboxPropertyPostPutDto.Bedrooms,
+                Bathrooms = keyboxPropertyPostPutDto.Bathrooms,
+                FloorArea = keyboxPropertyPostPutDto.FloorArea,
+                LandArea = keyboxPropertyPostPutDto.LandArea,
+            };
+        }
+
+        public KeyboxPropertyUpdateCommand MapToKeyboxPropertyUpdateCommand(int keyboxId, int propertyId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto)
+        {
+            return new KeyboxPropertyUpdateCommand
+            {
+                KeyboxId = keyboxId,
+                PropertyId = propertyId,
+                KeyboxName = keyboxPropertyPostPutDto.KeyboxName,
+                CompanyId = keyboxPropertyPostPutDto.CompanyId,
+                BranchId = keyboxPropertyPostPutDto.BranchId,
+                PropertyName = keyboxPropertyPostPutDto.PropertyName,
+                Address = keyboxPropertyPostPutDto.Address,
+                Notes = keyboxPropertyPostPutDto.Notes,
+                Price = keyboxPropertyPostPutDto.Price,
+                Bedrooms = keyboxPropertyPostPutDto.Bedrooms,
+                Bathrooms = keyboxPropertyPostPutDto.Bathrooms,
+                FloorArea = keyboxPropertyPostPutDto.FloorArea,
+                LandArea = keyboxPropertyPostPutDto.LandArea,
+            };
+        }
+
+        public KeyboxPropertyDeleteCommand MapToKeyboxPropertyDeleteCommand(int keyboxId, int propertyId)
+        {
+            return new KeyboxPropertyDeleteCommand
+            {
+                KeyboxId = keyboxId,
+                PropertyId = propertyId
             };
         }
     }

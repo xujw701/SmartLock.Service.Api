@@ -106,8 +106,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Commands\PropertyCreateCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxPropertyDeleteCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxPropertyUpdateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Keybox.cs" />
     <Compile Include="Models\KeyboxAsset.cs" />

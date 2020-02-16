@@ -13,6 +13,8 @@
 	LandArea FLOAT,
 	Latitude DECIMAL(18, 12),
 	Longitude DECIMAL(18, 12),
+	StartedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
+	EndedOn DATETIME2,
 	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	CONSTRAINT [PK_Property] PRIMARY KEY ([PropertyId]),

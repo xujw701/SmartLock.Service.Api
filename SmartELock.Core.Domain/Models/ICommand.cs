@@ -46,7 +46,30 @@
         string Uuid { get; }
     }
 
-    public interface IKeyboxCommand : IKeyboxAssetCommand
+    public interface IKeyboxCommand : ICommand
     {
+        int? OperatedBy { get; }
+        int? OperatedByAdmin { get; }
+    }
+
+    public interface IKeyboxCreateCommand : IKeyboxCommand, IKeyboxAssetCommand
+    {
+    }
+
+    public interface IKeyboxPropertyCommand : IKeyboxCommand
+    {
+        int KeyboxId { get; }
+    }
+
+    public interface IKeyboxPropertyCreateUpdateCommand : IKeyboxPropertyCommand
+    {
+        int CompanyId { get; }
+        int BranchId { get; }
+    }
+
+    public interface IKeyboxAssignToCommand : IKeyboxCommand
+    {
+        int KeyboxId { get; }
+        int TargetUserId { get; }
     }
 }
