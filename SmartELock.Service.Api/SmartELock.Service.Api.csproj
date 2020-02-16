@@ -229,6 +229,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Dto\Requests\KeyboxHistoryPostDto.cs" />
     <Compile Include="Dto\Requests\KeyboxPropertyPostPutDto.cs" />
     <Compile Include="Dto\Requests\KeyboxPostDto.cs" />
     <Compile Include="Dto\Requests\KeyboxAssetPostDto.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Dto\Requests\SuperAdminPostDto.cs" />
     <Compile Include="Dto\Responses\DefaultCreatedPostResponseDto.cs" />
     <Compile Include="Dto\Responses\ResultSet.cs" />
+    <Compile Include="Dto\Responses\LockUnlockResponseDto.cs" />
     <Compile Include="Dto\Responses\UserLoginResponseDto.cs" />
     <Compile Include="Dto\Responses\SuperAdminLoginResponseDto.cs" />
     <Compile Include="ExceptionHandlers\DomainValidationExceptionHandler.cs" />

@@ -124,5 +124,45 @@ namespace SmartELock.Service.Api.Controllers
             }
             return StatusCode(HttpStatusCode.InternalServerError);
         }
+
+        [HttpPost]
+        [Route("{keyboxId}/unlock")]
+        public async Task<LockUnlockResponseDto> Unlock(int keyboxId, KeyboxHistoryPostDto keyboxHistoryPostDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToKeyboxHistoryCommand(keyboxId, keyboxHistoryPostDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var result = await _keyboxService.Unlock(command);
+
+            return new LockUnlockResponseDto
+            {
+                Success = result
+            };
+        }
+
+        [HttpPost]
+        [Route("{keyboxId}/lock")]
+        public async Task<LockUnlockResponseDto> Lock(int keyboxId, KeyboxHistoryPostDto keyboxHistoryPostDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToKeyboxHistoryCommand(keyboxId, keyboxHistoryPostDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var result = await _keyboxService.Lock(command);
+
+            return new LockUnlockResponseDto
+            {
+                Success = result
+            };
+        }
     }
 }

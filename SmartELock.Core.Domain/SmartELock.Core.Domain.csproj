@@ -107,10 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxHistoryCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyDeleteCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyUpdateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
+    <Compile Include="Models\KeyboxHistory.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Keybox.cs" />
     <Compile Include="Models\KeyboxAsset.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Models\Commands\UserLoginCommand.cs" />
     <Compile Include="Models\Constants\UserRole.cs" />
     <Compile Include="Models\Snapshots\KeyboxAssetSnapshot.cs" />
+    <Compile Include="Models\Snapshots\KeyboxHistorySnapshot.cs" />
     <Compile Include="Models\Snapshots\PropertySnapshot.cs" />
     <Compile Include="Models\Snapshots\KeyboxSnapshot.cs" />
     <Compile Include="Models\User.cs" />

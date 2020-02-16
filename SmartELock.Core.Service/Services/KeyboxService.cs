@@ -21,13 +21,15 @@ namespace SmartELock.Core.Services.Services
         private readonly ICommandValidator<KeyboxPropertyCreateCommand> _keyboxPropertyCreateValidator;
         private readonly ICommandValidator<KeyboxPropertyUpdateCommand> _keyboxPropertyUpdateValidator;
         private readonly ICommandValidator<KeyboxPropertyDeleteCommand> _keyboxPropertyDeleteValidator;
+        private readonly ICommandValidator<KeyboxHistoryCommand> _keyboxHistoryValidator;
 
         public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository,
                              ICommandValidator<KeyboxCreateCommand> keyboxRegisterValidator,
                              ICommandValidator<KeyboxAssignToCommand> keyboxAssignToValidator,
                              ICommandValidator<KeyboxPropertyCreateCommand> keyboxPropertyCreateValidator,
                              ICommandValidator<KeyboxPropertyUpdateCommand> keyboxPropertyUpdateValidator,
-                             ICommandValidator<KeyboxPropertyDeleteCommand> keyboxPropertyDeleteValidator)
+                             ICommandValidator<KeyboxPropertyDeleteCommand> keyboxPropertyDeleteValidator,
+                             ICommandValidator<KeyboxHistoryCommand> keyboxHistoryValidator)
         {
             _keyboxRepository = keyboxRepository;
             _keyboxAssetRepository = keyboxAssetRepository;
@@ -38,6 +40,7 @@ namespace SmartELock.Core.Services.Services
             _keyboxPropertyCreateValidator = keyboxPropertyCreateValidator;
             _keyboxPropertyUpdateValidator = keyboxPropertyUpdateValidator;
             _keyboxPropertyDeleteValidator = keyboxPropertyDeleteValidator;
+            _keyboxHistoryValidator = keyboxHistoryValidator;
         }
 
         public async Task<int> RegisterKeybox(KeyboxCreateCommand command)
@@ -141,6 +144,63 @@ namespace SmartELock.Core.Services.Services
             var keyboxResult = await _keyboxRepository.UpdateKeybox(keybox);
 
             return propertyResult && keyboxResult;
+        }
+
+        public async Task<bool> Unlock(KeyboxHistoryCommand command)
+        {
+            var validationResult = await _keyboxHistoryValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            var keyboxHistory = KeyboxHistory.CreateFrom(command);
+
+            // Get keybox 
+            var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+
+            // Validate data
+            if (keybox == null) return false;
+            if (!command.OperatedBy.HasValue || !keybox.PropertyId.HasValue) return false;
+
+            keyboxHistory.SetInData(command.OperatedBy.Value, keybox.PropertyId.Value, command.DateTime);
+
+            var id = await _keyboxRepository.CreateKeyboxHistory(keyboxHistory);
+
+            return id > 0;
+        }
+
+        public async Task<bool> Lock(KeyboxHistoryCommand command)
+        {
+            var validationResult = await _keyboxHistoryValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            // Get keybox 
+            var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+
+            // Validate data
+            if (keybox == null) return false;
+            if (!command.OperatedBy.HasValue || !keybox.PropertyId.HasValue) return false;
+
+            var unlockedHistories = await _keyboxRepository.GetUnlockedKeyboxHistories(command.KeyboxId, command.OperatedBy.Value, keybox.PropertyId.Value);
+            var latestUnlockedHistory = unlockedHistories.FirstOrDefault();
+
+            if (latestUnlockedHistory != null)
+            {
+                if (latestUnlockedHistory.InOn.CompareTo(command.DateTime) > 0)
+                {
+                    throw new DomainValidationException("OutOn is ealier than InOn", ErrorCode.UnknownError);
+                }
+                latestUnlockedHistory.SetOutData(command.DateTime);
+                return await _keyboxRepository.UpdateKeyboxHistory(latestUnlockedHistory);
+            }
+
+            return false;
         }
     }
 }

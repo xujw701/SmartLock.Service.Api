@@ -74,5 +74,14 @@ namespace SmartELock.Service.Api.Mappers
                 PropertyId = propertyId
             };
         }
+
+        public KeyboxHistoryCommand MapToKeyboxHistoryCommand(int keyboxId, KeyboxHistoryPostDto keyboxHistoryPostDto)
+        {
+            return new KeyboxHistoryCommand
+            {
+                KeyboxId = keyboxId,
+                DateTime = keyboxHistoryPostDto.DateTime
+            };
+        }
     }
 }

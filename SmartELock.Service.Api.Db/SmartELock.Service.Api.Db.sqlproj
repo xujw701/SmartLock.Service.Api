@@ -136,5 +136,8 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Property_Get.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Property_Update.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Property_End.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.KeyboxHistory_Create.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.KeyboxHistory_GetUnlocked.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.KeyboxHistory_Update.sql" />
   </ItemGroup>
 </Project>
