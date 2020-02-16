@@ -63,5 +63,43 @@ namespace SmartELock.Service.Api.Controllers
                 Token = user.Token ?? string.Empty
             };
         }
+
+        [HttpGet]
+        [Route("me")]
+        public async Task<MeResponseDto> GetMe()
+        {
+            await ValidateToken(Request.Headers);
+
+            return new MeResponseDto
+            {
+                UserId = CurrentUser.UserId,
+                CompanyId = CurrentUser.CompanyId,
+                BranchId = CurrentUser.BranchId,
+                FirstName = CurrentUser.FirstName,
+                LastName = CurrentUser.LastName,
+                Email = CurrentUser.Email,
+                Phone = CurrentUser.Phone,
+                Individual = CurrentUser.Individual,
+                UserRoleId = CurrentUser.UserRoleId,
+                ResPortraitId = CurrentUser.ResPortraitId
+            };
+        }
+
+        [HttpPut]
+        [Route("me")]
+        public async Task<IHttpActionResult> UpdateMe(UserMePutDto userMePutDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _userMapper.MapToMeUpdateCommand(UserId, userMePutDto);
+
+            var result = await _userService.UpdateMe(command);
+
+            if (result)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return StatusCode(HttpStatusCode.InternalServerError);
+        }
     }
 }

@@ -37,6 +37,15 @@ namespace SmartELock.Core.Services.Services
             return await _userRepository.CreateUser(user);
         }
 
+        public async Task<bool> UpdateMe(UserMeUpdateCommand command)
+        {
+            var user = await _userRepository.GetUser(command.UserId);
+
+            user.Update(command.FirstName, command.LastName, command.Email, command.Phone, command.Password);
+
+            return await _userRepository.UpdateUser(user);
+        }
+
         public async Task<User> Login(UserLoginCommand command)
         {
             var userId = await Auth(command);

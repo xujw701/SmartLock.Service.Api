@@ -28,6 +28,8 @@
 
     public interface IUserCommand : ICommand
     {
+        int? OperatedBy { get; }
+        int? OperatedByAdmin { get; }
     }
 
     public interface IUserCreateCommand : IUserCommand
@@ -36,9 +38,11 @@
         int BranchId { get; }
         string Username { get; }
         int UserRoleId { get; }
+    }
 
-        int? OperatedBy { get; }
-        int? OperatedByAdmin { get; }
+    public interface IUserUpdateCommand : IUserCommand
+    {
+        int UserId { get; }
     }
 
     public interface IKeyboxAssetCommand : ICommand

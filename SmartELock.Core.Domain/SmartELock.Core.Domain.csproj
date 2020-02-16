@@ -112,6 +112,7 @@
     <Compile Include="Models\Commands\KeyboxPropertyUpdateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
+    <Compile Include="Models\Commands\UserMeUpdateCommand.cs" />
     <Compile Include="Models\KeyboxHistory.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Keybox.cs" />

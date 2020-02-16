@@ -22,6 +22,15 @@ namespace SmartELock.Core.Domain.Models
         public DateTime CreatedOn { get; private set; }
         public DateTime UpdatedOn { get; private set; }
 
+        public void Update(string firstName, string lastName, string email, string phone, string password)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Phone = phone;
+            Password = password;
+        }
+
         private User(UserCreateCommand command)
         {
             CompanyId = command.CompanyId;

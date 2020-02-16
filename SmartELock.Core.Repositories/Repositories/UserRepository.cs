@@ -41,6 +41,29 @@ namespace SmartELock.Core.Repositories.Repositories
             return id;
         }
 
+        public async Task<bool> UpdateUser(User user)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("User_Update", new
+                {
+                    user.UserId,
+                    user.CompanyId,
+                    user.BranchId,
+                    user.FirstName,
+                    user.LastName,
+                    user.Email,
+                    user.Phone,
+                    user.Username,
+                    user.Password,
+                    user.Individual,
+                    user.UserRoleId
+                });
+            });
+
+            return result > 0;
+        }
+
         public async Task<User> GetUser(int userId)
         {
             var user = await _dbRetryHandler.QueryAsync(async connection =>
