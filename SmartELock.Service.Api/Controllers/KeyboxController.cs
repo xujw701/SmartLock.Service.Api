@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace SmartELock.Service.Api.Controllers
 {
-    [RoutePrefix("api/keyboxes")]
+    [RoutePrefix("api/v1/keyboxes")]
     public class KeyboxController : BaseController
     {
         private readonly IKeyboxService _keyboxService;

@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace SmartELock.Service.Api.Controllers
 {
-    [RoutePrefix("api/superadmins")]
+    [RoutePrefix("api/v1/superadmins")]
     public class SuperAdminController : BaseController
     {
         private readonly ISuperAdminService _superAdminService;

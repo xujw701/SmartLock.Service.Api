@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace SmartELock.Service.Api.Controllers
 {
-    [RoutePrefix("api/companies")]
+    [RoutePrefix("api/v1/companies")]
     public class CompanyController : BaseController
     {
         private readonly ICompanyService _companyService;
