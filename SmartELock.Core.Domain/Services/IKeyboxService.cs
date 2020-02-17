@@ -14,6 +14,7 @@ namespace SmartELock.Core.Domain.Services
         Task<int> RegisterKeybox(KeyboxCreateCommand command);
         Task<bool> AssignTo(KeyboxAssignToCommand command);
         Task<Keybox> GetKeybox(KeyboxCommand command);
+        Task<List<Keybox>> GetMyKeyboxes(int userId);
         Task<int> CreateKeyboxProperty(KeyboxPropertyCreateCommand command);
         Task<bool> UpdateKeyboxProperty(KeyboxPropertyUpdateCommand command);
         Task<bool> EndKeyboxProperty(KeyboxPropertyDeleteCommand command);

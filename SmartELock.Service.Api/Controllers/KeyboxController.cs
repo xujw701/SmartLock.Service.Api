@@ -2,6 +2,8 @@
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
 using SmartELock.Service.Api.Mappers;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -71,6 +73,27 @@ namespace SmartELock.Service.Api.Controllers
                 KeyboxName = keybox.KeyboxName,
                 BatteryLevel = keybox.BatteryLevel,
             };
+        }
+
+
+        [HttpGet]
+        [Route("mine")]
+        public async Task<List<KeyboxResponseDto>> MyKeboxes()
+        {
+            await ValidateToken(Request.Headers);
+
+            var keyboxes = await _keyboxService.GetMyKeyboxes(UserId);
+
+            return keyboxes.Select(keybox => new KeyboxResponseDto
+            {
+                KeyboxId = keybox.KeyboxId,
+                CompanyId = keybox.CompanyId,
+                BranchId = keybox.BranchId,
+                Uuid = keybox.Uuid,
+                PropertyId = keybox.PropertyId,
+                KeyboxName = keybox.KeyboxName,
+                BatteryLevel = keybox.BatteryLevel,
+            }).ToList();
         }
 
         [HttpPost]

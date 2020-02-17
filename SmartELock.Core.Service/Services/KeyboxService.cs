@@ -6,6 +6,7 @@ using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Services;
 using SmartELock.Core.Services.Validators;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -94,6 +95,11 @@ namespace SmartELock.Core.Services.Services
             {
                 return await _keyboxRepository.GetKeyboxByUuid(command.Uuid);
             }
+        }
+
+        public async Task<List<Keybox>> GetMyKeyboxes(int userId)
+        {
+            return await _keyboxRepository.GetKeyboxesByUserId(userId);
         }
 
         public async Task<int> CreateKeyboxProperty(KeyboxPropertyCreateCommand command)
