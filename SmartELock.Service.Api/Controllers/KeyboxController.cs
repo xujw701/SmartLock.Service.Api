@@ -116,6 +116,36 @@ namespace SmartELock.Service.Api.Controllers
             return Created($"{id}", response);
         }
 
+        [HttpGet]
+        [Route("{keyboxId}/property/{propertyId}")]
+        public async Task<PropertyResponseDto> GetKeyboxProperty(int keyboxId, int propertyId)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToGetCommand(keyboxId, propertyId);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var property = await _keyboxService.GetKeyboxProperty(command);
+
+            if (property == null) return null;
+
+            return new PropertyResponseDto
+            {
+                PropertyId = property.PropertyId,
+                PropertyName = property.PropertyName,
+                Address = property.Address,
+                Notes = property.Notes,
+                Price = property.Price,
+                Bedrooms = property.Bedrooms,
+                Bathrooms = property.Bathrooms,
+                FloorArea = property.FloorArea,
+                LandArea = property.LandArea,
+            };
+        }
+
         [HttpPut]
         [Route("{keyboxId}/property/{propertyId}")]
         public async Task<IHttpActionResult> UpdateKeyboxProperty(int keyboxId, int propertyId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto)

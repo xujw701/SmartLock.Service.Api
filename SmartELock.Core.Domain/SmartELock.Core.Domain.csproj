@@ -113,6 +113,7 @@
     <Compile Include="Models\Commands\Base\SuperAdminCommand.cs" />
     <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />
     <Compile Include="Models\Commands\KeyboxHistoryCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxPropertyGetCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyDeleteCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyUpdateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
