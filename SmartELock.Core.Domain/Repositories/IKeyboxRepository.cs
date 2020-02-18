@@ -14,5 +14,6 @@ namespace SmartELock.Core.Domain.Repositories
         Task<int> CreateKeyboxHistory(KeyboxHistory keyboxHistory);
         Task<bool> UpdateKeyboxHistory(KeyboxHistory keyboxHistory);
         Task<List<KeyboxHistory>> GetUnlockedKeyboxHistories(int keyboxId, int userId, int propertyId, int? tmpUserId = null);
+        Task<List<KeyboxHistory>> GetKeyboxHistories(int keyboxId, int propertyId);
     }
 }

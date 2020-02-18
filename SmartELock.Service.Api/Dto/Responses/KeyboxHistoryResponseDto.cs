@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace SmartELock.Core.Domain.Models.Snapshots
+namespace SmartELock.Service.Api.Dto.Responses
 {
-    public class KeyboxHistorySnapshot
+    public class KeyboxHistoryResponseDto
     {
         public int KeyboxHistoryId { get; set; }
         public int KeyboxId { get; set; }
@@ -13,7 +16,5 @@ namespace SmartELock.Core.Domain.Models.Snapshots
         public string LastName { get; set; }
         public DateTime InOn { get; set; }
         public DateTime? OutOn { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
     }
 }

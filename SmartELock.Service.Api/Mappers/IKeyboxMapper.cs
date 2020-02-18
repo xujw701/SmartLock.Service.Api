@@ -7,7 +7,7 @@ namespace SmartELock.Service.Api.Mappers
     public interface IKeyboxMapper
     {
         KeyboxCreateCommand MapToCreateCommand(KeyboxPostDto keyboxPostDto);
-        KeyboxCommand MapToGetCommand(int keyboxId, string uuid);
+        KeyboxCommand MapToGetCommand(int keyboxId, string uuid = null);
         KeyboxAssignToCommand MapToAssignToCommand(int keyboxId, int userId);
         KeyboxPropertyCreateCommand MapToKeyboxPropertyCreateCommand(int keyboxId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto);
         KeyboxPropertyUpdateCommand MapToKeyboxPropertyUpdateCommand(int keyboxId, int propertyId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto);

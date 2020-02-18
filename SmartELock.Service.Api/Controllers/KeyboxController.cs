@@ -250,5 +250,35 @@ namespace SmartELock.Service.Api.Controllers
                 Success = result
             };
         }
+
+        [HttpGet]
+        [Route("{keyboxId}/property/{propertyId}/histories")]
+        public async Task<List<KeyboxHistoryResponseDto>> GetHistories(int keyboxId, int propertyId)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToGetCommand(keyboxId, propertyId);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var histories = await _keyboxService.GetKeyboxHistories(command);
+
+            if (histories == null) return null;
+
+            return histories.Select(history => new KeyboxHistoryResponseDto
+            {
+                KeyboxHistoryId = history.KeyboxHistoryId,
+                KeyboxId = history.KeyboxId,
+                UserId = history.UserId,
+                TmpUserId = history.TmpUserId,
+                PropertyId = history.PropertyId,
+                FirstName = history.FirstName,
+                LastName = history.LastName,
+                InOn = history.InOn,
+                OutOn = history.OutOn
+            }).ToList();
+        }
     }
 }

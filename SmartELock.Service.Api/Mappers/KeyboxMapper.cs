@@ -19,7 +19,7 @@ namespace SmartELock.Service.Api.Mappers
             };
         }
 
-        public KeyboxCommand MapToGetCommand(int keyboxId, string uuid)
+        public KeyboxCommand MapToGetCommand(int keyboxId, string uuid = null)
         {
             return new KeyboxCommand
             {

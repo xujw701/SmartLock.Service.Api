@@ -11,6 +11,8 @@ namespace SmartELock.Core.Domain.Models
         public int UserId { get; private set; }
         public int? TmpUserId { get; private set; }
         public int PropertyId { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public DateTime InOn { get; private set; }
         public DateTime? OutOn { get; private set; }
         public DateTime CreatedOn { get; private set; }
@@ -40,6 +42,8 @@ namespace SmartELock.Core.Domain.Models
             UserId = snapshot.UserId;
             TmpUserId = snapshot.TmpUserId;
             PropertyId = snapshot.PropertyId;
+            FirstName = snapshot.FirstName;
+            LastName = snapshot.LastName;
             InOn = snapshot.InOn;
             OutOn = snapshot.OutOn;
             CreatedOn = snapshot.CreatedOn;

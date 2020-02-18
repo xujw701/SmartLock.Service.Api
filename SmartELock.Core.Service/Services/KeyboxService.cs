@@ -245,5 +245,22 @@ namespace SmartELock.Core.Services.Services
 
             return false;
         }
+
+        public async Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyGetCommand command)
+        {
+            var validationResult = await _keyboxAccessValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            if (command.KeyboxId > 0)
+            {
+                return await _keyboxRepository.GetKeyboxHistories(command.KeyboxId, command.PropertyId);
+            }
+
+            return null;
+        }
     }
 }

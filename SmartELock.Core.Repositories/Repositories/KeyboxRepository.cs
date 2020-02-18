@@ -170,5 +170,24 @@ namespace SmartELock.Core.Repositories.Repositories
 
             return keybox;
         }
+
+        public async Task<List<KeyboxHistory>> GetKeyboxHistories(int keyboxId, int propertyId)
+        {
+            var keybox = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("KeyboxHistory_Get", new
+                {
+                    keyboxId,
+                    propertyId
+                }))
+                {
+                    var snapshots = reader.Read<KeyboxHistorySnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => KeyboxHistory.CreateFrom(snapshot)).ToList();
+                }
+            });
+
+            return keybox;
+        }
     }
 }
