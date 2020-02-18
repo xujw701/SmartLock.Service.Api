@@ -115,8 +115,7 @@
     <Compile Include="Models\Commands\FeedbackCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />
     <Compile Include="Models\Commands\KeyboxHistoryCommand.cs" />
-    <Compile Include="Models\Commands\KeyboxPropertyGetCommand.cs" />
-    <Compile Include="Models\Commands\KeyboxPropertyDeleteCommand.cs" />
+    <Compile Include="Models\Commands\KeyboxPropertyCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyUpdateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
@@ -132,6 +131,7 @@
     <Compile Include="Models\Constants\UserRole.cs" />
     <Compile Include="Models\Snapshots\KeyboxAssetSnapshot.cs" />
     <Compile Include="Models\Snapshots\KeyboxHistorySnapshot.cs" />
+    <Compile Include="Models\Snapshots\PropertyFeedbackSnapshot.cs" />
     <Compile Include="Models\Snapshots\PropertySnapshot.cs" />
     <Compile Include="Models\Snapshots\KeyboxSnapshot.cs" />
     <Compile Include="Models\User.cs" />

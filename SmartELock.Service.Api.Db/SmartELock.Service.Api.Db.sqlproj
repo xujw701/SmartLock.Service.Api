@@ -146,5 +146,6 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Feedback_Create.sql" />
     <Build Include="Schema\dbo\Tables\dbo.PropertyFeedback.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.PropertyFeedback_Create.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.PropertyFeedback_Get.sql" />
   </ItemGroup>
 </Project>

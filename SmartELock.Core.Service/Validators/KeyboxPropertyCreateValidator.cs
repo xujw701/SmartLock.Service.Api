@@ -24,7 +24,7 @@ namespace SmartELock.Core.Services.Validators
         {
             return new List<ISpecification<KeyboxPropertyCreateCommand>>()
             {
-                new HasPermissionToOperateKeyboxProperty(_keyboxRepository, _userRepository),
+                new HasPermissionToUpdateKeyboxProperty(_keyboxRepository, _userRepository),
                 new KeyboxCanList(_keyboxRepository, _propertyRepository)
             };
         }

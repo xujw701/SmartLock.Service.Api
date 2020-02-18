@@ -17,11 +17,12 @@ namespace SmartELock.Core.Domain.Services
         Task<List<Keybox>> GetMyKeyboxes(int userId);
         Task<int> CreateKeyboxProperty(KeyboxPropertyCreateCommand command);
         Task<bool> UpdateKeyboxProperty(KeyboxPropertyUpdateCommand command);
-        Task<bool> EndKeyboxProperty(KeyboxPropertyDeleteCommand command);
-        Task<Property> GetKeyboxProperty(KeyboxPropertyGetCommand command);
+        Task<bool> EndKeyboxProperty(KeyboxPropertyCommand command);
+        Task<Property> GetKeyboxProperty(KeyboxPropertyCommand command);
         Task<bool> Unlock(KeyboxHistoryCommand command);
         Task<bool> Lock(KeyboxHistoryCommand command);
-        Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyGetCommand command);
+        Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyCommand command);
         Task<int> CreatePropertyFeedback(PropertyFeedbackCreateCommand command);
+        Task<List<PropertyFeedback>> GetKeyboxPropertyFeedback(KeyboxPropertyCommand command);
     }
 }

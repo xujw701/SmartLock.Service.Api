@@ -242,6 +242,7 @@
     <Compile Include="Dto\Requests\CompanyPostDto.cs" />
     <Compile Include="Dto\Requests\SuperAdminPostDto.cs" />
     <Compile Include="Dto\Responses\DefaultCreatedPostResponseDto.cs" />
+    <Compile Include="Dto\Responses\PropertyFeedbackResponseDto.cs" />
     <Compile Include="Dto\Responses\KeyboxHistoryResponseDto.cs" />
     <Compile Include="Dto\Responses\PropertyResponseDto.cs" />
     <Compile Include="Dto\Responses\KeyboxResponseDto.cs" />

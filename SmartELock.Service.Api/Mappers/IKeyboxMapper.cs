@@ -11,8 +11,7 @@ namespace SmartELock.Service.Api.Mappers
         KeyboxAssignToCommand MapToAssignToCommand(int keyboxId, int userId);
         KeyboxPropertyCreateCommand MapToKeyboxPropertyCreateCommand(int keyboxId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto);
         KeyboxPropertyUpdateCommand MapToKeyboxPropertyUpdateCommand(int keyboxId, int propertyId, KeyboxPropertyPostPutDto keyboxPropertyPostPutDto);
-        KeyboxPropertyDeleteCommand MapToKeyboxPropertyDeleteCommand(int keyboxId, int propertyId);
-        KeyboxPropertyGetCommand MapToGetCommand(int keyboxId, int propertyId);
+        KeyboxPropertyCommand MapToKeyboxPropertyCommand(int keyboxId, int propertyId);
         KeyboxHistoryCommand MapToKeyboxHistoryCommand(int keyboxId, KeyboxHistoryPostDto keyboxHistoryPostDto);
         PropertyFeedbackCreateCommand MapToPropertyFeedbackCreateCommand(int keyboxId, int propertyId, FeedbackPostDto feedbackPostDto);
     }

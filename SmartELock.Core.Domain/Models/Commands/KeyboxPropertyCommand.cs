@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Domain.Models.Commands
 {
-    public class KeyboxPropertyGetCommand : KeyboxCommand
+    public class KeyboxPropertyCommand : KeyboxCommand, IKeyboxPropertyCommand
     {
         public int PropertyId { get; set; }
     }

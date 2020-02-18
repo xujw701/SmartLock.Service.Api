@@ -30,7 +30,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<ICommandValidator<KeyboxAssignToCommand>>().To<KeyboxAssignToValidator>();
 			Bind<ICommandValidator<KeyboxPropertyCreateCommand>>().To<KeyboxPropertyCreateValidator>();
 			Bind<ICommandValidator<KeyboxPropertyUpdateCommand>>().To<KeyboxPropertyUpdateValidator>();
-			Bind<ICommandValidator<KeyboxPropertyDeleteCommand>>().To<KeyboxPropertyDeleteValidator>();
+			Bind<ICommandValidator<KeyboxPropertyCommand>>().To<KeyboxPropertyOperateValidator>();
 			Bind<ICommandValidator<KeyboxCommand>>().To<KeyboxAccessValidator>();
 		}
 	}

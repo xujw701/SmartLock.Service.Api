@@ -1,5 +1,4 @@
 ﻿using SmartELock.Core.Domain.Models;
-using SmartELock.Core.Domain.Models.Commands;
 using SmartELock.Core.Domain.Models.Constants;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
@@ -8,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Permissions
 {
-    public class HasPermissionToDeleteKeyboxProperty : ISpecification<KeyboxPropertyDeleteCommand>
+    public class HasPermissionToUpdateKeyboxProperty : ISpecification<IKeyboxPropertyCreateUpdateCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IUserRepository _userRepository;
 
-        public HasPermissionToDeleteKeyboxProperty(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
+        public HasPermissionToUpdateKeyboxProperty(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
         {
             _keyboxRepository = keyboxRepository;
             _userRepository = userRepository;
         }
 
-        public async Task<bool> IsSatisfiedByAsync(KeyboxPropertyDeleteCommand command)
+        public async Task<bool> IsSatisfiedByAsync(IKeyboxPropertyCreateUpdateCommand command)
         {
             // Admin has permission to create any user
             if (command.OperatedByAdmin.HasValue && command.OperatedByAdmin.Value > 0)
@@ -34,8 +33,9 @@ namespace SmartELock.Core.Services.Validators.Permissions
                 if (keybox == null || operateUser == null) return false;
 
                 var ownKeybox = keybox.UserId == operateUser.UserId;
-                var sameCompany = operateUser.CompanyId == keybox.CompanyId;
-                var sameBranch = operateUser.BranchId == keybox.BranchId;
+                var sameCompany = operateUser.CompanyId == keybox.CompanyId && operateUser.CompanyId == command.CompanyId;
+                var sameBranch = operateUser.BranchId == keybox.BranchId
+                    && operateUser.UserRoleId < UserRole.GeneralManagerer ? operateUser.BranchId == command.BranchId : true;
 
                 return ownKeybox && sameCompany && sameBranch;
             }
@@ -45,9 +45,9 @@ namespace SmartELock.Core.Services.Validators.Permissions
             }
         }
 
-        public string ErrorMessage(KeyboxPropertyDeleteCommand obj)
+        public string ErrorMessage(IKeyboxPropertyCreateUpdateCommand obj)
         {
-            return "You must have permission to delete keybox property";
+            return "You must have permission to operate keybox property";
         }
 
         public ErrorCode ErrorCode { get; } = ErrorCode.MustHasPermission;

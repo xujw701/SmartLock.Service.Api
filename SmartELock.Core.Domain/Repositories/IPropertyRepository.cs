@@ -1,4 +1,5 @@
 ﻿using SmartELock.Core.Domain.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartELock.Core.Domain.Repositories
@@ -10,5 +11,6 @@ namespace SmartELock.Core.Domain.Repositories
         Task<bool> EndProperty(int propertyId);
         Task<Property> GetProperty(int propertyId);
         Task<int> CreatePropertyFeedback(PropertyFeedback propertyFeedback);
+        Task<List<PropertyFeedback>> GetPropertyFeedback(int propertyId);
     }
 }

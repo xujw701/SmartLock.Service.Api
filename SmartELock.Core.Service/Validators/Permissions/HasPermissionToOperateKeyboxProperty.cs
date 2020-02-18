@@ -1,4 +1,5 @@
 ﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Models.Commands;
 using SmartELock.Core.Domain.Models.Constants;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Permissions
 {
-    public class HasPermissionToOperateKeyboxProperty : ISpecification<IKeyboxPropertyCreateUpdateCommand>
+    public class HasPermissionToOperateKeyboxProperty : ISpecification<KeyboxPropertyCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IUserRepository _userRepository;
@@ -18,7 +19,7 @@ namespace SmartELock.Core.Services.Validators.Permissions
             _userRepository = userRepository;
         }
 
-        public async Task<bool> IsSatisfiedByAsync(IKeyboxPropertyCreateUpdateCommand command)
+        public async Task<bool> IsSatisfiedByAsync(KeyboxPropertyCommand command)
         {
             // Admin has permission to create any user
             if (command.OperatedByAdmin.HasValue && command.OperatedByAdmin.Value > 0)
@@ -33,8 +34,8 @@ namespace SmartELock.Core.Services.Validators.Permissions
                 if (keybox == null || operateUser == null) return false;
 
                 var ownKeybox = keybox.UserId == operateUser.UserId;
-                var sameCompany = operateUser.CompanyId == keybox.CompanyId && operateUser.CompanyId == command.CompanyId;
-                var sameBranch = operateUser.BranchId == keybox.BranchId && operateUser.BranchId == command.BranchId;
+                var sameCompany = operateUser.CompanyId == keybox.CompanyId;
+                var sameBranch = operateUser.BranchId == keybox.BranchId;
 
                 return ownKeybox && sameCompany && sameBranch;
             }
@@ -44,9 +45,9 @@ namespace SmartELock.Core.Services.Validators.Permissions
             }
         }
 
-        public string ErrorMessage(IKeyboxPropertyCreateUpdateCommand obj)
+        public string ErrorMessage(KeyboxPropertyCommand obj)
         {
-            return "You must have permission to operate keybox property";
+            return "You must have permission to delete keybox property";
         }
 
         public ErrorCode ErrorCode { get; } = ErrorCode.MustHasPermission;

@@ -7,22 +7,22 @@ using System.Collections.Generic;
 
 namespace SmartELock.Core.Services.Validators
 {
-    public class KeyboxPropertyDeleteValidator : BaseCommandValidator<KeyboxPropertyDeleteCommand>
+    public class KeyboxPropertyOperateValidator : BaseCommandValidator<KeyboxPropertyCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IUserRepository _userRepository;
 
-        public KeyboxPropertyDeleteValidator(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
+        public KeyboxPropertyOperateValidator(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
         {
             _keyboxRepository = keyboxRepository;
             _userRepository = userRepository;
         }
 
-        protected override IList<ISpecification<KeyboxPropertyDeleteCommand>> GetSpecifications(KeyboxPropertyDeleteCommand command = null)
+        protected override IList<ISpecification<KeyboxPropertyCommand>> GetSpecifications(KeyboxPropertyCommand command = null)
         {
-            return new List<ISpecification<KeyboxPropertyDeleteCommand>>()
+            return new List<ISpecification<KeyboxPropertyCommand>>()
             {
-                new HasPermissionToDeleteKeyboxProperty(_keyboxRepository, _userRepository)
+                new HasPermissionToOperateKeyboxProperty(_keyboxRepository, _userRepository)
             };
         }
     }

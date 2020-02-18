@@ -3,6 +3,7 @@ using SmartELock.Core.Domain.Models.Snapshots;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Repositories.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -112,6 +113,24 @@ namespace SmartELock.Core.Repositories.Repositories
             });
 
             return id;
+        }
+
+        public async Task<List<PropertyFeedback>> GetPropertyFeedback(int propertyId)
+        {
+            var propertyFeedbacks = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("PropertyFeedback_Get", new
+                {
+                    propertyId
+                }))
+                {
+                    var snapshots = reader.Read<PropertyFeedbackSnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => PropertyFeedback.CreateFrom(snapshot)).ToList();
+                }
+            });
+
+            return propertyFeedbacks;
         }
     }
 }

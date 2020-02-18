@@ -67,6 +67,11 @@
         int BranchId { get; }
     }
 
+    public interface IKeyboxPropertyCommand : IKeyboxCommand
+    {
+        int PropertyId { get; }
+    }
+
     public interface IKeyboxAssignToCommand : IKeyboxCommand
     {
         int TargetUserId { get; }

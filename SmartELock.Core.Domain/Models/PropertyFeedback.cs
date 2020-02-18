@@ -9,6 +9,8 @@ namespace SmartELock.Core.Domain.Models
         public int PropertyFeedbackId { get; private set; }
         public int PropertyId { get; private set; }
         public int UserId { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
         public string Content { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime UpdatedOn { get; private set; }
@@ -20,9 +22,26 @@ namespace SmartELock.Core.Domain.Models
             Content = command.Content;
         }
 
+        private PropertyFeedback(PropertyFeedbackSnapshot snapshot)
+        {
+            PropertyFeedbackId = snapshot.PropertyFeedbackId;
+            PropertyId = snapshot.PropertyId;
+            UserId = snapshot.UserId;
+            FirstName = snapshot.FirstName;
+            LastName = snapshot.LastName;
+            Content = snapshot.Content;
+            CreatedOn = snapshot.CreatedOn;
+            UpdatedOn = snapshot.UpdatedOn;
+        }
+
         public static PropertyFeedback CreateFrom(PropertyFeedbackCreateCommand command)
         {
             return new PropertyFeedback(command);
+        }
+
+        public static PropertyFeedback CreateFrom(PropertyFeedbackSnapshot snapshot)
+        {
+            return new PropertyFeedback(snapshot);
         }
     }
 }

@@ -145,7 +145,7 @@ namespace SmartELock.Service.Api.Controllers
         {
             await ValidateToken(Request.Headers);
 
-            var command = _keyboxMapper.MapToGetCommand(keyboxId, propertyId);
+            var command = _keyboxMapper.MapToKeyboxPropertyCommand(keyboxId, propertyId);
 
             // Inject the operater id
             command.OperatedBy = UserId;
@@ -196,7 +196,7 @@ namespace SmartELock.Service.Api.Controllers
         {
             await ValidateToken(Request.Headers);
 
-            var command = _keyboxMapper.MapToKeyboxPropertyDeleteCommand(keyboxId, propertyId);
+            var command = _keyboxMapper.MapToKeyboxPropertyCommand(keyboxId, propertyId);
 
             // Inject the operater id
             command.OperatedBy = UserId;
@@ -257,7 +257,7 @@ namespace SmartELock.Service.Api.Controllers
         {
             await ValidateToken(Request.Headers);
 
-            var command = _keyboxMapper.MapToGetCommand(keyboxId, propertyId);
+            var command = _keyboxMapper.MapToKeyboxPropertyCommand(keyboxId, propertyId);
 
             // Inject the operater id
             command.OperatedBy = UserId;
@@ -300,6 +300,35 @@ namespace SmartELock.Service.Api.Controllers
                 return StatusCode(HttpStatusCode.NoContent);
             }
             return StatusCode(HttpStatusCode.InternalServerError);
+        }
+
+
+        [HttpGet]
+        [Route("{keyboxId}/property/{propertyId}/feedback")]
+        public async Task<List<PropertyFeedbackResponseDto>> GetFeedback(int keyboxId, int propertyId)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToKeyboxPropertyCommand(keyboxId, propertyId);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var feedbacks = await _keyboxService.GetKeyboxPropertyFeedback(command);
+
+            if (feedbacks == null) return null;
+
+            return feedbacks.Select(feedback => new PropertyFeedbackResponseDto
+            {
+                PropertyFeedbackId = feedback.PropertyFeedbackId,
+                PropertyId = feedback.PropertyId,
+                UserId = feedback.UserId,
+                FirstName = feedback.FirstName,
+                LastName = feedback.LastName,
+                Content = feedback.Content,
+                CreatedOn = feedback.CreatedOn
+            }).ToList();
         }
     }
 }

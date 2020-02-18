@@ -22,7 +22,7 @@ namespace SmartELock.Core.Services.Services
         private readonly ICommandValidator<KeyboxAssignToCommand> _keyboxAssignToValidator;
         private readonly ICommandValidator<KeyboxPropertyCreateCommand> _keyboxPropertyCreateValidator;
         private readonly ICommandValidator<KeyboxPropertyUpdateCommand> _keyboxPropertyUpdateValidator;
-        private readonly ICommandValidator<KeyboxPropertyDeleteCommand> _keyboxPropertyDeleteValidator;
+        private readonly ICommandValidator<KeyboxPropertyCommand> _keyboxPropertyOperateValidator;
         private readonly ICommandValidator<KeyboxCommand> _keyboxAccessValidator;
 
         public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository,
@@ -30,7 +30,7 @@ namespace SmartELock.Core.Services.Services
                              ICommandValidator<KeyboxAssignToCommand> keyboxAssignToValidator,
                              ICommandValidator<KeyboxPropertyCreateCommand> keyboxPropertyCreateValidator,
                              ICommandValidator<KeyboxPropertyUpdateCommand> keyboxPropertyUpdateValidator,
-                             ICommandValidator<KeyboxPropertyDeleteCommand> keyboxPropertyDeleteValidator,
+                             ICommandValidator<KeyboxPropertyCommand> keyboxPropertyOperateValidator,
                              ICommandValidator<KeyboxCommand> keyboxAccessValidator)
         {
             _keyboxRepository = keyboxRepository;
@@ -41,7 +41,7 @@ namespace SmartELock.Core.Services.Services
             _keyboxAssignToValidator = keyboxAssignToValidator;
             _keyboxPropertyCreateValidator = keyboxPropertyCreateValidator;
             _keyboxPropertyUpdateValidator = keyboxPropertyUpdateValidator;
-            _keyboxPropertyDeleteValidator = keyboxPropertyDeleteValidator;
+            _keyboxPropertyOperateValidator = keyboxPropertyOperateValidator;
             _keyboxAccessValidator = keyboxAccessValidator;
         }
 
@@ -150,9 +150,9 @@ namespace SmartELock.Core.Services.Services
             return propertyResult && keyboxResult;
         }
 
-        public async Task<bool> EndKeyboxProperty(KeyboxPropertyDeleteCommand command)
+        public async Task<bool> EndKeyboxProperty(KeyboxPropertyCommand command)
         {
-            var validationResult = await _keyboxPropertyDeleteValidator.Validate(command);
+            var validationResult = await _keyboxPropertyOperateValidator.Validate(command);
 
             if (!validationResult.IsValid)
             {
@@ -172,7 +172,7 @@ namespace SmartELock.Core.Services.Services
             return propertyResult && keyboxResult;
         }
 
-        public async Task<Property> GetKeyboxProperty(KeyboxPropertyGetCommand command)
+        public async Task<Property> GetKeyboxProperty(KeyboxPropertyCommand command)
         {
             var validationResult = await _keyboxAccessValidator.Validate(command);
 
@@ -246,7 +246,7 @@ namespace SmartELock.Core.Services.Services
             return false;
         }
 
-        public async Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyGetCommand command)
+        public async Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyCommand command)
         {
             var validationResult = await _keyboxAccessValidator.Validate(command);
 
@@ -277,6 +277,23 @@ namespace SmartELock.Core.Services.Services
             var propertyFeedbackId = await _propertyRepository.CreatePropertyFeedback(propertyFeedback);
 
             return propertyFeedbackId;
+        }
+
+        public async Task<List<PropertyFeedback>> GetKeyboxPropertyFeedback(KeyboxPropertyCommand command)
+        {
+            var validationResult = await _keyboxPropertyOperateValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            if (command.PropertyId > 0)
+            {
+                return await _propertyRepository.GetPropertyFeedback(command.PropertyId);
+            }
+
+            return null;
         }
     }
 }

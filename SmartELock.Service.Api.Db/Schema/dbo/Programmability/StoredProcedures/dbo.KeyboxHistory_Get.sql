@@ -2,7 +2,17 @@
     @keyboxId int,
     @propertyId int
 AS
-    SELECT *
+    SELECT [dbo].[KeyboxHistory].KeyboxHistoryId,
+           [dbo].[KeyboxHistory].KeyboxId,
+           [dbo].[KeyboxHistory].UserId,
+           [dbo].[KeyboxHistory].TmpUserId,
+           [dbo].[KeyboxHistory].PropertyId,
+           [dbo].[User].FirstName,
+           [dbo].[User].LastName,
+           [dbo].[KeyboxHistory].InOn,
+           [dbo].[KeyboxHistory].OutOn,
+           [dbo].[KeyboxHistory].CreatedOn,
+           [dbo].[KeyboxHistory].UpdatedOn
 	FROM [dbo].[KeyboxHistory] INNER JOIN [dbo].[User]
 	ON [dbo].[KeyboxHistory].UserId = [dbo].[User].UserId
     WHERE [dbo].[KeyboxHistory].KeyboxId = @keyboxId
