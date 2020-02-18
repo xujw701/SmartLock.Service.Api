@@ -9,5 +9,6 @@ namespace SmartELock.Core.Domain.Repositories
         Task<bool> UpdateProperty(Property property);
         Task<bool> EndProperty(int propertyId);
         Task<Property> GetProperty(int propertyId);
+        Task<int> CreatePropertyFeedback(PropertyFeedback propertyFeedback);
     }
 }

@@ -111,6 +111,7 @@
     <Compile Include="Models\Commands\Base\PermissionCommand.cs" />
     <Compile Include="Models\Commands\Base\CompanyCommand.cs" />
     <Compile Include="Models\Commands\Base\SuperAdminCommand.cs" />
+    <Compile Include="Models\Commands\PropertyFeedbackCreateCommand.cs" />
     <Compile Include="Models\Commands\FeedbackCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />
     <Compile Include="Models\Commands\KeyboxHistoryCommand.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
     <Compile Include="Models\Commands\UserMeUpdateCommand.cs" />
+    <Compile Include="Models\PropertyFeedback.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\KeyboxHistory.cs" />
     <Compile Include="Models\Property.cs" />

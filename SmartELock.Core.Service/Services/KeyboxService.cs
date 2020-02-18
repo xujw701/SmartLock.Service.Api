@@ -262,5 +262,21 @@ namespace SmartELock.Core.Services.Services
 
             return null;
         }
+
+        public async Task<int> CreatePropertyFeedback(PropertyFeedbackCreateCommand command)
+        {
+            var validationResult = await _keyboxAccessValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            var propertyFeedback = PropertyFeedback.CreateFrom(command);
+
+            var propertyFeedbackId = await _propertyRepository.CreatePropertyFeedback(propertyFeedback);
+
+            return propertyFeedbackId;
+        }
     }
 }

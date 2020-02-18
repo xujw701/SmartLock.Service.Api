@@ -22,5 +22,6 @@ namespace SmartELock.Core.Domain.Services
         Task<bool> Unlock(KeyboxHistoryCommand command);
         Task<bool> Lock(KeyboxHistoryCommand command);
         Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyGetCommand command);
+        Task<int> CreatePropertyFeedback(PropertyFeedbackCreateCommand command);
     }
 }

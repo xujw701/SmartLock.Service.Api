@@ -102,5 +102,15 @@ namespace SmartELock.Service.Api.Mappers
                 DateTime = keyboxHistoryPostDto.DateTime
             };
         }
+
+        public PropertyFeedbackCreateCommand MapToPropertyFeedbackCreateCommand(int keyboxId, int propertyId, FeedbackPostDto feedbackPostDto)
+        {
+            return new PropertyFeedbackCreateCommand
+            {
+                KeyboxId = keyboxId,
+                PropertyId = propertyId,
+                Content = feedbackPostDto.Content
+            };
+        }
     }
 }

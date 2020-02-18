@@ -280,5 +280,26 @@ namespace SmartELock.Service.Api.Controllers
                 OutOn = history.OutOn
             }).ToList();
         }
+
+        [HttpPost]
+        [Route("{keyboxId}/property/{propertyId}/feedback")]
+        public async Task<IHttpActionResult> CreateFeedback(int keyboxId, int propertyId, FeedbackPostDto feedbackPostDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToPropertyFeedbackCreateCommand(keyboxId, propertyId, feedbackPostDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var id = await _keyboxService.CreatePropertyFeedback(command);
+
+            if (id > 0)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return StatusCode(HttpStatusCode.InternalServerError);
+        }
     }
 }
