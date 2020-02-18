@@ -111,6 +111,7 @@
     <Compile Include="Models\Commands\Base\PermissionCommand.cs" />
     <Compile Include="Models\Commands\Base\CompanyCommand.cs" />
     <Compile Include="Models\Commands\Base\SuperAdminCommand.cs" />
+    <Compile Include="Models\Commands\FeedbackCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />
     <Compile Include="Models\Commands\KeyboxHistoryCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyGetCommand.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
     <Compile Include="Models\Commands\UserMeUpdateCommand.cs" />
+    <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\KeyboxHistory.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Keybox.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\SuperAdmin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IFeedbackRepository.cs" />
     <Compile Include="Repositories\IPropertyRepository.cs" />
     <Compile Include="Repositories\IKeyboxRepository.cs" />
     <Compile Include="Repositories\IKeyboxAssetRepository.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Repositories\ISuperAdminRepository.cs" />
     <Compile Include="Services\IAuthorizationService.cs" />
     <Compile Include="Services\IKeyboxService.cs" />
+    <Compile Include="Services\IOtherService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\ICompanyService.cs" />
     <Compile Include="Services\IBranchService.cs" />

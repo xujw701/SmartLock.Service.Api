@@ -142,5 +142,7 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.User_Update.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Keybox_GetByUserId.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.KeyboxHistory_Get.sql" />
+    <Build Include="Schema\dbo\Tables\dbo.Feedback.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Feedback_Create.sql" />
   </ItemGroup>
 </Project>

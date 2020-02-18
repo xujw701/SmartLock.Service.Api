@@ -223,12 +223,14 @@
   <ItemGroup>
     <Compile Include="App_Start\ErrorHandlerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\KeyboxController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Dto\Requests\FeedbackPostDto.cs" />
     <Compile Include="Dto\Requests\KeyboxHistoryPostDto.cs" />
     <Compile Include="Dto\Requests\KeyboxPropertyPostPutDto.cs" />
     <Compile Include="Dto\Requests\KeyboxPostDto.cs" />
@@ -259,6 +261,8 @@
     <Compile Include="IoC\MapperModule.cs" />
     <Compile Include="IoC\RepositoryModule.cs" />
     <Compile Include="IoC\ServiceModule.cs" />
+    <Compile Include="Mappers\IOtherMapper.cs" />
+    <Compile Include="Mappers\OtherMapper.cs" />
     <Compile Include="Mappers\IKeyboxMapper.cs" />
     <Compile Include="Mappers\KeyboxMapper.cs" />
     <Compile Include="Mappers\IUserMapper.cs" />

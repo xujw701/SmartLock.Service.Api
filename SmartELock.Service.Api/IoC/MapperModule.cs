@@ -12,6 +12,7 @@ namespace SmartELock.Service.Api.IoC
 			Bind<IBranchMapper>().To<BranchMapper>();
 			Bind<IUserMapper>().To<UserMapper>();
 			Bind<IKeyboxMapper>().To<KeyboxMapper>();
+			Bind<IOtherMapper>().To<OtherMapper>();
 		}
 	}
 }
