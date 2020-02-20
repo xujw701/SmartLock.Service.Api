@@ -97,9 +97,9 @@ namespace SmartELock.Service.Api.Controllers
 
             if (result)
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                return Ok();
             }
-            return StatusCode(HttpStatusCode.InternalServerError);
+            return InternalServerError();
         }
     }
 }

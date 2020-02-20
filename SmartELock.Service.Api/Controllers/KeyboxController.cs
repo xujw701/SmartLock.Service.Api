@@ -112,9 +112,9 @@ namespace SmartELock.Service.Api.Controllers
 
             if (result)
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                return Ok();
             }
-            return StatusCode(HttpStatusCode.InternalServerError);
+            return InternalServerError();
         }
 
         [HttpPost]
@@ -185,9 +185,9 @@ namespace SmartELock.Service.Api.Controllers
 
             if (result)
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                return Ok();
             }
-            return StatusCode(HttpStatusCode.InternalServerError);
+            return InternalServerError();
         }
 
         [HttpDelete]
@@ -206,9 +206,9 @@ namespace SmartELock.Service.Api.Controllers
 
             if (result)
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                return Ok();
             }
-            return StatusCode(HttpStatusCode.InternalServerError);
+            return InternalServerError();
         }
 
         [HttpPost]
@@ -297,9 +297,9 @@ namespace SmartELock.Service.Api.Controllers
 
             if (id > 0)
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                return Ok();
             }
-            return StatusCode(HttpStatusCode.InternalServerError);
+            return InternalServerError();
         }
 
 
