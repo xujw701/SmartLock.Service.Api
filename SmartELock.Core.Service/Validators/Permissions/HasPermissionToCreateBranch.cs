@@ -29,6 +29,8 @@ namespace SmartELock.Core.Services.Validators.Permissions
             {
                 var operateUser = await _userRepository.GetUser(command.OperatedBy.Value);
 
+                if (operateUser == null) return false;
+
                 var roleOk = operateUser.UserRoleId == UserRole.GeneralManagerer;
                 var sameCompany = operateUser.CompanyId == command.CompanyId;
 

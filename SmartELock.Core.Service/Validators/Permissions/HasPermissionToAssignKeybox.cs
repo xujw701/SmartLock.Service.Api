@@ -30,6 +30,8 @@ namespace SmartELock.Core.Services.Validators.Permissions
                 var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
                 var operateUser = await _userRepository.GetUser(command.OperatedBy.Value);
 
+                if (keybox == null || operateUser == null) return false;
+
                 var roleOk = operateUser.UserRoleId == UserRole.GeneralManagerer;
                 var sameCompany = operateUser.CompanyId == keybox.CompanyId;
 
