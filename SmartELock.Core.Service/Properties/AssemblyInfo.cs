@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SmartELock.Core.Services")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Cover-More")]
+[assembly: AssemblyCompany("SmartELock")]
 [assembly: AssemblyProduct("SmartELock.Core.Services")]
-[assembly: AssemblyCopyright("Copyright © Cover-More 2018")]
+[assembly: AssemblyCopyright("Copyright © SmartELock 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

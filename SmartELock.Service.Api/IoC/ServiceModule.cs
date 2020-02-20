@@ -21,6 +21,8 @@ namespace SmartELock.Service.Api.IoC
 
 			Bind<IOtherService>().To<OtherService>();
 
+			Bind<IPushNotificationService>().To<PushNotificationService>();
+
 			Bind<ICommandValidator<SuperAdminCreateCommand>>().To<SuperAdminCreateValidator>();
 			Bind<ICommandValidator<CompanyCreateCommand>>().To<CompanyCreateValidator>();
 			Bind<ICommandValidator<BranchCreateCommand>>().To<BranchCreateValidator>();

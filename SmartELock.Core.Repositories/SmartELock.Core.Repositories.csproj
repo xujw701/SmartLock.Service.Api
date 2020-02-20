@@ -172,6 +172,7 @@
     <Compile Include="Repositories\PropertyRepository.cs" />
     <Compile Include="Repositories\KeyboxRepository.cs" />
     <Compile Include="Repositories\KeyboxAssetRepository.cs" />
+    <Compile Include="Repositories\PushNotificationRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\BranchRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />

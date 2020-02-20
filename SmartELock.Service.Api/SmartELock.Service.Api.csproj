@@ -223,6 +223,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ErrorHandlerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\KeyboxController.cs" />
     <Compile Include="Controllers\UserController.cs" />

@@ -66,6 +66,7 @@
     <Compile Include="Services\OtherService.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Services\KeyboxService.cs" />
+    <Compile Include="Services\PushNotificationService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\BranchService.cs" />
     <Compile Include="Services\CompanyService.cs" />
