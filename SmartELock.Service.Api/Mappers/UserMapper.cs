@@ -31,7 +31,7 @@ namespace SmartELock.Service.Api.Mappers
                 LastName = userMePutDto.LastName,
                 Email = userMePutDto.Email,
                 Phone = userMePutDto.Phone,
-                Password = userMePutDto.Password
+                Password = userMePutDto?.Password
             };
         }
 

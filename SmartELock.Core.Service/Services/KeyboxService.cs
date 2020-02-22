@@ -204,8 +204,17 @@ namespace SmartELock.Core.Services.Services
             var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
 
             // Validate data
-            if (keybox == null) return false;
-            if (!command.OperatedBy.HasValue || !keybox.PropertyId.HasValue) return false;
+            if (keybox == null)
+            {
+                return false;
+            }
+            if (!command.OperatedBy.HasValue || !keybox.PropertyId.HasValue)
+            {
+                // Owner can unlock keybox even it is not listed
+                if (command.OperatedBy.HasValue && keybox.UserId.HasValue && command.OperatedBy.Value == keybox.UserId.Value) return true;
+
+                return false;
+            }
 
             keyboxHistory.SetInData(command.OperatedBy.Value, keybox.PropertyId.Value, command.DateTime);
 

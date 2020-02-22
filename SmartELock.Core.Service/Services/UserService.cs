@@ -41,6 +41,8 @@ namespace SmartELock.Core.Services.Services
         {
             var user = await _userRepository.GetUser(command.UserId);
 
+            if (string.IsNullOrEmpty(command.Password)) command.Password = user.Password;
+
             user.Update(command.FirstName, command.LastName, command.Email, command.Phone, command.Password);
 
             return await _userRepository.UpdateUser(user);
@@ -76,7 +78,7 @@ namespace SmartELock.Core.Services.Services
             return new Tuple<bool, User>(user.Token.Equals(token), user);
         }
 
-        private async Task<int> Auth(UserLoginCommand command)
+        public async Task<int> Auth(UserLoginCommand command)
         {
             var user = await _userRepository.GetUser(command.Username);
 

@@ -11,5 +11,6 @@ namespace SmartELock.Core.Domain.Services
         Task<bool> UpdateMe(UserMeUpdateCommand command);
         Task<User> Login(UserLoginCommand command);
         Task<Tuple<bool, User>> CheckToken(int userId, string token);
+        Task<int> Auth(UserLoginCommand command);
     }
 }

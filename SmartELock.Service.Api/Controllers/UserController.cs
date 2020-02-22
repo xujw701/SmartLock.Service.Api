@@ -64,6 +64,29 @@ namespace SmartELock.Service.Api.Controllers
             };
         }
 
+        [HttpPost]
+        [Route("auth")]
+        public async Task<IHttpActionResult> Auth(UserTokenPostDto userTokenPostDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _userMapper.MapToLoginCommand(userTokenPostDto);
+
+            var id = await _userService.Auth(command);
+
+            if (UserId > 0 && id == UserId)
+            {
+                var response = new DefaultCreatedPostResponseDto
+                {
+                    Id = id
+                };
+
+                return Created($"{id}", response);
+            }
+
+            return Unauthorized();
+        }
+
         [HttpGet]
         [Route("me")]
         public async Task<MeResponseDto> GetMe()
@@ -75,6 +98,7 @@ namespace SmartELock.Service.Api.Controllers
                 UserId = CurrentUser.UserId,
                 CompanyId = CurrentUser.CompanyId,
                 BranchId = CurrentUser.BranchId,
+                UserName = CurrentUser.Username,
                 FirstName = CurrentUser.FirstName,
                 LastName = CurrentUser.LastName,
                 Email = CurrentUser.Email,
