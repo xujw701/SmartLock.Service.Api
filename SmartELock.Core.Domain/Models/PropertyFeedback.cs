@@ -11,6 +11,8 @@ namespace SmartELock.Core.Domain.Models
         public int UserId { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
+        public string Phone { get; private set; }
+        public int? ResPortraitId { get; private set; }
         public string Content { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime UpdatedOn { get; private set; }
@@ -29,6 +31,8 @@ namespace SmartELock.Core.Domain.Models
             UserId = snapshot.UserId;
             FirstName = snapshot.FirstName;
             LastName = snapshot.LastName;
+            Phone = snapshot.Phone;
+            ResPortraitId = snapshot.ResPortraitId;
             Content = snapshot.Content;
             CreatedOn = snapshot.CreatedOn;
             UpdatedOn = snapshot.UpdatedOn;

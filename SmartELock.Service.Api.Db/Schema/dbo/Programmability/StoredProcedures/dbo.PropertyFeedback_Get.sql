@@ -7,6 +7,8 @@ AS
            [dbo].[PropertyFeedback].UserId,
            [dbo].[User].FirstName,
            [dbo].[User].LastName,
+           [dbo].[User].Phone,
+           [dbo].[User].ResPortraitId,
            [dbo].[PropertyFeedback].Content,
            [dbo].[PropertyFeedback].CreatedOn,
            [dbo].[PropertyFeedback].UpdatedOn

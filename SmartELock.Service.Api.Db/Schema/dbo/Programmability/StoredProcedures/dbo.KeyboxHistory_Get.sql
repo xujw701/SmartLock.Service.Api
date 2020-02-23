@@ -9,6 +9,7 @@ AS
            [dbo].[KeyboxHistory].PropertyId,
            [dbo].[User].FirstName,
            [dbo].[User].LastName,
+           [dbo].[User].ResPortraitId,
            [dbo].[KeyboxHistory].InOn,
            [dbo].[KeyboxHistory].OutOn,
            [dbo].[KeyboxHistory].CreatedOn,

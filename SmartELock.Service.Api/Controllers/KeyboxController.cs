@@ -278,6 +278,7 @@ namespace SmartELock.Service.Api.Controllers
                 PropertyId = history.PropertyId,
                 FirstName = history.FirstName,
                 LastName = history.LastName,
+                ResPortraitId = history.ResPortraitId,
                 InOn = history.InOn,
                 OutOn = history.OutOn
             }).ToList();
@@ -304,7 +305,6 @@ namespace SmartELock.Service.Api.Controllers
             return InternalServerError();
         }
 
-
         [HttpGet]
         [Route("{keyboxId}/property/{propertyId}/feedback")]
         public async Task<List<PropertyFeedbackResponseDto>> GetFeedback(int keyboxId, int propertyId)
@@ -328,6 +328,8 @@ namespace SmartELock.Service.Api.Controllers
                 UserId = feedback.UserId,
                 FirstName = feedback.FirstName,
                 LastName = feedback.LastName,
+                Phone = feedback.Phone,
+                ResPortraitId = feedback.ResPortraitId,
                 Content = feedback.Content,
                 CreatedOn = feedback.CreatedOn
             }).ToList();

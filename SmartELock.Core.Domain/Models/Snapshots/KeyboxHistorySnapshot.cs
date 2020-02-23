@@ -11,6 +11,7 @@ namespace SmartELock.Core.Domain.Models.Snapshots
         public int PropertyId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int? ResPortraitId { get; set; }
         public DateTime InOn { get; set; }
         public DateTime? OutOn { get; set; }
         public DateTime CreatedOn { get; set; }
