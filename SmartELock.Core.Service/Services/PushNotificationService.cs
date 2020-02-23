@@ -32,7 +32,7 @@ namespace SmartELock.Core.Services.Services
         public async Task SendNotification(string title, string message, string tag, string[] tags)
         {
             await SendNotification("fcm", title, message, tag, tags);
-            await SendNotification("apns", title, message, tag, tags);
+            //await SendNotification("apns", title, message, tag, tags);
         }
 
         private async Task SendNotification(string pns, string title, string message, string tag, string[] tags)

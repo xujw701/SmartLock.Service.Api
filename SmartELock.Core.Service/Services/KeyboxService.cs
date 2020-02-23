@@ -18,6 +18,8 @@ namespace SmartELock.Core.Services.Services
         private readonly IKeyboxAssetRepository _keyboxAssetRepository;
         private readonly IPropertyRepository _propertyRepository;
 
+        private readonly IPushNotificationService _pushNotificationService;
+
         private readonly ICommandValidator<KeyboxCreateCommand> _keyboxRegisterValidator;
         private readonly ICommandValidator<KeyboxAssignToCommand> _keyboxAssignToValidator;
         private readonly ICommandValidator<KeyboxPropertyCreateCommand> _keyboxPropertyCreateValidator;
@@ -26,6 +28,7 @@ namespace SmartELock.Core.Services.Services
         private readonly ICommandValidator<KeyboxCommand> _keyboxAccessValidator;
 
         public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository,
+                             IPushNotificationService pushNotificationService,
                              ICommandValidator<KeyboxCreateCommand> keyboxRegisterValidator,
                              ICommandValidator<KeyboxAssignToCommand> keyboxAssignToValidator,
                              ICommandValidator<KeyboxPropertyCreateCommand> keyboxPropertyCreateValidator,
@@ -36,6 +39,8 @@ namespace SmartELock.Core.Services.Services
             _keyboxRepository = keyboxRepository;
             _keyboxAssetRepository = keyboxAssetRepository;
             _propertyRepository = propertyRepository;
+
+            _pushNotificationService = pushNotificationService;
 
             _keyboxRegisterValidator = keyboxRegisterValidator;
             _keyboxAssignToValidator = keyboxAssignToValidator;
@@ -189,7 +194,7 @@ namespace SmartELock.Core.Services.Services
             return null;
         }
 
-        public async Task<bool> Unlock(KeyboxHistoryCommand command)
+        public async Task<bool> Unlock(User currentUser, KeyboxHistoryCommand command)
         {
             var validationResult = await _keyboxAccessValidator.Validate(command);
 
@@ -219,6 +224,18 @@ namespace SmartELock.Core.Services.Services
             keyboxHistory.SetInData(command.OperatedBy.Value, keybox.PropertyId.Value, command.DateTime);
 
             var id = await _keyboxRepository.CreateKeyboxHistory(keyboxHistory);
+
+            // Not owner
+            if (command.OperatedBy.HasValue && keybox.UserId.HasValue && command.OperatedBy.Value != keybox.UserId.Value)
+            {
+                if (currentUser != null)
+                {
+                    await _pushNotificationService.SendNotification("Your keybox has been unlocked",
+                                                                    $"{keybox.KeyboxName} was unlocked by {currentUser.FirstName} {currentUser.LastName}.",
+                                                                    string.Empty,
+                                                                    new []{ $"{keybox.UserId.Value}" });
+                }
+            }
 
             return id > 0;
         }

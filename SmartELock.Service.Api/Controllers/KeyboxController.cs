@@ -225,7 +225,7 @@ namespace SmartELock.Service.Api.Controllers
             command.OperatedBy = UserId;
             command.OperatedByAdmin = AdminId;
 
-            var result = await _keyboxService.Unlock(command);
+            var result = await _keyboxService.Unlock(CurrentUser, command);
 
             return new LockUnlockResponseDto
             {
