@@ -100,6 +100,28 @@ namespace SmartELock.Service.Api.Controllers
             }).ToList();
         }
 
+        [HttpGet]
+        [Route("iunlocked")]
+        public async Task<List<KeyboxResponseDto>> KeyboxesIUnlocked()
+        {
+            await ValidateToken(Request.Headers);
+
+            var keyboxes = await _keyboxService.GetKeyboxesIUnlocked(UserId);
+
+            return keyboxes.Select(keybox => new KeyboxResponseDto
+            {
+                KeyboxId = keybox.KeyboxId,
+                CompanyId = keybox.CompanyId,
+                BranchId = keybox.BranchId,
+                UserId = keybox.UserId,
+                Uuid = keybox.Uuid,
+                PropertyId = keybox.PropertyId,
+                PropertyAddress = keybox.Address,
+                KeyboxName = keybox.KeyboxName,
+                BatteryLevel = keybox.BatteryLevel,
+            }).ToList();
+        }
+
         [HttpPost]
         [Route("{keyboxId}/assignTo/{userId}")]
         public async Task<IHttpActionResult> AssignTo(int keyboxId, int userId)

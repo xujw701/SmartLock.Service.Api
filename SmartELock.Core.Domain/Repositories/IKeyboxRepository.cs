@@ -10,6 +10,7 @@ namespace SmartELock.Core.Domain.Repositories
         Task<bool> UpdateKeybox(Keybox keybox);
         Task<Keybox> GetKeyboxByUuid(string uuid);
         Task<List<Keybox>> GetKeyboxesByUserId(int userId);
+        Task<List<Keybox>> GetKeyboxesByHistoryUserId(int userId);
         Task<Keybox> GetKeybox(int keyboxId);
         Task<int> CreateKeyboxHistory(KeyboxHistory keyboxHistory);
         Task<bool> UpdateKeyboxHistory(KeyboxHistory keyboxHistory);
