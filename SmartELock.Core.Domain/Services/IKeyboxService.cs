@@ -19,6 +19,7 @@ namespace SmartELock.Core.Domain.Services
         Task<bool> UpdateKeyboxProperty(KeyboxPropertyUpdateCommand command);
         Task<bool> EndKeyboxProperty(KeyboxPropertyCommand command);
         Task<Property> GetKeyboxProperty(KeyboxPropertyCommand command);
+        Task<bool> UnlockPermission(User currentUser, KeyboxCommand command);
         Task<bool> Unlock(User currentUser, KeyboxHistoryCommand command);
         Task<bool> Lock(KeyboxHistoryCommand command);
         Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyCommand command);

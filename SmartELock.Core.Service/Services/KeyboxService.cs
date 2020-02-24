@@ -104,7 +104,9 @@ namespace SmartELock.Core.Services.Services
 
         public async Task<List<Keybox>> GetMyKeyboxes(int userId)
         {
-            return await _keyboxRepository.GetKeyboxesByUserId(userId);
+            var keyboxes = await _keyboxRepository.GetKeyboxesByUserId(userId);
+
+            return keyboxes;
         }
 
         public async Task<int> CreateKeyboxProperty(KeyboxPropertyCreateCommand command)
@@ -192,6 +194,18 @@ namespace SmartELock.Core.Services.Services
             }
 
             return null;
+        }
+
+        public async Task<bool> UnlockPermission(User currentUser, KeyboxCommand command)
+        {
+            var validationResult = await _keyboxAccessValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<bool> Unlock(User currentUser, KeyboxHistoryCommand command)

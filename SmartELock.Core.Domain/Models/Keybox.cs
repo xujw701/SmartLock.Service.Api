@@ -12,6 +12,7 @@ namespace SmartELock.Core.Domain.Models
         public int KeyboxAssetId { get; private set; }
         public string Uuid { get; private set; }
         public int? PropertyId { get; private set; }
+        public string Address { get; private set; }
         public int? UserId { get; private set; }
         public string KeyboxName { get; private set; }
         public int BatteryLevel { get; private set; }
@@ -37,6 +38,7 @@ namespace SmartELock.Core.Domain.Models
             KeyboxAssetId = snapshot.KeyboxAssetId;
             Uuid = snapshot.Uuid;
             PropertyId = snapshot.PropertyId;
+            Address = snapshot.Address;
             UserId = snapshot.UserId;
             KeyboxName = snapshot.KeyboxName;
             BatteryLevel = snapshot.BatteryLevel;

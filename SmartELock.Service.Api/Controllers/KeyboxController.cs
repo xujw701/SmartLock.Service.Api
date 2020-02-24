@@ -1,4 +1,5 @@
-﻿using SmartELock.Core.Domain.Services;
+﻿using SmartELock.Core.Domain.Models.Commands.Base;
+using SmartELock.Core.Domain.Services;
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
 using SmartELock.Service.Api.Mappers;
@@ -71,15 +72,15 @@ namespace SmartELock.Service.Api.Controllers
                 UserId = keybox.UserId,
                 Uuid = keybox.Uuid,
                 PropertyId = keybox.PropertyId,
+                PropertyAddress = keybox.Address,
                 KeyboxName = keybox.KeyboxName,
                 BatteryLevel = keybox.BatteryLevel,
             };
         }
 
-
         [HttpGet]
         [Route("mine")]
-        public async Task<List<KeyboxResponseDto>> MyKeboxes()
+        public async Task<List<KeyboxResponseDto>> MyKeyboxes()
         {
             await ValidateToken(Request.Headers);
 
@@ -93,6 +94,7 @@ namespace SmartELock.Service.Api.Controllers
                 UserId = keybox.UserId,
                 Uuid = keybox.Uuid,
                 PropertyId = keybox.PropertyId,
+                PropertyAddress = keybox.Address,
                 KeyboxName = keybox.KeyboxName,
                 BatteryLevel = keybox.BatteryLevel,
             }).ToList();
@@ -211,6 +213,26 @@ namespace SmartELock.Service.Api.Controllers
                 return Ok();
             }
             return InternalServerError();
+        }
+
+        [HttpPost]
+        [Route("{keyboxId}/unlock/permission")]
+        public async Task<LockUnlockResponseDto> UnlockPermission(int keyboxId)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = new KeyboxCommand();
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var result = await _keyboxService.UnlockPermission(CurrentUser, command);
+
+            return new LockUnlockResponseDto
+            {
+                Success = result
+            };
         }
 
         [HttpPost]
