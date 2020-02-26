@@ -40,8 +40,6 @@ namespace SmartELock.Service.Api.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Delete(string id)
         {
-            await ValidateToken(Request.Headers);
-
             await _pushNotificationService.DeleteRegistrationAsync(id);
             return Ok();
         }
