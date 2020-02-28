@@ -1,5 +1,6 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Services;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,6 +15,7 @@ namespace SmartELock.Service.Api.Controllers
         private const string SuperAdminIdKey = "SuperAdminId";
         private const string UserIdKey = "UserId";
         private const string BearerKey = "Bearer";
+        private const int MaxUploadSize = 1024 * 1024 * 5; // 5 Mb
 
         private readonly IAuthorizationService _authorizationService;
 
@@ -61,6 +63,23 @@ namespace SmartELock.Service.Api.Controllers
             else
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+        }
+
+        protected async Task<byte[]> GetBodyBytes()
+        {
+            using (var ms = new System.IO.MemoryStream())
+            {
+                await Request.Content.CopyToAsync(ms);
+
+                var result = ms.ToArray();
+
+                if (result.Length > MaxUploadSize)
+                {
+                    throw new Exception("Upload filesize exceeds " + MaxUploadSize + "bytes.");
+                }
+
+                return result;
             }
         }
 

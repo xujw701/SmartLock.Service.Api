@@ -1,5 +1,6 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Enums;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Services;
@@ -13,12 +14,14 @@ namespace SmartELock.Core.Services.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IResourceRepository _resourceRepository;
 
         private readonly ICommandValidator<UserCreateCommand> _userCreateValidator;
 
-        public UserService(IUserRepository userRepository, ICommandValidator<UserCreateCommand> userCreateValidator)
+        public UserService(IUserRepository userRepository, IResourceRepository resourceRepository, ICommandValidator<UserCreateCommand> userCreateValidator)
         {
             _userRepository = userRepository;
+            _resourceRepository = resourceRepository;
 
             _userCreateValidator = userCreateValidator;
         }
@@ -90,6 +93,44 @@ namespace SmartELock.Core.Services.Services
             }
 
             return 0;
+        }
+
+        public async Task<bool> UpdatePortrait(int userId, byte[] bytes, FileType fileType)
+        {
+            var user = await _userRepository.GetUser(userId);
+
+            // Remove previous portrait
+            if (user.ResPortraitId.HasValue)
+            {
+                var url = await _resourceRepository.GetPortrait(user.ResPortraitId.Value);
+
+                // Remove from Azure storage
+                var deleteBlobResult = await _resourceRepository.DeleteBlob(url, ResourceType.Portrait);
+            }
+
+            // Add to Azure storage
+            var blobUrl = await _resourceRepository.SaveBlob(bytes, fileType, ResourceType.Portrait);
+
+            if (user.ResPortraitId.HasValue)
+            {
+                return await _resourceRepository.UpdatePortrait(user.ResPortraitId.Value, blobUrl);
+            }
+            else
+            {
+                // Add to Database
+                var portaitId = await _resourceRepository.AddPortrait(blobUrl);
+
+                user.Update(portaitId);
+
+                return await _userRepository.UpdateUser(user);
+            }
+        }
+
+        public async Task<byte[]> GetPortrait(int portraitId)
+        {
+            var url = await _resourceRepository.GetPortrait(portraitId);
+            if (url == null) return null;
+            return await _resourceRepository.LoadBlob(url, ResourceType.Portrait);
         }
 
         private async Task<bool> IssueToken(int userId)

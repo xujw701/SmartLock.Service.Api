@@ -9,7 +9,8 @@
     @userName NVARCHAR(255),
     @password NVARCHAR(255),
     @individual BIT,
-    @userRoleId INT
+    @userRoleId INT,
+    @resPortraitId INT
 AS
 
     UPDATE [dbo].[User]
@@ -23,6 +24,7 @@ AS
         Password = @password,
         Individual = @individual,
         UserRoleId = @userRoleId,
+        ResPortraitId = @resPortraitId,
         UpdatedOn = SYSUTCDATETIME()
     WHERE UserId = @userId
 

@@ -57,7 +57,8 @@ namespace SmartELock.Core.Repositories.Repositories
                     user.Username,
                     user.Password,
                     user.Individual,
-                    user.UserRoleId
+                    user.UserRoleId,
+                    user.ResPortraitId
                 });
             });
 

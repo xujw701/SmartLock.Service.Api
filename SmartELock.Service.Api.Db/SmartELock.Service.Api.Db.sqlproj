@@ -148,5 +148,8 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.PropertyFeedback_Create.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.PropertyFeedback_Get.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Keybox_GetHistoryByUserId.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResPortrait_Add.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResPortrait_Udate.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResPortrait_Get.sql" />
   </ItemGroup>
 </Project>

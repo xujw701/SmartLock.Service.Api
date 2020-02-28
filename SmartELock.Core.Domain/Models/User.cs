@@ -31,6 +31,11 @@ namespace SmartELock.Core.Domain.Models
             Password = password;
         }
 
+        public void Update(int resPortraitId)
+        {
+            ResPortraitId = resPortraitId;
+        }
+
         private User(UserCreateCommand command)
         {
             CompanyId = command.CompanyId;

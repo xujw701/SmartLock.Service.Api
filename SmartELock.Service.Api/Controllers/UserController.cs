@@ -1,4 +1,5 @@
-﻿using SmartELock.Core.Domain.Services;
+﻿using SmartELock.Core.Domain.Models.Enums;
+using SmartELock.Core.Domain.Services;
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
 using SmartELock.Service.Api.Mappers;
@@ -124,6 +125,34 @@ namespace SmartELock.Service.Api.Controllers
                 return Ok();
             }
             return InternalServerError();
+        }
+
+        [HttpPost]
+        [Route("portrait")]
+        public async Task<IHttpActionResult> ChangePortrait(FileType fileType = FileType.Png)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            var bytes = await GetBodyBytes();
+
+            var result = await _userService.UpdatePortrait(UserId, bytes, fileType);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        [HttpGet]
+        [Route("portrait/{portraitId}")]
+        public async Task<byte[]> GetPortrait(int portraitId)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            return await _userService.GetPortrait(portraitId);
         }
     }
 }
