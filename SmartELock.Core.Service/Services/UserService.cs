@@ -95,7 +95,7 @@ namespace SmartELock.Core.Services.Services
             return 0;
         }
 
-        public async Task<bool> UpdatePortrait(int userId, byte[] bytes, FileType fileType)
+        public async Task<int> UpdatePortrait(int userId, byte[] bytes, FileType fileType)
         {
             var user = await _userRepository.GetUser(userId);
 
@@ -113,7 +113,8 @@ namespace SmartELock.Core.Services.Services
 
             if (user.ResPortraitId.HasValue)
             {
-                return await _resourceRepository.UpdatePortrait(user.ResPortraitId.Value, blobUrl);
+                await _resourceRepository.UpdatePortrait(user.ResPortraitId.Value, blobUrl);
+                return user.ResPortraitId.Value;
             }
             else
             {
@@ -122,7 +123,9 @@ namespace SmartELock.Core.Services.Services
 
                 user.Update(portaitId);
 
-                return await _userRepository.UpdateUser(user);
+                await _userRepository.UpdateUser(user);
+
+                return portaitId;
             }
         }
 

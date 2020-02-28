@@ -136,11 +136,16 @@ namespace SmartELock.Service.Api.Controllers
 
             var bytes = await GetBodyBytes();
 
-            var result = await _userService.UpdatePortrait(UserId, bytes, fileType);
+            var id = await _userService.UpdatePortrait(UserId, bytes, fileType);
 
-            if (result)
+            if (id > 0)
             {
-                return Ok();
+                var response = new DefaultCreatedPostResponseDto
+                {
+                    Id = id
+                };
+
+                return Created($"{id}", response);
             }
             return InternalServerError();
         }
