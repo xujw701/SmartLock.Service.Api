@@ -1,6 +1,7 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
 using SmartELock.Core.Domain.Models.Commands.Base;
+using SmartELock.Core.Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,10 @@ namespace SmartELock.Core.Domain.Services
         Task<List<KeyboxHistory>> GetKeyboxHistories(KeyboxPropertyCommand command);
         Task<int> CreatePropertyFeedback(PropertyFeedbackCreateCommand command);
         Task<List<PropertyFeedback>> GetKeyboxPropertyFeedback(KeyboxPropertyCommand command);
+        Task<List<ResProperty>> GetPropertyResource(int propertyId);
+        Task<bool> AddPropertyResource(int propertyId, byte[] bytes, FileType fileType);
+        Task<bool> UpdatePropertyResource(int propertyId, int resPropertyId, byte[] bytes, FileType fileType);
+        Task<bool> DeletePropertyResource(int propertyId, int resPropertyId);
+        Task<byte[]> GetPropertyResourceData(int resPropertyId);
     }
 }

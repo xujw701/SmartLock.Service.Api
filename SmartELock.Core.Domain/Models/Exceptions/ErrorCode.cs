@@ -23,6 +23,9 @@ namespace SmartELock.Core.Domain.Models.Exceptions
         KeyboxCanList = 6,
 
         [EnumMember(Value = "KEYBOX_NOT_LIST")]
-        KeyboxNotList = 7
+        KeyboxNotList = 7,
+
+        [EnumMember(Value = "PROPERTY_RESOURCE_LIMIT")]
+        PropertyResourceLimit = 8,
     }
 }

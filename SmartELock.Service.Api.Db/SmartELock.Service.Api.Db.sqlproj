@@ -151,5 +151,10 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResPortrait_Add.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResPortrait_Udate.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResPortrait_Get.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_Add.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_Get.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_GetByPropertyId.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_Update.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_Delete.sql" />
   </ItemGroup>
 </Project>

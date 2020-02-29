@@ -133,11 +133,13 @@
     <Compile Include="Models\Constants\UserRole.cs" />
     <Compile Include="Models\PushNotification\DeviceRegistration.cs" />
     <Compile Include="Models\PushNotification\NotificationHandle.cs" />
+    <Compile Include="Models\ResProperty.cs" />
     <Compile Include="Models\Snapshots\KeyboxAssetSnapshot.cs" />
     <Compile Include="Models\Snapshots\KeyboxHistorySnapshot.cs" />
     <Compile Include="Models\Snapshots\PropertyFeedbackSnapshot.cs" />
     <Compile Include="Models\Snapshots\PropertySnapshot.cs" />
     <Compile Include="Models\Snapshots\KeyboxSnapshot.cs" />
+    <Compile Include="Models\Snapshots\ResPropertySnapshot.cs" />
     <Compile Include="Models\Snapshots\ResPortraitSnapshot.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Commands\UserCreateCommand.cs" />

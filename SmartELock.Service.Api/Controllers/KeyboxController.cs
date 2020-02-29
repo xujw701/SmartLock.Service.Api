@@ -1,4 +1,6 @@
-﻿using SmartELock.Core.Domain.Models.Commands.Base;
+﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Models.Commands.Base;
+using SmartELock.Core.Domain.Models.Enums;
 using SmartELock.Core.Domain.Services;
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
@@ -235,6 +237,78 @@ namespace SmartELock.Service.Api.Controllers
                 return Ok();
             }
             return InternalServerError();
+        }
+
+        [HttpGet]
+        [Route("{keyboxId}/property/{propertyId}/resources")]
+        public async Task<List<ResProperty>> GetPropertyResource(int keyboxId, int propertyId)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            return await _keyboxService.GetPropertyResource(propertyId);
+        }
+
+        [HttpPost]
+        [Route("{keyboxId}/property/{propertyId}/resources")]
+        public async Task<IHttpActionResult> AddPropertyResource(int keyboxId, int propertyId, FileType fileType = FileType.Png)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            var bytes = await GetBodyBytes();
+
+            var result = await _keyboxService.AddPropertyResource(propertyId, bytes, fileType);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        [HttpPut]
+        [Route("{keyboxId}/property/{propertyId}/resources/{resPropertyId}")]
+        public async Task<IHttpActionResult> EditPropertyResource(int keyboxId, int propertyId, int resPropertyId, FileType fileType = FileType.Png)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            var bytes = await GetBodyBytes();
+
+            var result = await _keyboxService.UpdatePropertyResource(propertyId, resPropertyId, bytes, fileType);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        [HttpDelete]
+        [Route("{keyboxId}/property/{propertyId}/resources/{resPropertyId}")]
+        public async Task<IHttpActionResult> DeletePropertyResource(int keyboxId, int propertyId, int resPropertyId)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            var result = await _keyboxService.DeletePropertyResource(propertyId, resPropertyId);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        [HttpGet]
+        [Route("property/resources/{resPropertyId}")]
+        public async Task<byte[]> GetTeacherResource(int resPropertyId)
+        {
+            // Validate token
+            await ValidateToken(Request.Headers);
+
+            return await _keyboxService.GetPropertyResourceData(resPropertyId);
         }
 
         [HttpPost]

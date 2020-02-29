@@ -1,11 +1,11 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
 using SmartELock.Core.Domain.Models.Commands.Base;
+using SmartELock.Core.Domain.Models.Enums;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Services;
 using SmartELock.Core.Services.Validators;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +14,12 @@ namespace SmartELock.Core.Services.Services
 {
     public class KeyboxService : IKeyboxService
     {
+        private const int PropertyResourceLimit = 5;
+
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IKeyboxAssetRepository _keyboxAssetRepository;
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IResourceRepository _resourceRepository;
 
         private readonly IPushNotificationService _pushNotificationService;
 
@@ -27,7 +30,7 @@ namespace SmartELock.Core.Services.Services
         private readonly ICommandValidator<KeyboxPropertyCommand> _keyboxPropertyOperateValidator;
         private readonly ICommandValidator<KeyboxCommand> _keyboxAccessValidator;
 
-        public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository,
+        public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository, IResourceRepository resourceRepository,
                              IPushNotificationService pushNotificationService,
                              ICommandValidator<KeyboxCreateCommand> keyboxRegisterValidator,
                              ICommandValidator<KeyboxAssignToCommand> keyboxAssignToValidator,
@@ -39,6 +42,7 @@ namespace SmartELock.Core.Services.Services
             _keyboxRepository = keyboxRepository;
             _keyboxAssetRepository = keyboxAssetRepository;
             _propertyRepository = propertyRepository;
+            _resourceRepository = resourceRepository;
 
             _pushNotificationService = pushNotificationService;
 
@@ -341,6 +345,78 @@ namespace SmartELock.Core.Services.Services
             }
 
             return null;
+        }
+
+        public async Task<List<ResProperty>> GetPropertyResource(int propertyId)
+        {
+            var result = await _resourceRepository.GetResPropertyList(propertyId);
+
+            return result;
+        }
+
+        public async Task<bool> AddPropertyResource(int propertyId, byte[] bytes, FileType fileType)
+        {
+            var resources = await _resourceRepository.GetResPropertyList(propertyId);
+
+            if (resources.Count == PropertyResourceLimit)
+            {
+                throw new DomainValidationException("Reach property resource limit", ErrorCode.PropertyResourceLimit);
+            }
+
+            // Add to Azure storage
+            var blobUrl = await _resourceRepository.SaveBlob(bytes, fileType, ResourceType.Property);
+
+            var result = await _resourceRepository.AddPropertyResource(propertyId, blobUrl);
+
+            return result > 0;
+        }
+
+        public async Task<bool> UpdatePropertyResource(int propertyId, int resPropertyId, byte[] bytes, FileType fileType)
+        {
+            var resources = await _resourceRepository.GetResPropertyList(propertyId);
+
+            var oldResource = resources.FirstOrDefault(res => res.ResPropertyId == resPropertyId);
+
+            if (oldResource != null)
+            {
+                // Remove from Azure storage
+                var deleteBlobResult = await _resourceRepository.DeleteBlob(oldResource.Url, ResourceType.Property);
+
+                // Add to Azure storage
+                var blobUrl = await _resourceRepository.SaveBlob(bytes, fileType, ResourceType.Property);
+
+                var result = await _resourceRepository.UpdateResProperty(resPropertyId, blobUrl);
+
+                return result;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeletePropertyResource(int propertyId, int resPropertyId)
+        {
+            var resources = await _resourceRepository.GetResPropertyList(propertyId);
+
+            var oldResource = resources.FirstOrDefault(res => res.ResPropertyId == resPropertyId);
+
+            if (oldResource != null)
+            {
+                // Remove from Azure storage
+                var deleteBlobResult = await _resourceRepository.DeleteBlob(oldResource.Url, ResourceType.Property);
+
+                var result = await _resourceRepository.DeleteResProperty(resPropertyId);
+
+                return result;
+            }
+
+            return false;
+        }
+
+        public async Task<byte[]> GetPropertyResourceData(int resPropertyId)
+        {
+            var url = await _resourceRepository.GetResProperty(resPropertyId);
+            if (url == null) return null;
+            return await _resourceRepository.LoadBlob(url, ResourceType.Property);
         }
     }
 }

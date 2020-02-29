@@ -8,6 +8,7 @@ namespace SmartELock.Core.Domain.Models.Enums
 {
     public enum ResourceType
     {
-        Portrait
+        Portrait,
+        Property
     }
 }

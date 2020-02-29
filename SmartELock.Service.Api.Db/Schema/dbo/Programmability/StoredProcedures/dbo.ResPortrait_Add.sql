@@ -1,8 +1,9 @@
-﻿CREATE PROCEDURE [dbo].[ResPortrait_Add]
+﻿CREATE PROCEDURE [dbo].[ResProperty_Add]
+    @propertyId int,
     @url nvarchar(1024)
 AS
-    INSERT INTO [dbo].[ResPortrait] ([Url])
-    VALUES (@url);
+    INSERT INTO [dbo].[ResProperty] (PropertyId, [Url])
+    VALUES (@propertyId, @url);
 
     -- Select ID
     SELECT CAST(SCOPE_IDENTITY() AS INT);
@@ -10,5 +11,5 @@ AS
 RETURN
 GO
 
-GRANT EXECUTE ON [dbo].[ResPortrait_Add] TO [SmartELockServiceLoginUserRole]
+GRANT EXECUTE ON [dbo].[ResProperty_Add] TO [SmartELockServiceLoginUserRole]
 GO

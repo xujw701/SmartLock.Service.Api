@@ -1,10 +1,12 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Enums;
 using SmartELock.Core.Domain.Models.Snapshots;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Repositories.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace SmartELock.Core.Repositories.Repositories
     public class ResourceRepository : IResourceRepository
     {
         private readonly string PortraitsContainer = "portraits";
+        private readonly string PropertyContainer = "properties";
 
         private readonly IDbRetryHandler _dbRetryHandler;
 
@@ -74,6 +77,91 @@ namespace SmartELock.Core.Repositories.Repositories
         }
 
         #endregion
+
+        #region Property
+
+        public async Task<int> AddPropertyResource(int propertyId, string url)
+        {
+            var resPropertyId = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("ResProperty_Add", new
+                {
+                    propertyId,
+                    url
+                }))
+                {
+                    return reader.Read<int>().Single();
+                }
+            });
+
+            return resPropertyId;
+        }
+
+        public async Task<List<ResProperty>> GetResPropertyList(int propertyId)
+        {
+            var resPropertyList = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("ResProperty_GetByPropertyId", new
+                {
+                    propertyId
+                }))
+                {
+                    var snapshots = reader.Read<ResPropertySnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => ResProperty.CreateFrom(snapshot)).ToList();
+                }
+            });
+
+            return resPropertyList;
+        }
+
+        public async Task<string> GetResProperty(int resPropertyId)
+        {
+            var url = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("ResProperty_Get", new
+                {
+                    resPropertyId
+                }))
+                {
+                    var snapshots = reader.Read<ResPropertySnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => snapshot.Url).FirstOrDefault();
+                }
+            });
+
+            return url;
+        }
+
+        public async Task<bool> UpdateResProperty(int resPropertyId, string url)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("ResProperty_Update", new
+                {
+                    resPropertyId,
+                    url
+                });
+            });
+
+            return result > 0;
+        }
+
+        public async Task<bool> DeleteResProperty(int resPropertyId)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("ResProperty_Delete", new
+                {
+                    resPropertyId
+                });
+            });
+
+            return result > 0;
+        }
+
+        #endregion
+
 
         #region Azure Storage
 
@@ -170,6 +258,8 @@ namespace SmartELock.Core.Repositories.Repositories
             {
                 case ResourceType.Portrait:
                     return PortraitsContainer;
+                case ResourceType.Property:
+                    return PropertyContainer;
                 default:
                     return "";
             }
