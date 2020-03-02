@@ -121,6 +121,8 @@ namespace SmartELock.Service.Api.Controllers
                 PropertyAddress = keybox.Address,
                 KeyboxName = keybox.KeyboxName,
                 BatteryLevel = keybox.BatteryLevel,
+                AcessUserId = keybox.AcessUserId,
+                InOn = keybox.InOn
             }).ToList();
         }
 

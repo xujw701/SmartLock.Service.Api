@@ -20,6 +20,9 @@ namespace SmartELock.Core.Domain.Models
         public DateTime CreatedOn { get; private set; }
         public DateTime UpdatedOn { get; private set; }
 
+        public int AcessUserId { get; private set; }
+        public DateTime InOn { get; private set; }
+
         private Keybox(KeyboxCreateCommand command)
         {
             CompanyId = command.CompanyId;
@@ -45,6 +48,8 @@ namespace SmartELock.Core.Domain.Models
             Pin = snapshot.Pin;
             CreatedOn = snapshot.CreatedOn;
             UpdatedOn = snapshot.UpdatedOn;
+            AcessUserId = snapshot.AcessUserId;
+            InOn = snapshot.InOn;
         }
 
         public void SetKeyboxAssetId(int keyboxAssetId)

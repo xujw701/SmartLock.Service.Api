@@ -115,7 +115,7 @@ namespace SmartELock.Core.Services.Services
 
         public async Task<List<Keybox>> GetKeyboxesIUnlocked(int userId)
         {
-            var keyboxes = await _keyboxRepository.GetKeyboxesByHistoryUserId(userId);
+            var keyboxes = await _keyboxRepository.GetKeyboxesExtraByUserId(userId);
 
             return keyboxes;
         }

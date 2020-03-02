@@ -98,11 +98,11 @@ namespace SmartELock.Core.Repositories.Repositories
             return keyboxes;
         }
 
-        public async Task<List<Keybox>> GetKeyboxesByHistoryUserId(int userId)
+        public async Task<List<Keybox>> GetKeyboxesExtraByUserId(int userId)
         {
             var keyboxes = await _dbRetryHandler.QueryAsync(async connection =>
             {
-                using (var reader = await connection.QueryMultipleAsync("Keybox_GetHistoryByUserId", new
+                using (var reader = await connection.QueryMultipleAsync("KeyboxExtra_GetByUserId", new
                 {
                     userId
                 }))

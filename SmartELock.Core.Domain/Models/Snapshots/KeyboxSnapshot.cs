@@ -17,5 +17,9 @@ namespace SmartELock.Core.Domain.Models.Snapshots
         public string Pin { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
+
+        // Extra
+        public int AcessUserId { get; set; }
+        public DateTime InOn { get; set; }
     }
 }
