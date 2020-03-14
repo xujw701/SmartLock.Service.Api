@@ -10,6 +10,7 @@ AS
            [dbo].[User].Phone,
            [dbo].[User].ResPortraitId,
            [dbo].[PropertyFeedback].Content,
+           [dbo].[PropertyFeedback].IsRead,
            [dbo].[PropertyFeedback].CreatedOn,
            [dbo].[PropertyFeedback].UpdatedOn
     FROM [dbo].[PropertyFeedback] INNER JOIN [dbo].[User]

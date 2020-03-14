@@ -3,8 +3,8 @@
     @userId INT,
     @content NVARCHAR(MAX)
 AS
-    INSERT INTO [dbo].[PropertyFeedback] (PropertyId, UserId, Content)
-    VALUES (@propertyId, @userId, @content)
+    INSERT INTO [dbo].[PropertyFeedback] (PropertyId, UserId, Content, IsRead)
+    VALUES (@propertyId, @userId, @content, 0)
 
     -- Select ID
     SELECT CAST(SCOPE_IDENTITY() AS INT)

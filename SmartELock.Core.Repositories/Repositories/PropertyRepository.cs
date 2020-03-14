@@ -132,5 +132,18 @@ namespace SmartELock.Core.Repositories.Repositories
 
             return propertyFeedbacks;
         }
+
+        public async Task<bool> PropertyFeedbackMarkRead(int propertyFeedbackId)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("PropertyFeedback_Read", new
+                {
+                    propertyFeedbackId
+                });
+            });
+
+            return result > 0;
+        }
     }
 }

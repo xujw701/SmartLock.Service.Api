@@ -4,6 +4,7 @@
 	PropertyId INT NOT NULL,
 	UserId INT NOT NULL,
 	Content NVARCHAR(MAX) NOT NULL,
+	IsRead BIT NOT NULL,
 	CreatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	UpdatedOn DATETIME2 NOT NULL DEFAULT (sysutcdatetime()),
 	CONSTRAINT [PK_PropertyFeedback] PRIMARY KEY ([PropertyFeedbackId]),

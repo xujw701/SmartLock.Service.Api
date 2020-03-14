@@ -12,6 +12,7 @@ namespace SmartELock.Core.Domain.Models.Snapshots
         public string Phone { get; private set; }
         public int? ResPortraitId { get; private set; }
         public string Content { get; set; }
+        public bool IsRead { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
     }

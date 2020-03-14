@@ -14,6 +14,7 @@ namespace SmartELock.Core.Domain.Models
         public string Phone { get; private set; }
         public int? ResPortraitId { get; private set; }
         public string Content { get; private set; }
+        public bool IsRead { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime UpdatedOn { get; private set; }
 
@@ -22,6 +23,7 @@ namespace SmartELock.Core.Domain.Models
             PropertyId = command.PropertyId;
             UserId = command.OperatedBy ?? 0;
             Content = command.Content;
+            IsRead = false;
         }
 
         private PropertyFeedback(PropertyFeedbackSnapshot snapshot)
