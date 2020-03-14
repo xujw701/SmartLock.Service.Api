@@ -101,7 +101,17 @@ namespace SmartELock.Core.Repositories.Repositories
                 case "apns":
                     // iOS
                     var alert = "{\"aps\":{\"alert\":{\"title\":\"" + title + "\",\"body\":\"" + body + "\",\"tag\":\"" + tag + "\",\"dateTime\":\"" + dateTime + "\"}}}";
-                    outcome = await _hub.SendAppleNativeNotificationAsync(alert, tags);
+
+                    foreach (var t in tags)
+                    {
+                        var headers = new Dictionary<string, string>
+                        {
+                            { "apns-push-type", "alert" },
+                            //{ "apns-priority", "5" },
+                        };
+                        var notification = new AppleNotification(alert, headers);
+                        outcome = await _hub.SendNotificationAsync(notification);
+                    }
                     break;
                 case "fcm":
                     // Android

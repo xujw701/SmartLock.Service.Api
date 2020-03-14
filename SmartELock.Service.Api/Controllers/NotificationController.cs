@@ -33,6 +33,7 @@ namespace SmartELock.Service.Api.Controllers
             await ValidateToken(Request.Headers);
 
             await _pushNotificationService.CreateOrUpdateRegistrationAsync(id, deviceUpdate);
+
             return Ok();
         }
 
@@ -40,7 +41,16 @@ namespace SmartELock.Service.Api.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Delete(string id)
         {
-            await _pushNotificationService.DeleteRegistrationAsync(id);
+            if (!string.IsNullOrEmpty(id))
+            {
+                try
+                {
+                    await _pushNotificationService.DeleteRegistrationAsync(id);
+                }
+                catch(System.Exception)
+                {
+                }
+            }
             return Ok();
         }
     }
