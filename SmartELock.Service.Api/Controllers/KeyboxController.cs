@@ -253,7 +253,7 @@ namespace SmartELock.Service.Api.Controllers
 
         [HttpPost]
         [Route("{keyboxId}/property/{propertyId}/resources")]
-        public async Task<IHttpActionResult> AddPropertyResource(int keyboxId, int propertyId, FileType fileType = FileType.Png)
+        public async Task<IHttpActionResult> AddPropertyResource(int keyboxId, int propertyId, FileType fileType = FileType.Jpeg)
         {
             // Validate token
             await ValidateToken(Request.Headers);
@@ -271,7 +271,7 @@ namespace SmartELock.Service.Api.Controllers
 
         [HttpPut]
         [Route("{keyboxId}/property/{propertyId}/resources/{resPropertyId}")]
-        public async Task<IHttpActionResult> EditPropertyResource(int keyboxId, int propertyId, int resPropertyId, FileType fileType = FileType.Png)
+        public async Task<IHttpActionResult> EditPropertyResource(int keyboxId, int propertyId, int resPropertyId, FileType fileType = FileType.Jpeg)
         {
             // Validate token
             await ValidateToken(Request.Headers);
