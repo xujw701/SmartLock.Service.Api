@@ -256,7 +256,7 @@ namespace SmartELock.Core.Services.Services
                 if (currentUser != null)
                 {
                     await _pushNotificationService.SendNotification("Your keybox has been unlocked",
-                                                                    $"{keybox.KeyboxName} was unlocked by {currentUser.FirstName} {currentUser.LastName}.",
+                                                                    $"Keybox in {keybox.Address} was unlocked by {currentUser.FirstName} {currentUser.LastName}.",
                                                                     string.Empty,
                                                                     new []{ $"{keybox.UserId.Value}" });
                 }
