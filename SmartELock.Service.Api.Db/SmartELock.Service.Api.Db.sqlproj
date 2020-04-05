@@ -159,5 +159,6 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.PropertyFeedback_Read.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_GetByUserId.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_Update.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.User_GetByBranchId.sql" />
   </ItemGroup>
 </Project>

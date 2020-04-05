@@ -1,11 +1,13 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
+using SmartELock.Core.Domain.Models.Constants;
 using SmartELock.Core.Domain.Models.Enums;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Domain.Services;
 using SmartELock.Core.Services.Validators;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,13 +16,15 @@ namespace SmartELock.Core.Services.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IBranchRepository _branchRepository;
         private readonly IResourceRepository _resourceRepository;
 
         private readonly ICommandValidator<UserCreateCommand> _userCreateValidator;
 
-        public UserService(IUserRepository userRepository, IResourceRepository resourceRepository, ICommandValidator<UserCreateCommand> userCreateValidator)
+        public UserService(IUserRepository userRepository, IBranchRepository branchRepository, IResourceRepository resourceRepository, ICommandValidator<UserCreateCommand> userCreateValidator)
         {
             _userRepository = userRepository;
+            _branchRepository = branchRepository;
             _resourceRepository = resourceRepository;
 
             _userCreateValidator = userCreateValidator;
@@ -93,6 +97,43 @@ namespace SmartELock.Core.Services.Services
             }
 
             return 0;
+        }
+
+        public async Task<List<User>> GetUsers(User currentUser, int branchId)
+        {
+            if (currentUser.BranchId != branchId)
+            {
+                throw new DomainValidationException("You must have permission to get users", ErrorCode.MustHasPermission);
+            }
+
+            var allUsers = await _userRepository.GetUsers(currentUser.BranchId);
+
+            if (currentUser.UserRoleId == UserRole.User)
+            {
+                return new List<User>() { currentUser };
+            }
+            else
+            {
+                var branch = await _branchRepository.GetBranch(branchId);
+
+                if (currentUser.CompanyId != branch.CompanyId)
+                {
+                    throw new DomainValidationException("You must have permission to get users", ErrorCode.MustHasPermission);
+                }
+
+                if (currentUser.UserRoleId <= UserRole.SalesManager)
+                {
+                    return allUsers.Where(u => u.BranchId == currentUser.BranchId).ToList();
+                }
+                else if (currentUser.UserRoleId <= UserRole.GeneralManagerer)
+                {
+                    return allUsers;
+                }
+                else
+                {
+                    return new List<User>();
+                }
+            }
         }
 
         public async Task<int> UpdatePortrait(int userId, byte[] bytes, FileType fileType)

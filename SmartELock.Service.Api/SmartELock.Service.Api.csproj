@@ -249,7 +249,7 @@
     <Compile Include="Dto\Responses\KeyboxResponseDto.cs" />
     <Compile Include="Dto\Responses\ResultSet.cs" />
     <Compile Include="Dto\Responses\LockUnlockResponseDto.cs" />
-    <Compile Include="Dto\Responses\MeResponseDto.cs" />
+    <Compile Include="Dto\Responses\UserResponseDto.cs" />
     <Compile Include="Dto\Responses\UserTokenResponseDto.cs" />
     <Compile Include="Dto\Responses\SuperAdminLoginResponseDto.cs" />
     <Compile Include="ExceptionHandlers\DomainValidationExceptionHandler.cs" />

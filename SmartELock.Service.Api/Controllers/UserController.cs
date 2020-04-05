@@ -3,6 +3,8 @@ using SmartELock.Core.Domain.Services;
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
 using SmartELock.Service.Api.Mappers;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -90,11 +92,11 @@ namespace SmartELock.Service.Api.Controllers
 
         [HttpGet]
         [Route("me")]
-        public async Task<MeResponseDto> GetMe()
+        public async Task<UserResponseDto> GetMe()
         {
             await ValidateToken(Request.Headers);
 
-            return new MeResponseDto
+            return new UserResponseDto
             {
                 UserId = CurrentUser.UserId,
                 CompanyId = CurrentUser.CompanyId,
@@ -158,6 +160,32 @@ namespace SmartELock.Service.Api.Controllers
             await ValidateToken(Request.Headers);
 
             return await _userService.GetPortrait(portraitId);
+        }
+
+        [HttpGet]
+        [Route("")]
+        public async Task<List<UserResponseDto>> GetUsers(int? branchId = null)
+        {
+            await ValidateToken(Request.Headers);
+
+            if (!branchId.HasValue) BadRequest();
+
+            var result = await _userService.GetUsers(CurrentUser, branchId.Value);
+
+            return result.Select(user => new UserResponseDto()
+            {
+                UserId = user.UserId,
+                CompanyId = user.CompanyId,
+                BranchId = user.BranchId,
+                UserName = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
+                Individual = user.Individual,
+                UserRoleId = user.UserRoleId,
+                ResPortraitId = user.ResPortraitId
+            }).ToList();
         }
     }
 }
