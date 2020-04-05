@@ -1,7 +1,9 @@
-﻿using SmartELock.Core.Domain.Services;
+﻿using SmartELock.Core.Domain.Models;
+using SmartELock.Core.Domain.Services;
 using SmartELock.Service.Api.Dto.Requests;
 using SmartELock.Service.Api.Dto.Responses;
 using SmartELock.Service.Api.Mappers;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -23,11 +25,11 @@ namespace SmartELock.Service.Api.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> CreateBranch(BranchPostDto branchPostDto)
+        public async Task<IHttpActionResult> CreateBranch(BranchPostPutDto branchPostPutDto)
         {
             await ValidateToken(Request.Headers);
 
-            var command = _branchMapper.MapToCreateCommand(branchPostDto);
+            var command = _branchMapper.MapToCreateCommand(branchPostPutDto);
 
             // Inject the operater id
             command.OperatedBy = UserId;
@@ -41,6 +43,36 @@ namespace SmartELock.Service.Api.Controllers
             };
 
             return Created($"{id}", response);
+        }
+
+        [HttpPut]
+        [Route("{branchId}")]
+        public async Task<IHttpActionResult> UpdateBranch(int branchId, BranchPostPutDto branchPostPutDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _branchMapper.MapToUpdateCommand(branchId, branchPostPutDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var result = await _branchService.UpdateBranch(command);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
+        [HttpGet]
+        [Route("")]
+        public async Task<List<Branch>> GetBranches()
+        {
+            await ValidateToken(Request.Headers);
+
+            return await _branchService.GetBranches(CurrentUser);
         }
     }
 }

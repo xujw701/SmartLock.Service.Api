@@ -5,13 +5,24 @@ namespace SmartELock.Service.Api.Mappers
 {
     public class BranchMapper : IBranchMapper
     {
-        public BranchCreateCommand MapToCreateCommand(BranchPostDto branchPostDto)
+        public BranchCreateCommand MapToCreateCommand(BranchPostPutDto branchPostPutDto)
         {
             return new BranchCreateCommand
             {
-                CompanyId = branchPostDto.CompanyId,
-                BranchName = branchPostDto.BranchName,
-                Address = branchPostDto.Address
+                CompanyId = branchPostPutDto.CompanyId,
+                BranchName = branchPostPutDto.BranchName,
+                Address = branchPostPutDto.Address
+            };
+        }
+
+        public BranchUpdateCommand MapToUpdateCommand(int branchId, BranchPostPutDto branchPostPutDto)
+        {
+            return new BranchUpdateCommand
+            {
+                CompanyId = branchPostPutDto.CompanyId,
+                BranchId = branchId,
+                BranchName = branchPostPutDto.BranchName,
+                Address = branchPostPutDto.Address
             };
         }
     }

@@ -2,6 +2,7 @@
 using SmartELock.Core.Domain.Models.Snapshots;
 using SmartELock.Core.Domain.Repositories;
 using SmartELock.Core.Repositories.Infrastructure;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,6 +51,39 @@ namespace SmartELock.Core.Repositories.Repositories
             });
 
             return branch;
+        }
+
+        public async Task<List<Branch>> GetBranchesByUserId(int userId)
+        {
+            var branches = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                using (var reader = await connection.QueryMultipleAsync("Branch_GetByUserId", new
+                {
+                    userId
+                }))
+                {
+                    var snapshots = reader.Read<BranchSnapshot>().ToList();
+
+                    return snapshots.Select(snapshot => Branch.CreateFrom(snapshot));
+                }
+            });
+
+            return branches.ToList();
+        }
+
+        public async Task<bool> UpdateBranch(Branch branch)
+        {
+            var result = await _dbRetryHandler.QueryAsync(async connection =>
+            {
+                return await connection.ExecuteAsync("Branch_Update", new
+                {
+                    branch.BranchId,
+                    branch.BranchName,
+                    branch.Address
+                });
+            });
+
+            return result > 0;
         }
     }
 }

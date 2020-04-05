@@ -111,6 +111,7 @@
     <Compile Include="Models\Commands\Base\PermissionCommand.cs" />
     <Compile Include="Models\Commands\Base\CompanyCommand.cs" />
     <Compile Include="Models\Commands\Base\SuperAdminCommand.cs" />
+    <Compile Include="Models\Commands\BranchUpdateCommand.cs" />
     <Compile Include="Models\Commands\PropertyFeedbackCreateCommand.cs" />
     <Compile Include="Models\Commands\FeedbackCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxAssignToCommand.cs" />

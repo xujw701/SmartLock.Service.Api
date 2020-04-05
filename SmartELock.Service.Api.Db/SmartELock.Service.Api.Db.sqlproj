@@ -157,5 +157,7 @@
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_Update.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.ResProperty_Delete.sql" />
     <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.PropertyFeedback_Read.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_GetByUserId.sql" />
+    <Build Include="Schema\dbo\Programmability\StoredProcedures\dbo.Branch_Update.sql" />
   </ItemGroup>
 </Project>

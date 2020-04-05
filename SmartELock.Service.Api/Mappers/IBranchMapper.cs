@@ -5,6 +5,7 @@ namespace SmartELock.Service.Api.Mappers
 {
     public interface IBranchMapper
     {
-        BranchCreateCommand MapToCreateCommand(BranchPostDto branchPostDto);
+        BranchCreateCommand MapToCreateCommand(BranchPostPutDto branchPostPutDto);
+        BranchUpdateCommand MapToUpdateCommand(int branchId, BranchPostPutDto branchPostPutDto);
     }
 }

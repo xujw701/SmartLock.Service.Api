@@ -20,13 +20,18 @@
         string CompanyName { get; }
     }
 
-    public interface IBranchCommand : ICommand
+    public interface IBranchCommand : ICommand, IPermissionCommand
+    {
+        int CompanyId { get; }
+    }
+
+    public interface IBranchCreateCommand : IBranchCommand
     {
     }
 
-    public interface IBranchCreateCommand : IBranchCommand, IPermissionCommand
+    public interface IBranchUpdateCommand : IBranchCommand
     {
-        int CompanyId { get; }
+        int BranchId { get; }
     }
 
     public interface IUserCommand : ICommand

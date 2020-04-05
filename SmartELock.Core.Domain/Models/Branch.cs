@@ -20,6 +20,14 @@ namespace SmartELock.Core.Domain.Models
             Address = command.Address;
         }
 
+        private Branch(BranchUpdateCommand command)
+        {
+            BranchId = command.BranchId;
+            CompanyId = command.CompanyId;
+            BranchName = command.BranchName;
+            Address = command.Address;
+        }
+
         private Branch(BranchSnapshot snapshot)
         {
             BranchId = snapshot.BranchId;
@@ -31,6 +39,11 @@ namespace SmartELock.Core.Domain.Models
         }
 
         public static Branch CreateFrom(BranchCreateCommand command)
+        {
+            return new Branch(command);
+        }
+
+        public static Branch CreateFrom(BranchUpdateCommand command)
         {
             return new Branch(command);
         }

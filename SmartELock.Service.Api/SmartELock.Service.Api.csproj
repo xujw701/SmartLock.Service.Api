@@ -239,7 +239,7 @@
     <Compile Include="Dto\Requests\UserMePutDto.cs" />
     <Compile Include="Dto\Requests\UserTokenPostDto.cs" />
     <Compile Include="Dto\Requests\UserPostDto.cs" />
-    <Compile Include="Dto\Requests\BranchPostDto.cs" />
+    <Compile Include="Dto\Requests\BranchPostPutDto.cs" />
     <Compile Include="Dto\Requests\CompanyPostDto.cs" />
     <Compile Include="Dto\Requests\SuperAdminPostDto.cs" />
     <Compile Include="Dto\Responses\DefaultCreatedPostResponseDto.cs" />

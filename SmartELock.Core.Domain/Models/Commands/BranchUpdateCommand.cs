@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartELock.Core.Domain.Models.Commands.Base
+namespace SmartELock.Core.Domain.Models.Commands
 {
-    public class BranchCommand : IBranchCommand
+    public class BranchUpdateCommand : IBranchUpdateCommand
     {
+        public int BranchId { get; set; }
         public int CompanyId { get; set; }
-
-        public string CompanyName { get; set; }
+        public string BranchName { get; set; }
+        public string Address { get; set; }
 
         public int? OperatedBy { get; set; }
-
         public int? OperatedByAdmin { get; set; }
     }
 }

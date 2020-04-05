@@ -72,6 +72,7 @@
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\SuperAdminService.cs" />
     <Compile Include="Validators\BaseCommandValidator.cs" />
+    <Compile Include="Validators\BranchUpdateValidator.cs" />
     <Compile Include="Validators\KeyboxAccessValidator.cs" />
     <Compile Include="Validators\KeyboxPropertyOperateValidator.cs" />
     <Compile Include="Validators\KeyboxPropertyUpdateValidator.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Validators\KeyboxRegisterValidator.cs" />
     <Compile Include="Validators\KeyboxAssetCreateValidator.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToAccessKeybox.cs" />
+    <Compile Include="Validators\Permissions\HasPermissionToUpdateBranch.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToOperateKeyboxProperty.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToUpdateKeyboxProperty.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToAssignKeybox.cs" />
