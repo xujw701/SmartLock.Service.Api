@@ -101,12 +101,7 @@ namespace SmartELock.Core.Services.Services
 
         public async Task<List<User>> GetUsers(User currentUser, int branchId)
         {
-            if (currentUser.BranchId != branchId)
-            {
-                throw new DomainValidationException("You must have permission to get users", ErrorCode.MustHasPermission);
-            }
-
-            var allUsers = await _userRepository.GetUsers(currentUser.BranchId);
+            var allUsers = await _userRepository.GetUsers(branchId);
 
             if (currentUser.UserRoleId == UserRole.User)
             {
