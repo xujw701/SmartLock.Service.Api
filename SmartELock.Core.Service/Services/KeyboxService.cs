@@ -1,6 +1,7 @@
 ﻿using SmartELock.Core.Domain.Models;
 using SmartELock.Core.Domain.Models.Commands;
 using SmartELock.Core.Domain.Models.Commands.Base;
+using SmartELock.Core.Domain.Models.Constants;
 using SmartELock.Core.Domain.Models.Enums;
 using SmartELock.Core.Domain.Models.Exceptions;
 using SmartELock.Core.Domain.Repositories;
@@ -19,6 +20,7 @@ namespace SmartELock.Core.Services.Services
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IKeyboxAssetRepository _keyboxAssetRepository;
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IResourceRepository _resourceRepository;
 
         private readonly IPushNotificationService _pushNotificationService;
@@ -30,7 +32,7 @@ namespace SmartELock.Core.Services.Services
         private readonly ICommandValidator<KeyboxPropertyCommand> _keyboxPropertyOperateValidator;
         private readonly ICommandValidator<KeyboxCommand> _keyboxAccessValidator;
 
-        public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository, IResourceRepository resourceRepository,
+        public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository, IUserRepository userRepository, IResourceRepository resourceRepository,
                              IPushNotificationService pushNotificationService,
                              ICommandValidator<KeyboxCreateCommand> keyboxRegisterValidator,
                              ICommandValidator<KeyboxAssignToCommand> keyboxAssignToValidator,
@@ -42,6 +44,7 @@ namespace SmartELock.Core.Services.Services
             _keyboxRepository = keyboxRepository;
             _keyboxAssetRepository = keyboxAssetRepository;
             _propertyRepository = propertyRepository;
+            _userRepository = userRepository;
             _resourceRepository = resourceRepository;
 
             _pushNotificationService = pushNotificationService;
@@ -106,11 +109,39 @@ namespace SmartELock.Core.Services.Services
             }
         }
 
-        public async Task<List<Keybox>> GetMyKeyboxes(int userId)
+        public async Task<List<Keybox>> GetKeyboxes(User currentUser, int userId)
         {
-            var keyboxes = await _keyboxRepository.GetKeyboxesByUserId(userId);
+            if (currentUser.UserRoleId == UserRole.User)
+            {
+                if (currentUser.UserId != userId)
+                {
+                    throw new DomainValidationException("You must have permission to get keyboxes", ErrorCode.MustHasPermission);
+                }
+            }
+            else
+            {
+                var user = await _userRepository.GetUser(userId);
 
-            return keyboxes;
+                if (currentUser.UserRoleId <= UserRole.SalesManager)
+                {
+                    if (currentUser.BranchId != user.BranchId || currentUser.CompanyId != user.CompanyId)
+                    {
+                        throw new DomainValidationException("You must have permission to get keyboxes", ErrorCode.MustHasPermission);
+                    }
+                }
+                else if (currentUser.UserRoleId <= UserRole.GeneralManagerer)
+                {
+                    if (currentUser.CompanyId != user.CompanyId)
+                    {
+                        throw new DomainValidationException("You must have permission to get keyboxes", ErrorCode.MustHasPermission);
+                    }
+                }
+                else
+                {
+                    return new List<Keybox>();
+                }
+            }
+            return await _keyboxRepository.GetKeyboxesByUserId(userId);
         }
 
         public async Task<List<Keybox>> GetKeyboxesIUnlocked(int userId)

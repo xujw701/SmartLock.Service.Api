@@ -86,7 +86,29 @@ namespace SmartELock.Service.Api.Controllers
         {
             await ValidateToken(Request.Headers);
 
-            var keyboxes = await _keyboxService.GetMyKeyboxes(UserId);
+            var keyboxes = await _keyboxService.GetKeyboxes(CurrentUser, UserId);
+
+            return keyboxes.Select(keybox => new KeyboxResponseDto
+            {
+                KeyboxId = keybox.KeyboxId,
+                CompanyId = keybox.CompanyId,
+                BranchId = keybox.BranchId,
+                UserId = keybox.UserId,
+                Uuid = keybox.Uuid,
+                PropertyId = keybox.PropertyId,
+                PropertyAddress = keybox.Address,
+                KeyboxName = keybox.KeyboxName,
+                BatteryLevel = keybox.BatteryLevel,
+            }).ToList();
+        }
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<List<KeyboxResponseDto>> GetKeyboxes(int userId)
+        {
+            await ValidateToken(Request.Headers);
+
+            var keyboxes = await _keyboxService.GetKeyboxes(CurrentUser, userId);
 
             return keyboxes.Select(keybox => new KeyboxResponseDto
             {
