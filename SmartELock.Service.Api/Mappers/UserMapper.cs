@@ -35,6 +35,21 @@ namespace SmartELock.Service.Api.Mappers
             };
         }
 
+        public UserUpdateCommand MapToUpdateCommand(int userId, UserPutDto userPutDto)
+        {
+            return new UserUpdateCommand
+            {
+                UserId = userId,
+                BranchId = userPutDto.BranchId,
+                FirstName = userPutDto.FirstName,
+                LastName = userPutDto.LastName,
+                Email = userPutDto.Email,
+                Phone = userPutDto.Phone,
+                Password = userPutDto.Password,
+                UserRoleId = userPutDto.UserRoleId
+            };
+        }
+
         public UserLoginCommand MapToLoginCommand(UserTokenPostDto userLoginPostDto)
         {
             return new UserLoginCommand

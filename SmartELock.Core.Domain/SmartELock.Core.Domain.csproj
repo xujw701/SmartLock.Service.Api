@@ -120,6 +120,7 @@
     <Compile Include="Models\Commands\KeyboxPropertyUpdateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxCreateCommand.cs" />
     <Compile Include="Models\Commands\KeyboxPropertyCreateCommand.cs" />
+    <Compile Include="Models\Commands\UserUpdateCommand.cs" />
     <Compile Include="Models\Commands\UserMeUpdateCommand.cs" />
     <Compile Include="Models\Enums\FileType.cs" />
     <Compile Include="Models\Enums\ResourceType.cs" />

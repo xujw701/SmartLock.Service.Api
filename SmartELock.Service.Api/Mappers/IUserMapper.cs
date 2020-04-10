@@ -7,6 +7,7 @@ namespace SmartELock.Service.Api.Mappers
     {
         UserCreateCommand MapToCreateCommand(UserPostDto userPostDto);
         UserMeUpdateCommand MapToMeUpdateCommand(int userId, UserMePutDto userMePutDto);
+        UserUpdateCommand MapToUpdateCommand(int userId, UserPutDto userPutDto);
         UserLoginCommand MapToLoginCommand(UserTokenPostDto userLoginPostDto);
     }
 }

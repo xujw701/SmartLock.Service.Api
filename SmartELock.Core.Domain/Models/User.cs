@@ -31,6 +31,17 @@ namespace SmartELock.Core.Domain.Models
             Password = password;
         }
 
+        public void Update(int branchId, string firstName, string lastName, string email, string phone, string password, int userRoleId)
+        {
+            BranchId = branchId;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Phone = phone;
+            Password = password;
+            UserRoleId = userRoleId;
+        }
+
         public void Update(int resPortraitId)
         {
             ResPortraitId = resPortraitId;

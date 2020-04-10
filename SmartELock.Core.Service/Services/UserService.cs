@@ -55,6 +55,51 @@ namespace SmartELock.Core.Services.Services
             return await _userRepository.UpdateUser(user);
         }
 
+        public async Task<bool> UpdateUser(User currentUser, UserUpdateCommand command)
+        {
+            var user = await _userRepository.GetUser(command.UserId);
+
+            var hasPermission = true;
+
+            if (currentUser.UserRoleId == UserRole.User)
+            {
+                if (currentUser.UserId != user.UserId) hasPermission = false;
+
+                if (user.BranchId != command.BranchId) hasPermission = false;
+
+                if (user.UserRoleId != command.UserRoleId) hasPermission = false;
+            }
+            else if(currentUser.UserRoleId <= UserRole.SalesManager)
+            {
+                if (currentUser.CompanyId != user.CompanyId) hasPermission = false;
+
+                if (currentUser.BranchId != user.BranchId) hasPermission = false;
+
+                if (user.BranchId != command.BranchId) hasPermission = false;
+
+                if (currentUser.UserRoleId < command.UserRoleId) hasPermission = false;
+            }
+            else if (currentUser.UserRoleId <= UserRole.GeneralManagerer)
+            {
+                if (currentUser.CompanyId != user.CompanyId) hasPermission = false;
+
+                if (currentUser.UserRoleId < command.UserRoleId) hasPermission = false;
+            }
+
+            if (currentUser.UserId == user.UserId && currentUser.UserRoleId != command.UserRoleId) hasPermission = false;
+
+            if (!hasPermission)
+            {
+                throw new DomainValidationException("You must have permission to update user", ErrorCode.MustHasPermission);
+            }
+
+            if (string.IsNullOrEmpty(command.Password)) command.Password = user.Password;
+
+            user.Update(command.BranchId, command.FirstName, command.LastName, command.Email, command.Phone, command.Password, command.UserRoleId);
+
+            return await _userRepository.UpdateUser(user);
+        }
+
         public async Task<User> Login(UserLoginCommand command)
         {
             var userId = await Auth(command);

@@ -237,6 +237,7 @@
     <Compile Include="Dto\Requests\KeyboxPostDto.cs" />
     <Compile Include="Dto\Requests\KeyboxAssetPostDto.cs" />
     <Compile Include="Dto\Requests\UserMePutDto.cs" />
+    <Compile Include="Dto\Requests\UserPutDto.cs" />
     <Compile Include="Dto\Requests\UserTokenPostDto.cs" />
     <Compile Include="Dto\Requests\UserPostDto.cs" />
     <Compile Include="Dto\Requests\BranchPostPutDto.cs" />

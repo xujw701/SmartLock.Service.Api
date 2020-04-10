@@ -187,5 +187,22 @@ namespace SmartELock.Service.Api.Controllers
                 ResPortraitId = user.ResPortraitId
             }).ToList();
         }
+
+        [HttpPut]
+        [Route("{userId}")]
+        public async Task<IHttpActionResult> UpdateUser(int userId, UserPutDto userPutDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _userMapper.MapToUpdateCommand(userId, userPutDto);
+
+            var result = await _userService.UpdateUser(CurrentUser, command);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
     }
 }
