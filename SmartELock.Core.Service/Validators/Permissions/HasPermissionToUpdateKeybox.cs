@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace SmartELock.Core.Services.Validators.Permissions
 {
-    public class HasPermissionToUpdateKeyboxProperty : ISpecification<IKeyboxPropertyCreateUpdateCommand>
+    public class HasPermissionToUpdateKeybox : ISpecification<IKeyboxUpdateCommand>
     {
         private readonly IKeyboxRepository _keyboxRepository;
         private readonly IUserRepository _userRepository;
 
-        public HasPermissionToUpdateKeyboxProperty(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
+        public HasPermissionToUpdateKeybox(IKeyboxRepository keyboxRepository, IUserRepository userRepository)
         {
             _keyboxRepository = keyboxRepository;
             _userRepository = userRepository;
         }
 
-        public async Task<bool> IsSatisfiedByAsync(IKeyboxPropertyCreateUpdateCommand command)
+        public async Task<bool> IsSatisfiedByAsync(IKeyboxUpdateCommand command)
         {
             // Admin has permission to create any user
             if (command.OperatedByAdmin.HasValue && command.OperatedByAdmin.Value > 0)
@@ -28,34 +28,31 @@ namespace SmartELock.Core.Services.Validators.Permissions
             else if (command.OperatedBy.HasValue && command.OperatedBy.Value > 0)
             {
                 var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+                var keyboxOwner = await _userRepository.GetUser(command.UserId);
                 var operateUser = await _userRepository.GetUser(command.OperatedBy.Value);
 
                 if (keybox == null || operateUser == null) return false;
 
-                var sameCompany = operateUser.CompanyId == keybox.CompanyId;
-                var sameBranch = operateUser.BranchId == keybox.BranchId;
+                var keyboxSameCompany = operateUser.CompanyId == keybox.CompanyId;
+                var keyboxSameBranch = operateUser.BranchId == keybox.BranchId;
 
-                var commandSameCompany = operateUser.CompanyId == command.CompanyId;
-                var commandSameBranch = operateUser.BranchId == command.BranchId;
+                var keyboxOwnerSameCompany = keyboxOwner.CompanyId == keybox.CompanyId;
+                var keyboxOwnerSameBranch = keyboxOwner.BranchId == keybox.BranchId;
 
-                if (operateUser.UserRoleId == UserRole.User)
+                if (operateUser.UserRoleId >= UserRole.BranchManager)
                 {
-                    var ownKeybox = keybox.UserId == operateUser.UserId;
-
-                    return ownKeybox;
+                    return keyboxSameCompany && keyboxOwnerSameCompany;
                 }
-                else if (operateUser.UserRoleId <= UserRole.SalesManager)
+                else if (operateUser.UserRoleId >= UserRole.UserAdmin)
                 {
-                    return sameCompany && commandSameCompany
-                        && sameBranch && commandSameBranch;
-                }
-                else if (operateUser.UserRoleId <= UserRole.GeneralManagerer)
-                {
-                    return sameCompany && commandSameCompany;
+                    return keyboxSameCompany && keyboxSameBranch
+                        && keyboxOwnerSameCompany && keyboxOwnerSameBranch;
                 }
                 else
                 {
-                    return false;
+                    return keybox.UserId == operateUser.UserId
+                        && keybox.BranchId == command.BranchId
+                        && keybox.UserId == command.UserId;
                 }
             }
             else
@@ -64,9 +61,9 @@ namespace SmartELock.Core.Services.Validators.Permissions
             }
         }
 
-        public string ErrorMessage(IKeyboxPropertyCreateUpdateCommand obj)
+        public string ErrorMessage(IKeyboxUpdateCommand obj)
         {
-            return "You must have permission to operate keybox property";
+            return "You must have permission to update keybox";
         }
 
         public ErrorCode ErrorCode { get; } = ErrorCode.MustHasPermission;

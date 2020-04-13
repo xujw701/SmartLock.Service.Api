@@ -26,6 +26,7 @@ namespace SmartELock.Core.Services.Services
         private readonly IPushNotificationService _pushNotificationService;
 
         private readonly ICommandValidator<KeyboxCreateCommand> _keyboxRegisterValidator;
+        private readonly ICommandValidator<KeyboxUpdateCommand> _keyboxUpdateValidator;
         private readonly ICommandValidator<KeyboxAssignToCommand> _keyboxAssignToValidator;
         private readonly ICommandValidator<KeyboxPropertyCreateCommand> _keyboxPropertyCreateValidator;
         private readonly ICommandValidator<KeyboxPropertyUpdateCommand> _keyboxPropertyUpdateValidator;
@@ -35,6 +36,7 @@ namespace SmartELock.Core.Services.Services
         public KeyboxService(IKeyboxRepository keyboxRepository, IKeyboxAssetRepository keyboxAssetRepository, IPropertyRepository propertyRepository, IUserRepository userRepository, IResourceRepository resourceRepository,
                              IPushNotificationService pushNotificationService,
                              ICommandValidator<KeyboxCreateCommand> keyboxRegisterValidator,
+                             ICommandValidator<KeyboxUpdateCommand> keyboxUpdateValidator,
                              ICommandValidator<KeyboxAssignToCommand> keyboxAssignToValidator,
                              ICommandValidator<KeyboxPropertyCreateCommand> keyboxPropertyCreateValidator,
                              ICommandValidator<KeyboxPropertyUpdateCommand> keyboxPropertyUpdateValidator,
@@ -50,6 +52,7 @@ namespace SmartELock.Core.Services.Services
             _pushNotificationService = pushNotificationService;
 
             _keyboxRegisterValidator = keyboxRegisterValidator;
+            _keyboxUpdateValidator = keyboxUpdateValidator;
             _keyboxAssignToValidator = keyboxAssignToValidator;
             _keyboxPropertyCreateValidator = keyboxPropertyCreateValidator;
             _keyboxPropertyUpdateValidator = keyboxPropertyUpdateValidator;
@@ -142,6 +145,51 @@ namespace SmartELock.Core.Services.Services
                 }
             }
             return await _keyboxRepository.GetKeyboxesByUserId(userId);
+        }
+
+        public async Task<bool> UpdateKeybox(KeyboxUpdateCommand command)
+        {
+            var user = await _userRepository.GetUser(command.UserId);
+            command.CompanyId = user.CompanyId;
+            command.BranchId = user.BranchId;
+
+            var validationResult = await _keyboxUpdateValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            // Update keybox
+            var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+
+            // End the property if it has
+            if (command.UserId != keybox.UserId)
+            {
+                if (keybox.PropertyId.HasValue)
+                {
+                    var endKeyboxPropertyCommand = new KeyboxPropertyCommand()
+                    {
+                        KeyboxId = keybox.KeyboxId,
+                        PropertyId = keybox.PropertyId.Value,
+                        OperatedBy = command.OperatedBy,
+                        OperatedByAdmin = command.OperatedByAdmin
+                    };
+                    var success = await EndKeyboxProperty(endKeyboxPropertyCommand);
+
+                    // Refresh keybox data
+                    if (success)
+                    {
+                        keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+                    }
+                }
+            }
+
+            keybox.SetKeyboxData(command.CompanyId, command.BranchId, command.UserId, command.KeyboxName, keybox.Pin);
+            
+            var keyboxResult = await _keyboxRepository.UpdateKeybox(keybox);
+
+            return keyboxResult;
         }
 
         public async Task<List<Keybox>> GetKeyboxesIUnlocked(int userId)

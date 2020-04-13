@@ -28,6 +28,16 @@ namespace SmartELock.Service.Api.Mappers
             };
         }
 
+        public KeyboxUpdateCommand MapToUpdateCommand(int keyboxId, KeyboxPutDto keyboxPutDto)
+        {
+            return new KeyboxUpdateCommand
+            {
+                KeyboxId = keyboxId,
+                UserId = keyboxPutDto.UserId,
+                KeyboxName = keyboxPutDto.KeyboxName
+            };
+        }
+
         public KeyboxAssignToCommand MapToAssignToCommand(int keyboxId, int userId)
         {
             return new KeyboxAssignToCommand

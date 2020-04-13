@@ -33,6 +33,15 @@ namespace SmartELock.Core.Domain.Models
             Pin = command.Pin;
         }
 
+        private Keybox(KeyboxUpdateCommand command)
+        {
+            CompanyId = command.CompanyId;
+            BranchId = command.BranchId;
+            UserId = command.UserId;
+            KeyboxName = command.KeyboxName;
+            Pin = command.Pin;
+        }
+
         private Keybox(KeyboxSnapshot snapshot)
         {
             KeyboxId = snapshot.KeyboxId;
@@ -62,6 +71,15 @@ namespace SmartELock.Core.Domain.Models
             UserId = userId;
         }
 
+        public void SetKeyboxData(int companyId, int branchId, int userId, string keyboxName, string pin)
+        {
+            CompanyId = companyId;
+            BranchId = branchId;
+            UserId = userId;
+            KeyboxName = keyboxName;
+            Pin = pin;
+        }
+
         public void SetKeyboxData(int? propertyId, string keyboxName, int batteryLevel, string pin)
         {
             PropertyId = propertyId;
@@ -71,6 +89,11 @@ namespace SmartELock.Core.Domain.Models
         }
 
         public static Keybox CreateFrom(KeyboxCreateCommand command)
+        {
+            return new Keybox(command);
+        }
+
+        public static Keybox CreateFrom(KeyboxUpdateCommand command)
         {
             return new Keybox(command);
         }

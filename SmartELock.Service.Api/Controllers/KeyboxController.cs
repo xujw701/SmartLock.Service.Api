@@ -80,6 +80,27 @@ namespace SmartELock.Service.Api.Controllers
             };
         }
 
+        [HttpPut]
+        [Route("{keyboxId}")]
+        public async Task<IHttpActionResult> UpdateKeybox(int keyboxId, KeyboxPutDto keyboxPutDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToUpdateCommand(keyboxId, keyboxPutDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var result = await _keyboxService.UpdateKeybox(command);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
         [HttpGet]
         [Route("mine")]
         public async Task<List<KeyboxResponseDto>> MyKeyboxes()
@@ -327,7 +348,7 @@ namespace SmartELock.Service.Api.Controllers
 
         [HttpGet]
         [Route("property/resources/{resPropertyId}")]
-        public async Task<byte[]> GetTeacherResource(int resPropertyId)
+        public async Task<byte[]> GetPropertyResource(int resPropertyId)
         {
             // Validate token
             await ValidateToken(Request.Headers);

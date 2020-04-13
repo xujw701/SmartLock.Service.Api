@@ -66,6 +66,14 @@
     {
     }
 
+    public interface IKeyboxUpdateCommand : IKeyboxCommand
+    {
+        int BranchId { get; set; }
+        int UserId { get; set; }
+        string KeyboxName { get; set; }
+        string Pin { get; set; }
+    }
+
     public interface IKeyboxPropertyCreateUpdateCommand : IKeyboxCommand
     {
         int CompanyId { get; }

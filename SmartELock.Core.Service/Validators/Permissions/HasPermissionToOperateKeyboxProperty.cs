@@ -33,11 +33,27 @@ namespace SmartELock.Core.Services.Validators.Permissions
 
                 if (keybox == null || operateUser == null) return false;
 
-                var ownKeybox = keybox.UserId == operateUser.UserId;
                 var sameCompany = operateUser.CompanyId == keybox.CompanyId;
                 var sameBranch = operateUser.BranchId == keybox.BranchId;
 
-                return ownKeybox && sameCompany && sameBranch;
+                if (operateUser.UserRoleId == UserRole.User)
+                {
+                    var ownKeybox = keybox.UserId == operateUser.UserId;
+
+                    return ownKeybox;
+                }
+                else if (operateUser.UserRoleId <= UserRole.SalesManager)
+                {
+                    return sameCompany && sameBranch;
+                }
+                else if (operateUser.UserRoleId <= UserRole.GeneralManagerer)
+                {
+                    return sameCompany;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

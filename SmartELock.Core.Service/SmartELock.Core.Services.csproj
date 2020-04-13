@@ -78,9 +78,11 @@
     <Compile Include="Validators\KeyboxPropertyUpdateValidator.cs" />
     <Compile Include="Validators\KeyboxPropertyCreateValidator.cs" />
     <Compile Include="Validators\KeyboxAssignToValidator.cs" />
+    <Compile Include="Validators\KeyboxUpdateValidator.cs" />
     <Compile Include="Validators\KeyboxRegisterValidator.cs" />
     <Compile Include="Validators\KeyboxAssetCreateValidator.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToAccessKeybox.cs" />
+    <Compile Include="Validators\Permissions\HasPermissionToUpdateKeybox.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToUpdateBranch.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToOperateKeyboxProperty.cs" />
     <Compile Include="Validators\Permissions\HasPermissionToUpdateKeyboxProperty.cs" />

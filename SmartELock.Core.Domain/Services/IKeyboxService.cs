@@ -13,6 +13,7 @@ namespace SmartELock.Core.Domain.Services
     public interface IKeyboxService
     {
         Task<int> RegisterKeybox(KeyboxCreateCommand command);
+        Task<bool> UpdateKeybox(KeyboxUpdateCommand command);
         Task<bool> AssignTo(KeyboxAssignToCommand command);
         Task<Keybox> GetKeybox(KeyboxCommand command);
         Task<List<Keybox>> GetKeyboxes(User currentUser, int userId);
