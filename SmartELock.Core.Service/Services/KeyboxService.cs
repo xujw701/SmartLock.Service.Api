@@ -393,7 +393,7 @@ namespace SmartELock.Core.Services.Services
             return null;
         }
 
-        public async Task<int> CreatePropertyFeedback(PropertyFeedbackCreateCommand command)
+        public async Task<int> CreatePropertyFeedback(User currentUser, PropertyFeedbackCreateCommand command)
         {
             var validationResult = await _keyboxAccessValidator.Validate(command);
 
@@ -405,6 +405,15 @@ namespace SmartELock.Core.Services.Services
             var propertyFeedback = PropertyFeedback.CreateFrom(command);
 
             var propertyFeedbackId = await _propertyRepository.CreatePropertyFeedback(propertyFeedback);
+
+            if (currentUser != null)
+            {
+                var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+                await _pushNotificationService.SendNotification("Your got a new feedback",
+                                                                $"A new feedback for {keybox.Address} was posted by {currentUser.FirstName} {currentUser.LastName}.",
+                                                                string.Empty,
+                                                                new[] { $"{keybox.UserId.Value}" });
+            }
 
             return propertyFeedbackId;
         }

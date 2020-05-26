@@ -459,7 +459,7 @@ namespace SmartELock.Service.Api.Controllers
             command.OperatedBy = UserId;
             command.OperatedByAdmin = AdminId;
 
-            var id = await _keyboxService.CreatePropertyFeedback(command);
+            var id = await _keyboxService.CreatePropertyFeedback(CurrentUser, command);
 
             if (id > 0)
             {
