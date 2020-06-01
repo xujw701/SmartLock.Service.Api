@@ -101,6 +101,27 @@ namespace SmartELock.Service.Api.Controllers
             return InternalServerError();
         }
 
+        [HttpPut]
+        [Route("{keyboxId}/pin")]
+        public async Task<IHttpActionResult> UpdatePin(int keyboxId, KeyboxPinPutDto keyboxPinPutDto)
+        {
+            await ValidateToken(Request.Headers);
+
+            var command = _keyboxMapper.MapToUpdateCommand(keyboxId, keyboxPinPutDto);
+
+            // Inject the operater id
+            command.OperatedBy = UserId;
+            command.OperatedByAdmin = AdminId;
+
+            var result = await _keyboxService.UpdateKeyboxPin(command);
+
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
+        }
+
         [HttpGet]
         [Route("mine")]
         public async Task<List<KeyboxResponseDto>> MyKeyboxes()

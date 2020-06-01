@@ -147,6 +147,29 @@ namespace SmartELock.Core.Services.Services
             return await _keyboxRepository.GetKeyboxesByUserId(userId);
         }
 
+        public async Task<bool> UpdateKeyboxPin(KeyboxUpdateCommand command)
+        {
+            var keybox = await _keyboxRepository.GetKeybox(command.KeyboxId);
+
+            command.UserId = keybox.UserId != null? keybox.UserId.Value : 0;
+            command.CompanyId = keybox.CompanyId;
+            command.BranchId = keybox.BranchId;
+
+            var validationResult = await _keyboxUpdateValidator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                throw new DomainValidationException(validationResult.ErrorMessage, validationResult.ErrorCode);
+            }
+
+            // Update keybox
+            keybox.SetKeyboxData(keybox.PropertyId, keybox.KeyboxName, keybox.BatteryLevel, command.Pin);
+
+            var keyboxResult = await _keyboxRepository.UpdateKeybox(keybox);
+
+            return keyboxResult;
+        }
+
         public async Task<bool> UpdateKeybox(KeyboxUpdateCommand command)
         {
             var user = await _userRepository.GetUser(command.UserId);
